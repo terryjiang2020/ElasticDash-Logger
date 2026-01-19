@@ -26,10 +26,8 @@ services:
       ENCRYPTION_KEY: ${ENCRYPTION_KEY:-0000000000000000000000000000000000000000000000000000000000000000} # CHANGEME: generate via `openssl rand -hex 32`
       TELEMETRY_ENABLED: ${TELEMETRY_ENABLED:-true}
       LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES: ${LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES:-true}
-      # CLICKHOUSE_MIGRATION_URL: ${CLICKHOUSE_MIGRATION_URL:-clickhouse://clickhouse:9000}
-      # CLICKHOUSE_URL: ${CLICKHOUSE_URL:-http://clickhouse:8123}
       CLICKHOUSE_URL: http://host.docker.internal:8123
-      CLICKHOUSE_MIGRATION_URL: http://host.docker.internal:8123
+      CLICKHOUSE_MIGRATION_URL: clickhouse://host.docker.internal:9000?username=elasticdash&password=8f7r2GTPsq&database=default
       CLICKHOUSE_USER: ${CLICKHOUSE_USER:-clickhouse}
       CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:-clickhouse} # CHANGEME
       CLICKHOUSE_CLUSTER_ENABLED: ${CLICKHOUSE_CLUSTER_ENABLED:-false}
@@ -59,8 +57,6 @@ services:
       LANGFUSE_S3_BATCH_EXPORT_FORCE_PATH_STYLE: ${LANGFUSE_S3_BATCH_EXPORT_FORCE_PATH_STYLE:-true}
       LANGFUSE_INGESTION_QUEUE_DELAY_MS: ${LANGFUSE_INGESTION_QUEUE_DELAY_MS:-}
       LANGFUSE_INGESTION_CLICKHOUSE_WRITE_INTERVAL_MS: ${LANGFUSE_INGESTION_CLICKHOUSE_WRITE_INTERVAL_MS:-}
-      # REDIS_HOST: ${REDIS_HOST:-redis}
-      # REDIS_PORT: ${REDIS_PORT:-6379}
       REDIS_HOST: redis
       REDIS_PORT: 6379
       REDIS_AUTH: ${REDIS_AUTH:-myredissecret} # CHANGEME
@@ -76,7 +72,7 @@ services:
     restart: always
     depends_on: *langfuse-depends-on
     ports:
-      - 3000:3000
+      - 0.0.0.0:3000:3000
     environment:
       <<: *langfuse-worker-env
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-mysecret} # CHANGEME
@@ -121,7 +117,7 @@ services:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minio}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-miniosecret} # CHANGEME
     ports:
-      - 9090:9000
+      - 0.0.0.0:9090:9000
       - 127.0.0.1:9091:9001
     volumes:
       - langfuse_minio_data:/data
