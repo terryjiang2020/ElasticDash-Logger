@@ -20,38 +20,38 @@ const JOB_TIMEOUT_MINUTES = Prisma.raw("10"); // 10 minutes
 export async function telemetry() {
   try {
     return;
-    // Only run in prod
-    if (process.env.NODE_ENV !== "production") return;
-    // Do not run in Langfuse cloud, separate telemetry is used
-    if (env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION !== undefined) return;
-    // Check if telemetry is not disabled, except for EE
-    if (
-      env.TELEMETRY_ENABLED === "false" &&
-      env.LANGFUSE_EE_LICENSE_KEY === undefined
-    )
-      return;
-    // Do not run in CI
-    if (process.env.CI) return;
+    // // Only run in prod
+    // if (process.env.NODE_ENV !== "production") return;
+    // // Do not run in Langfuse cloud, separate telemetry is used
+    // if (env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION !== undefined) return;
+    // // Check if telemetry is not disabled, except for EE
+    // if (
+    //   env.TELEMETRY_ENABLED === "false" &&
+    //   env.LANGFUSE_EE_LICENSE_KEY === undefined
+    // )
+    //   return;
+    // // Do not run in CI
+    // if (process.env.CI) return;
 
-    // Check via db cron_jobs table if it is time to run job
-    const job = await jobScheduler();
+    // // Check via db cron_jobs table if it is time to run job
+    // const job = await jobScheduler();
 
-    if (job.shouldRunJob) {
-      const { jobStartedAt, lastRun, clientId } = job;
+    // if (job.shouldRunJob) {
+    //   const { jobStartedAt, lastRun, clientId } = job;
 
-      // Run telemetry job
-      await posthogTelemetry({
-        startTimeframe: lastRun,
-        endTimeframe: jobStartedAt,
-        clientId,
-      });
+    //   // Run telemetry job
+    //   await posthogTelemetry({
+    //     startTimeframe: lastRun,
+    //     endTimeframe: jobStartedAt,
+    //     clientId,
+    //   });
 
-      // Update cron_jobs table
-      await prisma.cronJobs.update({
-        where: { name: "telemetry" },
-        data: { lastRun: jobStartedAt, state: clientId, jobStartedAt: null },
-      });
-    }
+    //   // Update cron_jobs table
+    //   await prisma.cronJobs.update({
+    //     where: { name: "telemetry" },
+    //     data: { lastRun: jobStartedAt, state: clientId, jobStartedAt: null },
+    //   });
+    // }
   } catch (error) {
     // Catch all errors to be sure telemetry does not break the application
     logger.error("Telemetry, unexpected error:", error);
@@ -69,11 +69,11 @@ export async function telemetry() {
 async function jobScheduler(): Promise<
   | { shouldRunJob: false }
   | {
-    shouldRunJob: true;
-    jobStartedAt: Date;
-    lastRun: Date | null;
-    clientId: string;
-  }
+      shouldRunJob: true;
+      jobStartedAt: Date;
+      lastRun: Date | null;
+      clientId: string;
+    }
 > {
   // Check if job should run, without a lock to not impact performance
   // "not exists" triggers when this is run for the very first time in a container

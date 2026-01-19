@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# # Disable ClickHouse migrations by default
+# export LANGFUSE_AUTO_CLICKHOUSE_MIGRATION_DISABLED="true"
+
 # Run cleanup script before running migrations
 # Check if DATABASE_URL is not set
 if [ -z "$DATABASE_URL" ]; then
