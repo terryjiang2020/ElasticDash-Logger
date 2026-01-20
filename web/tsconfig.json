@@ -1,6 +1,7 @@
 {
   "extends": "@repo/typescript-config/nextjs.json",
   "compilerOptions": {
+    "jsx": "react",
     "declaration": false,
     "declarationMap": false,
     "outDir": "dist",
@@ -10,11 +11,16 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": [
+        "./*"
+      ]
     },
     "strictNullChecks": true
   },
-  "exclude": ["node_modules", "sdk"],
+  "exclude": [
+    "node_modules",
+    "sdk"
+  ],
   "include": [
     "src",
     "next-env.d.ts",

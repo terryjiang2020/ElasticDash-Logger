@@ -1,7 +1,7 @@
 {
-  "name": "langfuse",
-  "version": "3.147.0",
-  "author": "engineering@langfuse.com",
+  "name": "elasticdash-logger",
+  "version": "0.0.1",
+  "author": "contact@elasticdash.com",
   "license": "MIT",
   "private": true,
   "engines": {
@@ -85,7 +85,7 @@
       }
     }
   },
-  "packageManager": "pnpm@9.5.0",
+  "packageManager": "pnpm@10.28.1",
   "pnpm": {
     "overrides": {
       "nanoid": "^3.3.8",
