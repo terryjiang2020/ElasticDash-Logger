@@ -83,7 +83,7 @@ export const ensureTestDatabaseExists = async () => {
 };
 
 export const pruneDatabase = async () => {
-  if (!env.DATABASE_URL.includes("localhost:5432")) {
+  if (!env.DATABASE_URL.includes("localhost:5433")) {
     throw new Error("You cannot prune database unless running on localhost.");
   }
 

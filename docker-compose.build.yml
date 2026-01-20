@@ -17,7 +17,7 @@ services:
     ports:
       - "3002:3002"
     environment: &langfuse-web-env
-      DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:postgres@postgres:5432/postgres}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:postgres@postgres:5433/postgres}
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-mysecret}
       SALT: ${SALT:-mysalt}
       ENCRYPTION_KEY: ${ENCRYPTION_KEY:-0000000000000000000000000000000000000000000000000000000000000000} # generate via `openssl rand -hex 32`
@@ -146,7 +146,7 @@ services:
       TZ: UTC
       PGTZ: UTC
     ports:
-      - 5432:5432
+      - 5433:5433
     volumes:
       - langfuse_postgres_data:/var/lib/postgresql/data
 

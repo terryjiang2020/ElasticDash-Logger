@@ -41,7 +41,7 @@ LANGFUSE_S3_EVENT_UPLOAD_BUCKET=<bucket-name>
 CLICKHOUSE_URL=http://localhost:8123
 CLICKHOUSE_USER=clickhouse
 CLICKHOUSE_PASSWORD=clickhouse
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/postgres
+DATABASE_URL=postgresql://postgres:postgres@localhost:5433/postgres
 ```
 
 ## 3. Execute the migration
