@@ -187,7 +187,7 @@ describe("Slack Processor", () => {
         client: expect.any(Object),
         channelId: "C123456",
         blocks: expect.any(Array),
-        text: "Langfuse Notification",
+        text: "ElasticDash Notification",
       });
 
       // Verify database execution record was updated
@@ -288,7 +288,7 @@ describe("Slack Processor", () => {
         client: expect.any(Object),
         channelId: "C123456",
         blocks: customTemplate,
-        text: "Langfuse Notification",
+        text: "ElasticDash Notification",
       });
     });
 
@@ -343,7 +343,7 @@ describe("Slack Processor", () => {
         client: expect.any(Object),
         channelId: "C123456",
         blocks: expect.any(Array),
-        text: "Langfuse Notification",
+        text: "ElasticDash Notification",
       });
 
       // Verify execution completed successfully despite template error

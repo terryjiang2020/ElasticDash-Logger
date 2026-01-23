@@ -313,10 +313,10 @@ export const env = createEnv({
     // AWS Bedrock for langfuse native AI feature such as natural language filters
     LANGFUSE_AWS_BEDROCK_MODEL: z.string().optional(),
 
-    // Tracing for Langfuse AI Features
+    // Tracing for ElasticDash AI Features
     LANGFUSE_AI_FEATURES_HOST: z.string().optional(),
 
-    // Natural Langfuse Filters
+    // Natural ElasticDash Filters
     LANGFUSE_AI_FEATURES_PUBLIC_KEY: z.string().optional(),
     LANGFUSE_AI_FEATURES_SECRET_KEY: z.string().optional(),
     LANGFUSE_AI_FEATURES_PROJECT_ID: z.string().optional(),
@@ -673,7 +673,7 @@ export const env = createEnv({
     // AWS Bedrock for langfuse native AI feature such as natural language filters
     LANGFUSE_AWS_BEDROCK_MODEL: process.env.LANGFUSE_AWS_BEDROCK_MODEL,
 
-    // Langfuse Tracing AI Features
+    // ElasticDash Tracing AI Features
     LANGFUSE_AI_FEATURES_HOST: process.env.LANGFUSE_AI_FEATURES_HOST,
 
     // Api Performance Flags

@@ -34,7 +34,7 @@ export const transformTraceForMixpanel = (
   const { posthog_session_id, mixpanel_session_id, ...otherProps } = trace;
 
   return {
-    event: "[Langfuse] Trace",
+    event: "[ElasticDash] Trace",
     properties: {
       time: new Date(trace.timestamp as Date).getTime(),
       distinct_id: trace.langfuse_user_id
@@ -68,7 +68,7 @@ export const transformGenerationForMixpanel = (
   const { posthog_session_id, mixpanel_session_id, ...otherProps } = generation;
 
   return {
-    event: "[Langfuse] Generation",
+    event: "[ElasticDash] Generation",
     properties: {
       time: new Date(generation.timestamp as Date).getTime(),
       distinct_id: generation.langfuse_user_id
@@ -102,7 +102,7 @@ export const transformScoreForMixpanel = (
   const { posthog_session_id, mixpanel_session_id, ...otherProps } = score;
 
   return {
-    event: "[Langfuse] Score",
+    event: "[ElasticDash] Score",
     properties: {
       time: new Date(score.timestamp as Date).getTime(),
       distinct_id: score.langfuse_user_id

@@ -1,13 +1,13 @@
 ---
 name: backend-dev-guidelines
-description: Comprehensive backend development guide for Langfuse's Next.js 14/tRPC/Express/TypeScript monorepo. Use when creating tRPC routers, public API endpoints, BullMQ queue processors, services, or working with tRPC procedures, Next.js API routes, Prisma database access, ClickHouse analytics queries, Redis queues, OpenTelemetry instrumentation, Zod v4 validation, env.mjs configuration, tenant isolation patterns, or async patterns. Covers layered architecture (tRPC procedures → services, queue processors → services), dual database system (PostgreSQL + ClickHouse), projectId filtering for multi-tenant isolation, traceException error handling, observability patterns, and testing strategies (Jest for web, vitest for worker).
+description: Comprehensive backend development guide for ElasticDash's Next.js 14/tRPC/Express/TypeScript monorepo. Use when creating tRPC routers, public API endpoints, BullMQ queue processors, services, or working with tRPC procedures, Next.js API routes, Prisma database access, ClickHouse analytics queries, Redis queues, OpenTelemetry instrumentation, Zod v4 validation, env.mjs configuration, tenant isolation patterns, or async patterns. Covers layered architecture (tRPC procedures → services, queue processors → services), dual database system (PostgreSQL + ClickHouse), projectId filtering for multi-tenant isolation, traceException error handling, observability patterns, and testing strategies (Jest for web, vitest for worker).
 ---
 
 # Backend Development Guidelines
 
 ## Purpose
 
-Establish consistency and best practices across Langfuse's backend packages (web, worker, packages/shared) using Next.js 14, tRPC, BullMQ, and TypeScript patterns.
+Establish consistency and best practices across ElasticDash's backend packages (web, worker, packages/shared) using Next.js 14, tRPC, BullMQ, and TypeScript patterns.
 
 ## When to Use This Skill
 
@@ -187,7 +187,7 @@ shared/src/
 The shared package exposes specific import paths for different use cases:
 
 | Import Path                                | Maps To                           | Use For                                                         |
-| ------------------------------------------ | --------------------------------- | --------------------------------------------------------------- |
+|--------------------------------------------|-----------------------------------|-----------------------------------------------------------------|
 | `@langfuse/shared`                         | `dist/src/index.js`               | General types, schemas, utilities, constants                    |
 | `@langfuse/shared/src/db`                  | `dist/src/db.js`                  | Prisma client and database types                                |
 | `@langfuse/shared/src/server`              | `dist/src/server/index.js`        | Server-side utilities (queues, auth, services, instrumentation) |
@@ -236,13 +236,13 @@ import { encrypt, decrypt, sign, verify } from "@langfuse/shared/encryption";
 
 The shared package provides types, utilities, and server code used by both web and worker packages. It has **5 export paths** that control frontend vs backend access:
 
-| Import Path                                | Usage                 | What's Included                                                                    |
-| ------------------------------------------ | --------------------- | ---------------------------------------------------------------------------------- |
+| Import Path                                | Usage                | What's Included                                                                    |
+|--------------------------------------------|----------------------|------------------------------------------------------------------------------------|
 | `@langfuse/shared`                         | ✅ Frontend + Backend | Prisma types, Zod schemas, constants, table definitions, domain models, utilities  |
-| `@langfuse/shared/src/db`                  | 🔒 Backend only       | Prisma client instance                                                             |
-| `@langfuse/shared/src/server`              | 🔒 Backend only       | Services, repositories, queues, auth, ClickHouse, LLM integration, instrumentation |
-| `@langfuse/shared/src/server/auth/apiKeys` | 🔒 Backend only       | API key management (separated to avoid circular deps)                              |
-| `@langfuse/shared/encryption`              | 🔒 Backend only       | Database field encryption/decryption                                               |
+| `@langfuse/shared/src/db`                  | 🔒 Backend only      | Prisma client instance                                                             |
+| `@langfuse/shared/src/server`              | 🔒 Backend only      | Services, repositories, queues, auth, ClickHouse, LLM integration, instrumentation |
+| `@langfuse/shared/src/server/auth/apiKeys` | 🔒 Backend only      | API key management (separated to avoid circular deps)                              |
+| `@langfuse/shared/encryption`              | 🔒 Backend only      | Database field encryption/decryption                                               |
 
 **Naming Conventions:**
 
@@ -322,7 +322,7 @@ const traces = await getTracesTable({
 
 ### 6. Observability: OpenTelemetry + DataDog (Not Sentry for Backend)
 
-**Langfuse uses OpenTelemetry for backend observability, with traces and logs sent to DataDog.**
+**ElasticDash uses OpenTelemetry for backend observability, with traces and logs sent to DataDog.**
 
 ```typescript
 // Import observability utilities
@@ -364,7 +364,7 @@ Write tests for all new features and bug fixes. See [testing-guide.md](resources
 **Test Types:**
 
 | Type        | Framework | Location                                | Purpose                      |
-| ----------- | --------- | --------------------------------------- | ---------------------------- |
+|-------------|-----------|-----------------------------------------|------------------------------|
 | Integration | Jest      | `web/src/__tests__/async/`              | Full API endpoint testing    |
 | tRPC        | Jest      | `web/src/__tests__/async/`              | tRPC procedures with auth    |
 | Service     | Jest      | `web/src/__tests__/async/repositories/` | Repository/service functions |
@@ -430,12 +430,12 @@ When modifying public API types in `web/src/features/public-api/types/`, the cor
 
 **Zod to Fern Type Mapping:**
 
-| Zod Type | Fern Type | Example |
-| -------- | --------- | ------- |
-| `.nullish()` | `optional<nullable<T>>` | `z.string().nullish()` → `optional<nullable<string>>` |
-| `.nullable()` | `nullable<T>` | `z.string().nullable()` → `nullable<string>` |
-| `.optional()` | `optional<T>` | `z.string().optional()` → `optional<string>` |
-| Always present | `T` | `z.string()` → `string` |
+| Zod Type       | Fern Type               | Example                                               |
+|----------------|-------------------------|-------------------------------------------------------|
+| `.nullish()`   | `optional<nullable<T>>` | `z.string().nullish()` → `optional<nullable<string>>` |
+| `.nullable()`  | `nullable<T>`           | `z.string().nullable()` → `nullable<string>`          |
+| `.optional()`  | `optional<T>`           | `z.string().optional()` → `optional<string>`          |
+| Always present | `T`                     | `z.string()` → `string`                               |
 
 **Source References:**
 
@@ -502,7 +502,7 @@ import { QueueName, TQueueJobTypes } from "@langfuse/shared/src/server";
 ### HTTP Status Codes
 
 | Code | Use Case     |
-| ---- | ------------ |
+|------|--------------|
 | 200  | Success      |
 | 201  | Created      |
 | 400  | Bad Request  |
@@ -513,7 +513,7 @@ import { QueueName, TQueueJobTypes } from "@langfuse/shared/src/server";
 
 ### Example Features to Reference
 
-Reference existing Langfuse features for implementation patterns:
+Reference existing ElasticDash features for implementation patterns:
 - **Datasets** (`web/src/features/datasets/`) - Complete feature with tRPC router, public API, and service
 - **Prompts** (`web/src/features/prompts/`) - Feature with versioning and templates
 - **Evaluations** (`web/src/features/evals/`) - Complex feature with worker integration
@@ -534,8 +534,8 @@ Reference existing Langfuse features for implementation patterns:
 
 ## Navigation Guide
 
-| Need to...                | Read this                                                    |
-| ------------------------- | ------------------------------------------------------------ |
+| Need to...                | Read this                                                              |
+|---------------------------|------------------------------------------------------------------------|
 | Understand architecture   | [architecture-overview.md](resources/architecture-overview.md)         |
 | Create routes/controllers | [routing-and-controllers.md](resources/routing-and-controllers.md)     |
 | Organize business logic   | [services-and-repositories.md](resources/services-and-repositories.md) |

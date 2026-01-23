@@ -46,7 +46,7 @@ class MutationMonitorRunner extends PeriodicRunner {
  * ```
  * GRANT SELECT(database, `table`, is_done) ON system.mutations TO <role>;
  * ```
- * where `role` is the role used by Langfuse to connect to ClickHouse, usually `app`.
+ * where `role` is the role used by ElasticDash to connect to ClickHouse, usually `app`.
  *
  * `QUEUE_TABLE_MAPPING` below shows how mutations on various tables map to queues.
  *

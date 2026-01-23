@@ -72,7 +72,7 @@ function checkSdkVersionRequirements(
 ): boolean {
   const { scopeName, scopeVersion, telemetrySdkLanguage } = sdkInfo;
 
-  // Must be a Langfuse SDK
+  // Must be a ElasticDash SDK
   if (!scopeName || !String(scopeName).toLowerCase().includes("langfuse")) {
     return false;
   }
@@ -212,7 +212,7 @@ export const otelIngestionQueueProcessor: Processor = async (
     // 1. If the environment is `sdk-experiment`, JS SDK 4.4.0+ and python SDK 3.9.0+ will write directly to events.
     // 2. All other observations will go through the dual write until we have SDKs in place that have old trace updates
     //    deprecated and new methods in place.
-    // 3. Non-Langfuse SDK spans will go through the dual write until a yet to be determined cutoff date.
+    // 3. Non-ElasticDash SDK spans will go through the dual write until a yet to be determined cutoff date.
     // Check if any observation has environment='sdk-experiment'
     const hasExperimentEnvironment = observations.some((o) => {
       const body = o.body as { environment?: string };

@@ -85,7 +85,7 @@ const getDelay = (delay: number | null, source: "api" | "otel") => {
  * Options for event batch processing.
  * @property delay - Delay in ms to wait before processing events in the batch.
  * @property source - Source of the events for metrics tracking (e.g., "otel", "api").
- * @property isLangfuseInternal - Whether the events are being ingested by Langfuse internally (e.g. traces created for prompt experiments).
+ * @property isLangfuseInternal - Whether the events are being ingested by ElasticDash internally (e.g. traces created for prompt experiments).
  * @property forwardToEventsTable - Whether to forward events to the staging events table for batch propagation. If undefined, falls back to environment flags.
  */
 type ProcessEventBatchOptions = {

@@ -23,7 +23,7 @@ export const ToolCallSchema = z.object({
 });
 
 /**
- * Parsed Langfuse media reference.
+ * Parsed ElasticDash media reference.
  * Extracted from magic string format: @@@langfuseMedia:type=X|id=Y|source=Z@@@
  */
 export const ParsedMediaReferenceSchema = z.object({
@@ -37,7 +37,7 @@ export type ParsedMediaReferenceType = z.infer<
 >;
 
 /**
- * Schema that parses Langfuse media reference magic strings.
+ * Schema that parses ElasticDash media reference magic strings.
  * Format: @@@langfuseMedia:type=image/jpeg|id=<uuid>|source=base64@@@
  *
  * Note: This schema uses transforms that can throw errors during validation
@@ -122,7 +122,7 @@ const OpenAIBase64ImageUrl = z
 
 /**
  * OpenAI image content part for vision-enabled models.
- * Supports URL, Langfuse media reference, or base64-encoded images.
+ * Supports URL, ElasticDash media reference, or base64-encoded images.
  */
 const OpenAIImageContentPart = z.object({
   type: z.literal("image_url"),

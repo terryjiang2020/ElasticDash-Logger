@@ -17,7 +17,7 @@ import {
 
 /**
  * Prompt name parameter
- * Must match existing Langfuse prompt name validation
+ * Must match existing ElasticDash prompt name validation
  */
 export const ParamPromptName = z
   .string()

@@ -1,6 +1,6 @@
 # Routing Patterns - Next.js & tRPC
 
-Complete guide to routing and separation of concerns in Langfuse's Next.js + tRPC architecture.
+Complete guide to routing and separation of concerns in ElasticDash's Next.js + tRPC architecture.
 
 ## Table of Contents
 
@@ -16,7 +16,7 @@ Complete guide to routing and separation of concerns in Langfuse's Next.js + tRP
 
 ## Architecture Overview
 
-Langfuse uses a **layered architecture** with clear separation of concerns:
+ElasticDash uses a **layered architecture** with clear separation of concerns:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐

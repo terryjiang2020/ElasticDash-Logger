@@ -1,6 +1,6 @@
 # Database Patterns - PostgreSQL & ClickHouse
 
-Complete guide to database access patterns in Langfuse using PostgreSQL (Prisma ORM) and ClickHouse (direct client).
+Complete guide to database access patterns in ElasticDash using PostgreSQL (Prisma ORM) and ClickHouse (direct client).
 
 ## Table of Contents
 
@@ -15,10 +15,10 @@ Complete guide to database access patterns in Langfuse using PostgreSQL (Prisma 
 
 ## Database Architecture Overview
 
-Langfuse uses a **dual database architecture**:
+ElasticDash uses a **dual database architecture**:
 
 | Database       | Technology        | Purpose                                                       | Access Pattern                         |
-| -------------- | ----------------- | ------------------------------------------------------------- | -------------------------------------- |
+|----------------|-------------------|---------------------------------------------------------------|----------------------------------------|
 | **PostgreSQL** | Prisma ORM        | Transactional data, relational data, CRUD operations          | Type-safe ORM with migrations          |
 | **ClickHouse** | Direct SQL client | Analytics data, high-volume traces/observations, aggregations | Raw SQL queries with streaming support |
 | **Redis**      | ioredis           | Queues (BullMQ), caching, rate limiting                       | Direct client access                   |
@@ -304,7 +304,7 @@ await commandClickhouse({
 ### ClickHouse Type Mapping
 
 | JavaScript Type | ClickHouse Param Type                                     |
-| --------------- | --------------------------------------------------------- |
+|-----------------|-----------------------------------------------------------|
 | `string`        | `String`                                                  |
 | `number`        | `UInt32`, `Int64`, `Float64`                              |
 | `Date`          | `DateTime64(3)` (use `convertDateToClickhouseDateTime()`) |
@@ -341,7 +341,7 @@ const query = `
 ```
 
 **Why this is important:**
-- Langfuse is multi-tenant - each project's data must be isolated
+- ElasticDash is multi-tenant - each project's data must be isolated
 - The `project_id` filter ensures queries only access data from the intended tenant
 - All queries on project-scoped tables (traces, observations, scores, sessions, etc.) must filter by `project_id`
 
@@ -422,7 +422,7 @@ try {
 
 ## Repository Pattern
 
-Langfuse uses repositories in `packages/shared/src/server/repositories/` for complex data access patterns.
+ElasticDash uses repositories in `packages/shared/src/server/repositories/` for complex data access patterns.
 
 ### When to Use Repositories
 
@@ -499,7 +499,7 @@ export const getScoresByTraceId = async (
 ## When to Use Which Database
 
 | Use Case                               | Database   | Reasoning                                  |
-| -------------------------------------- | ---------- | ------------------------------------------ |
+|----------------------------------------|------------|--------------------------------------------|
 | User accounts, projects, API keys      | PostgreSQL | Transactional data with strong consistency |
 | Prompt management, dataset definitions | PostgreSQL | Configuration data with relations          |
 | Project settings, RBAC permissions     | PostgreSQL | Small, frequently updated data             |
@@ -599,12 +599,12 @@ try {
 
 **Common Prisma error codes:**
 
-| Code     | Meaning                      | Typical Cause                         |
-| -------- | ---------------------------- | ------------------------------------- |
-| `P2002`  | Unique constraint violation  | Duplicate email, API key, etc.        |
-| `P2003`  | Foreign key constraint       | Referenced record doesn't exist       |
-| `P2025`  | Record not found             | Update/delete of non-existent record  |
-| `P2018`  | Required relation not found  | Connect to non-existent related record |
+| Code    | Meaning                     | Typical Cause                          |
+|---------|-----------------------------|----------------------------------------|
+| `P2002` | Unique constraint violation | Duplicate email, API key, etc.         |
+| `P2003` | Foreign key constraint      | Referenced record doesn't exist        |
+| `P2025` | Record not found            | Update/delete of non-existent record   |
+| `P2018` | Required relation not found | Connect to non-existent related record |
 
 ### ClickHouse Errors
 
@@ -636,11 +636,11 @@ try {
 
 **ClickHouse error types:**
 
-| Error Type      | Discriminator           | Meaning                      | Solution                                           |
-| --------------- | ----------------------- | ---------------------------- | -------------------------------------------------- |
-| `MEMORY_LIMIT`  | "memory limit exceeded" | Query used too much memory   | Use more specific filters or shorter time range    |
-| `OVERCOMMIT`    | "OvercommitTracker"     | Memory overcommit limit hit  | Reduce query complexity or result set size         |
-| `TIMEOUT`       | "Timeout", "timed out"  | Query took too long          | Add filters, reduce time range, or optimize query  |
+| Error Type     | Discriminator           | Meaning                     | Solution                                          |
+|----------------|-------------------------|-----------------------------|---------------------------------------------------|
+| `MEMORY_LIMIT` | "memory limit exceeded" | Query used too much memory  | Use more specific filters or shorter time range   |
+| `OVERCOMMIT`   | "OvercommitTracker"     | Memory overcommit limit hit | Reduce query complexity or result set size        |
+| `TIMEOUT`      | "Timeout", "timed out"  | Query took too long         | Add filters, reduce time range, or optimize query |
 
 **ClickHouse retries:**
 

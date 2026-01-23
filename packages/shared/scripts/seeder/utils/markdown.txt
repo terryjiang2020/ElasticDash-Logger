@@ -19,9 +19,9 @@ pip install langfuse
 ### Quick Setup
 1. **Initialize your project**
    \`\`\`typescript  
-   import { Langfuse } from 'langfuse'  
+   import { ElasticDash } from 'langfuse'  
 
-   const langfuse = new Langfuse({  
+   const langfuse = new ElasticDash({  
      secretKey: process.env.LANGFUSE_SECRET_KEY,  
      publicKey: process.env.LANGFUSE_PUBLIC_KEY,  
      baseUrl: 'https://cloud.langfuse.com'  
@@ -30,9 +30,9 @@ pip install langfuse
 
 2. **Create your first trace**
    \`\`\`python  
-   from langfuse import Langfuse  
+   from langfuse import ElasticDash  
 
-   langfuse = Langfuse()  
+   langfuse = ElasticDash()  
    trace = langfuse.trace(name="chat-application")  
    \`\`\`
 
@@ -109,10 +109,10 @@ const generation = span.generation({
 #### 🔄 Async Processing
 \`\`\`python  
 import asyncio  
-from langfuse import Langfuse  
+from langfuse import ElasticDash  
 
 async def process_batch():  
-    langfuse = Langfuse()  
+    langfuse = ElasticDash()  
 
     tasks = []  
     for item in batch_items:  
@@ -221,7 +221,7 @@ await langfuse.flushAsync()
 \`\`\`python
 class MultiAgentTracer:  
     def __init__(self):  
-        self.langfuse = Langfuse()  
+        self.langfuse = ElasticDash()  
 
     async def orchestrate_agents(self, task):  
         # Main orchestration trace  
@@ -253,7 +253,7 @@ class MultiAgentTracer:
 
 ## 🎉 Conclusion
 
-With proper implementation of Langfuse tracing, you can:
+With proper implementation of ElasticDash tracing, you can:
 
 - ✅ **Monitor** your LLM applications in real-time
 - ✅ **Debug** issues with detailed trace information

@@ -49,9 +49,13 @@ export async function stripeWebhookHandler(req: NextRequest) {
     );
 
   if (!env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION || !stripeClient) {
-    logger.error("[Stripe Webhook] Endpoint only available in Langfuse Cloud");
+    logger.error(
+      "[Stripe Webhook] Endpoint only available in ElasticDash Cloud",
+    );
     return NextResponse.json(
-      { message: "Stripe webhook endpoint only available in Langfuse Cloud" },
+      {
+        message: "Stripe webhook endpoint only available in ElasticDash Cloud",
+      },
       { status: 500 },
     );
   }
@@ -118,7 +122,7 @@ export async function stripeWebhookHandler(req: NextRequest) {
 }
 
 /**
- * Retrieves an organization by its Langfuse organization ID.
+ * Retrieves an organization by its ElasticDash organization ID.
  */
 async function getOrgById(orgId: string): Promise<Organization | null> {
   const org = await prisma.organization.findUnique({

@@ -220,7 +220,7 @@ export const createEvalJobs = async ({
     `Creating eval jobs for trace ${event.traceId} on project ${event.projectId}`,
   );
 
-  // Early exit: Skip eval job creation for internal Langfuse traces from trace-upsert queue
+  // Early exit: Skip eval job creation for internal ElasticDash traces from trace-upsert queue
   //
   // CONTEXT: Prevent infinite eval loops
   // Without this safeguard: user trace → eval → eval trace → another eval → infinite loop
@@ -240,7 +240,7 @@ export const createEvalJobs = async ({
     sourceEventType === "trace-upsert" &&
     event.traceEnvironment?.startsWith("langfuse")
   ) {
-    logger.debug("Skipping eval job creation for internal Langfuse trace", {
+    logger.debug("Skipping eval job creation for internal ElasticDash trace", {
       traceId: event.traceId,
       environment: event.traceEnvironment,
     });

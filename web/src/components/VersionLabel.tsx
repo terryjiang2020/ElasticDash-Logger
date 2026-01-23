@@ -35,7 +35,7 @@ export const VersionLabel = ({ className }: { className?: string }) => {
       refetchOnMount: false,
       refetchOnWindowFocus: false,
       refetchOnReconnect: false,
-      enabled: !isLangfuseCloud, // do not check for updates on Langfuse Cloud
+      enabled: !isLangfuseCloud, // do not check for updates on ElasticDash Cloud
       throwOnError: false, // do not render default error message
     },
   );
@@ -44,7 +44,7 @@ export const VersionLabel = ({ className }: { className?: string }) => {
     refetchOnMount: false,
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
-    enabled: !isLangfuseCloud, // do not check for updates on Langfuse Cloud
+    enabled: !isLangfuseCloud, // do not check for updates on ElasticDash Cloud
     throwOnError: false, // do not render default error message
   });
 

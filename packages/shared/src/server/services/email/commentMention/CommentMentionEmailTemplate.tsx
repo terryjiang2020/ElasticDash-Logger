@@ -52,7 +52,7 @@ export const CommentMentionEmailTemplate = ({
                 src="https://static.langfuse.com/langfuse_logo_transactional_email.png"
                 width="40"
                 height="40"
-                alt="Langfuse"
+                alt="ElasticDash"
                 className="mx-auto my-0"
               />
             </Section>

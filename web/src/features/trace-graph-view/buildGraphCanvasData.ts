@@ -28,7 +28,7 @@ export function transformLanggraphToGeneralized(
       name: obs.node || obs.name,
     };
 
-    // Transform system nodes to Langfuse system nodes
+    // Transform system nodes to ElasticDash system nodes
     if (obs.node === LANGGRAPH_START_NODE_NAME) {
       transformedObs.name = LANGFUSE_START_NODE_NAME;
       transformedObs.id = LANGFUSE_START_NODE_NAME;
@@ -40,7 +40,7 @@ export function transformLanggraphToGeneralized(
     return transformedObs;
   });
 
-  // Add Langfuse system nodes if they don't exist
+  // Add ElasticDash system nodes if they don't exist
   const hasStartNode = transformedData.some(
     (obs) => obs.name === LANGFUSE_START_NODE_NAME,
   );

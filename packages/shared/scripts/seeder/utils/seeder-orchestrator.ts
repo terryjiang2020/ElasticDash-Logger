@@ -529,7 +529,7 @@ export class SeederOrchestrator {
             {
               role: "assistant",
               content:
-                "I can see the Langfuse logo in the image. It appears to be a modern, clean design with distinctive branding elements. The attached PDF contains additional documentation about the Bitcoin whitepaper.",
+                "I can see the ElasticDash logo in the image. It appears to be a modern, clean design with distinctive branding elements. The attached PDF contains additional documentation about the Bitcoin whitepaper.",
             },
           ]),
           metadata: {

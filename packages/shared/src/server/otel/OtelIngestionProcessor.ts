@@ -96,10 +96,10 @@ const observationTypeMapper = new ObservationTypeMapperRegistry();
 
 /**
  * Processor class that encapsulates all logic for converting OpenTelemetry
- * resource spans into Langfuse ingestion events.
+ * resource spans into ElasticDash ingestion events.
  *
  * Manages trace deduplication internally and provides a clean interface
- * for converting OTEL spans to Langfuse events.
+ * for converting OTEL spans to ElasticDash events.
  */
 export class OtelIngestionProcessor {
   private seenTraces: Set<string> = new Set();
@@ -403,7 +403,7 @@ export class OtelIngestionProcessor {
   }
 
   /**
-   * Process resource spans and convert them to Langfuse ingestion events.
+   * Process resource spans and convert them to ElasticDash ingestion events.
    * Handles trace deduplication automatically using internal state.
    * Initializes seen traces from Redis automatically on first call.
    * Filters out shallow trace events if full trace events exist for the same traceId.
@@ -1126,7 +1126,7 @@ export class OtelIngestionProcessor {
     // Pre-delete all potential input/output attribute keys to avoid duplicates
     // This ensures that if multiple frameworks' attributes are present, they're all filtered
     const potentialInputOutputKeys = [
-      // Langfuse SDK
+      // ElasticDash SDK
       LangfuseOtelSpanAttributes.TRACE_INPUT,
       LangfuseOtelSpanAttributes.TRACE_OUTPUT,
       LangfuseOtelSpanAttributes.OBSERVATION_INPUT,
@@ -1204,7 +1204,7 @@ export class OtelIngestionProcessor {
     // const toolDefs = attributes["gen_ai.tool.definitions"] || attributes["model_request_parameters"]?.function_tools;
     // if (toolDefs && input && typeof input === "object") { input = { ...input, tools: toolDefs }; }
 
-    // Langfuse
+    // ElasticDash
     input =
       domain === "trace" && attributes[LangfuseOtelSpanAttributes.TRACE_INPUT]
         ? attributes[LangfuseOtelSpanAttributes.TRACE_INPUT]
@@ -1788,7 +1788,7 @@ export class OtelIngestionProcessor {
   }
 
   private sanitizeModelParams<T>(params: T): Record<string, string> | T {
-    // Model params in Langfuse must be key value pairs where value is string
+    // Model params in ElasticDash must be key value pairs where value is string
     if (typeof params === "object" && params != null)
       return Object.fromEntries(
         Object.entries(params).map((e) => [

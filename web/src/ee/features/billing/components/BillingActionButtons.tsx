@@ -1,4 +1,4 @@
-// Langfuse Cloud only
+// ElasticDash Cloud only
 import { useMemo } from "react";
 import { Button } from "@/src/components/ui/button";
 import Link from "next/link";

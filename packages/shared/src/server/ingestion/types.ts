@@ -792,7 +792,7 @@ export type DatasetRunItemEventType = z.infer<typeof datasetRunItemCreateEvent>;
 
 /**
  * Creates an ingestion event schema with appropriate environment validation.
- * @param isLangfuseInternal - Whether the events are being ingested by Langfuse internally (e.g. traces created for prompt experiments).
+ * @param isLangfuseInternal - Whether the events are being ingested by ElasticDash internally (e.g. traces created for prompt experiments).
  * @returns The ingestion event schema.
  */
 export const createIngestionEventSchema = (isLangfuseInternal = false) => {

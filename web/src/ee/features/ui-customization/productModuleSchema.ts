@@ -1,7 +1,7 @@
 import { z } from "zod/v4";
 
 /**
- * All available product modules in Langfuse
+ * All available product modules in ElasticDash
  */
 export const PRODUCT_MODULES = [
   "dashboards",

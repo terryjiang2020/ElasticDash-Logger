@@ -82,17 +82,17 @@ export function TracePage({
         asChild
         size="sm"
         variant="outline"
-        title="Back to Langfuse"
+        title="Back to ElasticDash"
         className="px-3"
       >
-        <Link href="/">Langfuse</Link>
+        <Link href="/">ElasticDash</Link>
       </Button>
     ) : (
       <Button
         asChild
         size="sm"
         variant="default"
-        title="Sign in to Langfuse"
+        title="Sign in to ElasticDash"
         className="px-3"
       >
         <Link href={`/auth/sign-in?targetPath=${encodedTargetPath}`}>

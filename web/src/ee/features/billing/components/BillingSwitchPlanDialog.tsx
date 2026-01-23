@@ -1,4 +1,4 @@
-// Langfuse Cloud only
+// ElasticDash Cloud only
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";

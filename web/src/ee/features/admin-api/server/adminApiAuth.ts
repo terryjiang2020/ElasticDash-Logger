@@ -19,7 +19,7 @@ export class AdminApiAuthService {
   ): AdminAuthResult => {
     const { isAllowedOnLangfuseCloud = false } = options;
 
-    // Block access on Langfuse Cloud unless explicitly allowed
+    // Block access on ElasticDash Cloud unless explicitly allowed
     if (
       !isAllowedOnLangfuseCloud &&
       env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION &&
@@ -27,7 +27,7 @@ export class AdminApiAuthService {
     ) {
       return {
         isAuthorized: false,
-        error: "Not accessible on Langfuse Cloud",
+        error: "Not accessible on ElasticDash Cloud",
       };
     }
 
@@ -81,7 +81,7 @@ export class AdminApiAuthService {
    * Middleware function to handle admin authentication in Next.js API routes
    * @param req The Next.js API request
    * @param res The Next.js API response
-   * @param options Admin auth options. By default, blocks access on Langfuse Cloud (isAllowedOnLangfuseCloud: false)
+   * @param options Admin auth options. By default, blocks access on ElasticDash Cloud (isAllowedOnLangfuseCloud: false)
    * @returns true if authorized, false otherwise (and sets appropriate response)
    */
   public static handleAdminAuth(

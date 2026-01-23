@@ -254,7 +254,7 @@ const flushMetricsToCloudWatch = () => {
   cloudWatchClient
     .send(
       new PutMetricDataCommand({
-        Namespace: "Langfuse",
+        Namespace: "ElasticDash",
         MetricData: metricData,
       }),
     )

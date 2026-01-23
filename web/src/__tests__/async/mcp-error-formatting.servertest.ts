@@ -166,7 +166,7 @@ describe("MCP Error Formatting", () => {
       });
     });
 
-    describe("Langfuse standard errors", () => {
+    describe("ElasticDash standard errors", () => {
       it("should format UnauthorizedError with auth message", () => {
         const error = new UnauthorizedError("Invalid API key");
         const mcpError = formatErrorForUser(error);

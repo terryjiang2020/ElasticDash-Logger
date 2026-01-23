@@ -29,7 +29,7 @@ function MyComponent() {
 ### Essential Props
 
 | Prop              | Type                               | Default      | Description                                        |
-| ----------------- | ---------------------------------- | ------------ | -------------------------------------------------- |
+|-------------------|------------------------------------|--------------|----------------------------------------------------|
 | `data`            | `unknown`                          | required     | JSON data to display                               |
 | `field`           | `string \| null`                   | `null`       | localStorage key for expansion state persistence   |
 | `enableSearch`    | `boolean`                          | `true`       | Enable search with highlighting                    |
@@ -80,7 +80,7 @@ Mode preference persisted to localStorage.
 ### Performance Characteristics
 
 | Operation            | Complexity | Notes                                       |
-| -------------------- | ---------- | ------------------------------------------- |
+|----------------------|------------|---------------------------------------------|
 | Initial tree build   | O(n)       | 4-pass algorithm, only on mount/data change |
 | Expand/collapse node | O(log n)   | Only updates node + ancestors               |
 | Find node by index   | O(log n)   | Binary search via childOffsets              |
@@ -357,4 +357,4 @@ See `types.ts` for complete type definitions including `JSONTheme`, `SearchMatch
 
 ## License
 
-MIT - Same as parent Langfuse project
+MIT - Same as parent ElasticDash project
