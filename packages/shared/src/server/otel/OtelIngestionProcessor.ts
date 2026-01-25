@@ -1204,16 +1204,6 @@ export class OtelIngestionProcessor {
     // const toolDefs = attributes["gen_ai.tool.definitions"] || attributes["model_request_parameters"]?.function_tools;
     // if (toolDefs && input && typeof input === "object") { input = { ...input, tools: toolDefs }; }
 
-    // ElasticDash
-    input =
-      domain === "trace" && attributes[LangfuseOtelSpanAttributes.TRACE_INPUT]
-        ? attributes[LangfuseOtelSpanAttributes.TRACE_INPUT]
-        : attributes[LangfuseOtelSpanAttributes.OBSERVATION_INPUT];
-    output =
-      domain === "trace" && attributes[LangfuseOtelSpanAttributes.TRACE_OUTPUT]
-        ? attributes[LangfuseOtelSpanAttributes.TRACE_OUTPUT]
-        : attributes[LangfuseOtelSpanAttributes.OBSERVATION_OUTPUT];
-
     if (input != null || output != null) {
       return { input, output, filteredAttributes };
     }
