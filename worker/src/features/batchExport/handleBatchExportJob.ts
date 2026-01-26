@@ -130,21 +130,21 @@ export const handleBatchExportJob = async (
   const dbReadStream =
     parsedQuery.data.tableName === BatchExportTableName.Observations
       ? await getObservationStream({
-        projectId,
-        cutoffCreatedAt: jobDetails.createdAt,
-        ...parsedQuery.data,
-      })
-      : parsedQuery.data.tableName === BatchExportTableName.Traces
-        ? await getTraceStream({
           projectId,
           cutoffCreatedAt: jobDetails.createdAt,
           ...parsedQuery.data,
         })
+      : parsedQuery.data.tableName === BatchExportTableName.Traces
+        ? await getTraceStream({
+            projectId,
+            cutoffCreatedAt: jobDetails.createdAt,
+            ...parsedQuery.data,
+          })
         : await getDatabaseReadStreamPaginated({
-          projectId,
-          cutoffCreatedAt: jobDetails.createdAt,
-          ...parsedQuery.data,
-        });
+            projectId,
+            cutoffCreatedAt: jobDetails.createdAt,
+            ...parsedQuery.data,
+          });
 
   // Transform data to desired format
   let rowCount = 0;

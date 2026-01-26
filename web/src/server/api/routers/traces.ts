@@ -383,10 +383,10 @@ export const traceRouter = createTRPCRouter({
         obsStartTimes.length > 0
           ? obsEndTimes.length > 0
             ? (obsEndTimes[obsEndTimes.length - 1] as Date).getTime() -
-            obsStartTimes[0]!.getTime()
+              obsStartTimes[0]!.getTime()
             : obsStartTimes.length > 1
               ? obsStartTimes[obsStartTimes.length - 1]!.getTime() -
-              obsStartTimes[0]!.getTime()
+                obsStartTimes[0]!.getTime()
               : undefined
           : undefined;
 

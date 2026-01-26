@@ -14,9 +14,12 @@ if (!env.ELASTICDASH_INIT_ORG_ID) {
     env.ELASTICDASH_INIT_ORG_CLOUD_PLAN && "ELASTICDASH_INIT_ORG_CLOUD_PLAN",
     env.ELASTICDASH_INIT_PROJECT_ID && "ELASTICDASH_INIT_PROJECT_ID",
     env.ELASTICDASH_INIT_PROJECT_NAME && "ELASTICDASH_INIT_PROJECT_NAME",
-    env.ELASTICDASH_INIT_PROJECT_RETENTION && "ELASTICDASH_INIT_PROJECT_RETENTION",
-    env.ELASTICDASH_INIT_PROJECT_PUBLIC_KEY && "ELASTICDASH_INIT_PROJECT_PUBLIC_KEY",
-    env.ELASTICDASH_INIT_PROJECT_SECRET_KEY && "ELASTICDASH_INIT_PROJECT_SECRET_KEY",
+    env.ELASTICDASH_INIT_PROJECT_RETENTION &&
+      "ELASTICDASH_INIT_PROJECT_RETENTION",
+    env.ELASTICDASH_INIT_PROJECT_PUBLIC_KEY &&
+      "ELASTICDASH_INIT_PROJECT_PUBLIC_KEY",
+    env.ELASTICDASH_INIT_PROJECT_SECRET_KEY &&
+      "ELASTICDASH_INIT_PROJECT_SECRET_KEY",
     env.ELASTICDASH_INIT_USER_EMAIL && "ELASTICDASH_INIT_USER_EMAIL",
     env.ELASTICDASH_INIT_USER_NAME && "ELASTICDASH_INIT_USER_NAME",
     env.ELASTICDASH_INIT_USER_PASSWORD && "ELASTICDASH_INIT_USER_PASSWORD",
@@ -25,8 +28,8 @@ if (!env.ELASTICDASH_INIT_ORG_ID) {
   if (setInitVars.length > 0) {
     logger.warn(
       `[ElasticDash Init] ELASTICDASH_INIT_ORG_ID is not set but other ELASTICDASH_INIT_* variables are configured. ` +
-      `The following variables will be ignored: ${setInitVars.join(", ")}. ` +
-      `Set ELASTICDASH_INIT_ORG_ID to enable initialization.`,
+        `The following variables will be ignored: ${setInitVars.join(", ")}. ` +
+        `Set ELASTICDASH_INIT_ORG_ID to enable initialization.`,
     );
   }
 }
@@ -35,8 +38,8 @@ if (!env.ELASTICDASH_INIT_ORG_ID) {
 if (env.ELASTICDASH_INIT_ORG_ID) {
   const cloudConfig = env.ELASTICDASH_INIT_ORG_CLOUD_PLAN
     ? CloudConfigSchema.parse({
-      plan: env.ELASTICDASH_INIT_ORG_CLOUD_PLAN,
-    })
+        plan: env.ELASTICDASH_INIT_ORG_CLOUD_PLAN,
+      })
     : undefined;
 
   const org = await prisma.organization.upsert({
@@ -62,7 +65,7 @@ if (env.ELASTICDASH_INIT_ORG_ID) {
       : "ELASTICDASH_INIT_PROJECT_PUBLIC_KEY";
     logger.warn(
       `[ElasticDash Init] Partial API key configuration: ${missingKey} is not set. ` +
-      `Both ELASTICDASH_INIT_PROJECT_PUBLIC_KEY and ELASTICDASH_INIT_PROJECT_SECRET_KEY must be set to create API keys.`,
+        `Both ELASTICDASH_INIT_PROJECT_PUBLIC_KEY and ELASTICDASH_INIT_PROJECT_SECRET_KEY must be set to create API keys.`,
     );
   }
 
@@ -70,7 +73,7 @@ if (env.ELASTICDASH_INIT_ORG_ID) {
   if ((hasPublicKey || hasSecretKey) && !env.ELASTICDASH_INIT_PROJECT_ID) {
     logger.warn(
       `[ElasticDash Init] ELASTICDASH_INIT_PROJECT_ID is not set but API key variables are configured. ` +
-      `API keys will not be created. Set ELASTICDASH_INIT_PROJECT_ID to enable API key creation.`,
+        `API keys will not be created. Set ELASTICDASH_INIT_PROJECT_ID to enable API key creation.`,
     );
   }
 
@@ -81,7 +84,7 @@ if (env.ELASTICDASH_INIT_ORG_ID) {
       : "ELASTICDASH_INIT_USER_EMAIL";
     logger.warn(
       `[ElasticDash Init] Partial user configuration: ${missingVar} is not set. ` +
-      `Both ELASTICDASH_INIT_USER_EMAIL and ELASTICDASH_INIT_USER_PASSWORD must be set to create a user.`,
+        `Both ELASTICDASH_INIT_USER_EMAIL and ELASTICDASH_INIT_USER_PASSWORD must be set to create a user.`,
     );
   }
 

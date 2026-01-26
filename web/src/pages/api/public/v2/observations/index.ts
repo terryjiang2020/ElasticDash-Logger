@@ -71,12 +71,12 @@ export default withMiddlewares({
       const meta =
         hasMore && dataToReturn.length > 0
           ? {
-            cursor: encodeCursor({
-              lastStartTimeTo: dataToReturn[lastItemIdx].startTime,
-              lastTraceId: dataToReturn[lastItemIdx].traceId ?? "",
-              lastId: dataToReturn[lastItemIdx].id,
-            }),
-          }
+              cursor: encodeCursor({
+                lastStartTimeTo: dataToReturn[lastItemIdx].startTime,
+                lastTraceId: dataToReturn[lastItemIdx].traceId ?? "",
+                lastId: dataToReturn[lastItemIdx].id,
+              }),
+            }
           : {};
 
       return {

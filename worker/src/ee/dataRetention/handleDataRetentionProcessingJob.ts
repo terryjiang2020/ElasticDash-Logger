@@ -105,9 +105,9 @@ export const handleDataRetentionProcessingJob = async (job: Job) => {
   await Promise.all([
     env.ELASTICDASH_ENABLE_BLOB_STORAGE_FILE_LOG === "true"
       ? removeIngestionEventsFromS3AndDeleteClickhouseRefsForProject(
-        projectId,
-        cutoffDate,
-      )
+          projectId,
+          cutoffDate,
+        )
       : Promise.resolve(),
     deleteTracesOlderThanDays(projectId, cutoffDate),
     deleteObservationsOlderThanDays(projectId, cutoffDate),

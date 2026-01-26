@@ -45,19 +45,19 @@ async function buildTracesBaseQuery(
   props: TraceQueryType,
   select:
     | {
-      includeObservations: boolean;
-      includeIO: boolean;
-      includeMetrics: boolean;
-      includeScores: boolean;
-      count: false;
-    }
+        includeObservations: boolean;
+        includeIO: boolean;
+        includeMetrics: boolean;
+        includeScores: boolean;
+        count: false;
+      }
     | {
-      includeObservations: false;
-      includeIO: false;
-      includeMetrics: false;
-      includeScores: false;
-      count: true;
-    },
+        includeObservations: false;
+        includeIO: false;
+        includeMetrics: false;
+        includeScores: false;
+        count: true;
+      },
   advancedFilters?: FilterState,
   orderBy?: OrderByState,
 ): Promise<{
@@ -70,7 +70,8 @@ async function buildTracesBaseQuery(
     props.projectId,
   );
   const propagateObservationsTimeBounds =
-    env.ELASTICDASH_API_CLICKHOUSE_PROPAGATE_OBSERVATIONS_TIME_BOUNDS === "true";
+    env.ELASTICDASH_API_CLICKHOUSE_PROPAGATE_OBSERVATIONS_TIME_BOUNDS ===
+    "true";
 
   let filter = deriveFilters(
     props,
@@ -294,15 +295,15 @@ async function buildTracesBaseQuery(
       : {}),
     ...(fromTimeFilter
       ? {
-        cteFromTimeFilter: convertDateToClickhouseDateTime(
-          fromTimeFilter.value,
-        ),
-      }
+          cteFromTimeFilter: convertDateToClickhouseDateTime(
+            fromTimeFilter.value,
+          ),
+        }
       : {}),
     ...(toTimeFilter && propagateObservationsTimeBounds
       ? {
-        cteToTimeFilter: convertDateToClickhouseDateTime(toTimeFilter.value),
-      }
+          cteToTimeFilter: convertDateToClickhouseDateTime(toTimeFilter.value),
+        }
       : {}),
   };
 

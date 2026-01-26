@@ -45,7 +45,9 @@ const EnvSchema = z.object({
       "ENCRYPTION_KEY must be 256 bits, 64 string characters in hex format, generate via: openssl rand -hex 32",
     )
     .optional(),
-  ELASTICDASH_CACHE_MODEL_MATCH_ENABLED: z.enum(["true", "false"]).default("true"),
+  ELASTICDASH_CACHE_MODEL_MATCH_ENABLED: z
+    .enum(["true", "false"])
+    .default("true"),
   ELASTICDASH_CACHE_MODEL_MATCH_TTL_SECONDS: z.coerce.number().default(86400), // 24 hours
   ELASTICDASH_CACHE_PROMPT_ENABLED: z.enum(["true", "false"]).default("true"),
   ELASTICDASH_CACHE_PROMPT_TTL_SECONDS: z.coerce.number().default(300), // 5 minutes
@@ -76,7 +78,10 @@ const EnvSchema = z.object({
     .number()
     .nonnegative()
     .default(15_000),
-  ELASTICDASH_INGESTION_QUEUE_SHARD_COUNT: z.coerce.number().positive().default(1),
+  ELASTICDASH_INGESTION_QUEUE_SHARD_COUNT: z.coerce
+    .number()
+    .positive()
+    .default(1),
   ELASTICDASH_OTEL_INGESTION_QUEUE_SHARD_COUNT: z.coerce
     .number()
     .positive()
@@ -85,7 +90,10 @@ const EnvSchema = z.object({
     .number()
     .positive()
     .default(1),
-  ELASTICDASH_TRACE_UPSERT_QUEUE_ATTEMPTS: z.coerce.number().positive().default(2),
+  ELASTICDASH_TRACE_UPSERT_QUEUE_ATTEMPTS: z.coerce
+    .number()
+    .positive()
+    .default(2),
   ELASTICDASH_TRACE_DELETE_DELAY_MS: z.coerce
     .number()
     .nonnegative()
@@ -135,7 +143,9 @@ const EnvSchema = z.object({
   ELASTICDASH_AZURE_SKIP_CONTAINER_CHECK: z
     .enum(["true", "false"])
     .default("true"),
-  ELASTICDASH_USE_GOOGLE_CLOUD_STORAGE: z.enum(["true", "false"]).default("false"),
+  ELASTICDASH_USE_GOOGLE_CLOUD_STORAGE: z
+    .enum(["true", "false"])
+    .default("false"),
   ELASTICDASH_GOOGLE_CLOUD_STORAGE_CREDENTIALS: z.string().optional(),
   STRIPE_SECRET_KEY: z.string().optional(),
 
@@ -166,7 +176,9 @@ const EnvSchema = z.object({
   ELASTICDASH_API_TRACE_OBSERVATIONS_SIZE_LIMIT_BYTES: z.coerce
     .number()
     .default(80e6), // 80MB
-  ELASTICDASH_CLICKHOUSE_DELETION_TIMEOUT_MS: z.coerce.number().default(600_000), // 10 minutes
+  ELASTICDASH_CLICKHOUSE_DELETION_TIMEOUT_MS: z.coerce
+    .number()
+    .default(600_000), // 10 minutes
   ELASTICDASH_CLICKHOUSE_QUERY_MAX_ATTEMPTS: z.coerce.number().default(3), // Maximum attempts for socket hang up errors
   ELASTICDASH_SKIP_S3_LIST_FOR_OBSERVATIONS_PROJECT_IDS: z.string().optional(),
   ELASTICDASH_INGESTION_PROCESSING_SAMPLED_PROJECTS: z

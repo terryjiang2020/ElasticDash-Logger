@@ -56,8 +56,8 @@ describe("LLM Connection Tests", () => {
       if (!process.env.ELASTICDASH_LLM_CONNECTION_OPENAI_KEY) {
         throw new Error(
           "ELASTICDASH_LLM_CONNECTION_OPENAI_KEY not set. " +
-          "This test requires a valid OpenAI API key to verify the LLM connection. " +
-          "Set the environment variable to run this test.",
+            "This test requires a valid OpenAI API key to verify the LLM connection. " +
+            "Set the environment variable to run this test.",
         );
       }
     };
@@ -82,7 +82,9 @@ describe("LLM Connection Tests", () => {
           max_tokens: 10,
         },
         llmConnection: {
-          secretKey: encrypt(process.env.ELASTICDASH_LLM_CONNECTION_OPENAI_KEY!),
+          secretKey: encrypt(
+            process.env.ELASTICDASH_LLM_CONNECTION_OPENAI_KEY!,
+          ),
         },
       });
 
@@ -112,7 +114,9 @@ describe("LLM Connection Tests", () => {
         },
         structuredOutputSchema: evalOutputSchema,
         llmConnection: {
-          secretKey: encrypt(process.env.ELASTICDASH_LLM_CONNECTION_OPENAI_KEY!),
+          secretKey: encrypt(
+            process.env.ELASTICDASH_LLM_CONNECTION_OPENAI_KEY!,
+          ),
         },
       });
 
@@ -146,7 +150,9 @@ describe("LLM Connection Tests", () => {
         },
         tools: [weatherTool],
         llmConnection: {
-          secretKey: encrypt(process.env.ELASTICDASH_LLM_CONNECTION_OPENAI_KEY!),
+          secretKey: encrypt(
+            process.env.ELASTICDASH_LLM_CONNECTION_OPENAI_KEY!,
+          ),
         },
       });
 
@@ -165,8 +171,8 @@ describe("LLM Connection Tests", () => {
       if (!process.env.ELASTICDASH_LLM_CONNECTION_ANTHROPIC_KEY) {
         throw new Error(
           "ELASTICDASH_LLM_CONNECTION_ANTHROPIC_KEY not set. " +
-          "This test requires a valid Anthropic API key to verify the LLM connection. " +
-          "Set the environment variable to run this test.",
+            "This test requires a valid Anthropic API key to verify the LLM connection. " +
+            "Set the environment variable to run this test.",
         );
       }
     };
@@ -278,22 +284,22 @@ describe("LLM Connection Tests", () => {
       if (!process.env.ELASTICDASH_LLM_CONNECTION_AZURE_KEY) {
         throw new Error(
           "ELASTICDASH_LLM_CONNECTION_AZURE_KEY not set. " +
-          "This test requires a valid Azure OpenAI API key to verify the LLM connection. " +
-          "Set the environment variable to run this test.",
+            "This test requires a valid Azure OpenAI API key to verify the LLM connection. " +
+            "Set the environment variable to run this test.",
         );
       }
       if (!process.env.ELASTICDASH_LLM_CONNECTION_AZURE_BASE_URL) {
         throw new Error(
           "ELASTICDASH_LLM_CONNECTION_AZURE_BASE_URL not set. " +
-          "This test requires a valid Azure OpenAI base URL (deployment endpoint) to verify the LLM connection. " +
-          "Set the environment variable to run this test.",
+            "This test requires a valid Azure OpenAI base URL (deployment endpoint) to verify the LLM connection. " +
+            "Set the environment variable to run this test.",
         );
       }
       if (!process.env.ELASTICDASH_LLM_CONNECTION_AZURE_MODEL) {
         throw new Error(
           "ELASTICDASH_LLM_CONNECTION_AZURE_MODEL not set. " +
-          "This test requires a valid Azure OpenAI deployment name to verify the LLM connection. " +
-          "Set the environment variable to run this test.",
+            "This test requires a valid Azure OpenAI deployment name to verify the LLM connection. " +
+            "Set the environment variable to run this test.",
         );
       }
     };
@@ -404,22 +410,22 @@ describe("LLM Connection Tests", () => {
       if (!process.env.ELASTICDASH_LLM_CONNECTION_BEDROCK_ACCESS_KEY_ID) {
         throw new Error(
           "ELASTICDASH_LLM_CONNECTION_BEDROCK_ACCESS_KEY_ID not set. " +
-          "This test requires a valid AWS access key ID to verify the Bedrock LLM connection. " +
-          "Set the environment variable to run this test.",
+            "This test requires a valid AWS access key ID to verify the Bedrock LLM connection. " +
+            "Set the environment variable to run this test.",
         );
       }
       if (!process.env.ELASTICDASH_LLM_CONNECTION_BEDROCK_SECRET_ACCESS_KEY) {
         throw new Error(
           "ELASTICDASH_LLM_CONNECTION_BEDROCK_SECRET_ACCESS_KEY not set. " +
-          "This test requires a valid AWS secret access key to verify the Bedrock LLM connection. " +
-          "Set the environment variable to run this test.",
+            "This test requires a valid AWS secret access key to verify the Bedrock LLM connection. " +
+            "Set the environment variable to run this test.",
         );
       }
       if (!process.env.ELASTICDASH_LLM_CONNECTION_BEDROCK_REGION) {
         throw new Error(
           "ELASTICDASH_LLM_CONNECTION_BEDROCK_REGION not set. " +
-          "This test requires a valid AWS region (e.g., 'us-east-1') to verify the Bedrock LLM connection. " +
-          "Set the environment variable to run this test.",
+            "This test requires a valid AWS region (e.g., 'us-east-1') to verify the Bedrock LLM connection. " +
+            "Set the environment variable to run this test.",
         );
       }
     };
@@ -427,7 +433,8 @@ describe("LLM Connection Tests", () => {
     const getApiKey = () => {
       checkEnvVars();
       return JSON.stringify({
-        accessKeyId: process.env.ELASTICDASH_LLM_CONNECTION_BEDROCK_ACCESS_KEY_ID!,
+        accessKeyId:
+          process.env.ELASTICDASH_LLM_CONNECTION_BEDROCK_ACCESS_KEY_ID!,
         secretAccessKey:
           process.env.ELASTICDASH_LLM_CONNECTION_BEDROCK_SECRET_ACCESS_KEY!,
       });
@@ -543,8 +550,8 @@ describe("LLM Connection Tests", () => {
       if (!process.env.ELASTICDASH_LLM_CONNECTION_VERTEXAI_KEY) {
         throw new Error(
           "ELASTICDASH_LLM_CONNECTION_VERTEXAI_KEY not set. " +
-          "This test requires a valid GCP service account JSON string to verify the VertexAI LLM connection. " +
-          "Set the environment variable to run this test.",
+            "This test requires a valid GCP service account JSON string to verify the VertexAI LLM connection. " +
+            "Set the environment variable to run this test.",
         );
       }
     };
@@ -569,7 +576,9 @@ describe("LLM Connection Tests", () => {
           max_tokens: 10,
         },
         llmConnection: {
-          secretKey: encrypt(process.env.ELASTICDASH_LLM_CONNECTION_VERTEXAI_KEY!),
+          secretKey: encrypt(
+            process.env.ELASTICDASH_LLM_CONNECTION_VERTEXAI_KEY!,
+          ),
           config: null,
         },
       });
@@ -600,7 +609,9 @@ describe("LLM Connection Tests", () => {
         },
         structuredOutputSchema: evalOutputSchema,
         llmConnection: {
-          secretKey: encrypt(process.env.ELASTICDASH_LLM_CONNECTION_VERTEXAI_KEY!),
+          secretKey: encrypt(
+            process.env.ELASTICDASH_LLM_CONNECTION_VERTEXAI_KEY!,
+          ),
           config: null,
         },
       });
@@ -635,7 +646,9 @@ describe("LLM Connection Tests", () => {
         },
         tools: [weatherTool],
         llmConnection: {
-          secretKey: encrypt(process.env.ELASTICDASH_LLM_CONNECTION_VERTEXAI_KEY!),
+          secretKey: encrypt(
+            process.env.ELASTICDASH_LLM_CONNECTION_VERTEXAI_KEY!,
+          ),
           config: null,
         },
       });
@@ -655,8 +668,8 @@ describe("LLM Connection Tests", () => {
       if (!process.env.ELASTICDASH_LLM_CONNECTION_GOOGLEAISTUDIO_KEY) {
         throw new Error(
           "ELASTICDASH_LLM_CONNECTION_GOOGLEAISTUDIO_KEY not set. " +
-          "This test requires a valid Google AI Studio API key to verify the LLM connection. " +
-          "Set the environment variable to run this test.",
+            "This test requires a valid Google AI Studio API key to verify the LLM connection. " +
+            "Set the environment variable to run this test.",
         );
       }
     };

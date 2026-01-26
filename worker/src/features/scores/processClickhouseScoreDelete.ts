@@ -18,9 +18,9 @@ export const processClickhouseScoreDelete = async (
     await Promise.all([
       env.ELASTICDASH_ENABLE_BLOB_STORAGE_FILE_LOG === "true"
         ? deleteIngestionEventsFromS3AndClickhouseForScores({
-          projectId,
-          scoreIds,
-        })
+            projectId,
+            scoreIds,
+          })
         : Promise.resolve(),
       deleteScores(projectId, scoreIds),
     ]);

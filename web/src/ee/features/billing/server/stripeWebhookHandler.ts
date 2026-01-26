@@ -491,16 +491,16 @@ async function handleSubscriptionChanged(
     items.length == 1
       ? items[0]
       : items.find((it) => {
-        return it.price && it.price.recurring?.usage_type !== "metered";
-      });
+          return it.price && it.price.recurring?.usage_type !== "metered";
+        });
   const productId = planProductItem?.price.product;
 
   const usageProductItem =
     items.length == 1
       ? null // legacy setup; Set to null, so we can distinguish from the new setup
       : items.find((it) => {
-        return it.price && it.price.recurring?.usage_type === "metered";
-      });
+          return it.price && it.price.recurring?.usage_type === "metered";
+        });
   const usageProductId = usageProductItem?.price.product;
 
   if (!productId || typeof productId !== "string") {

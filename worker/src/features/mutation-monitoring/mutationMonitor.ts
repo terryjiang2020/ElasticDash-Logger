@@ -63,17 +63,17 @@ export class MutationMonitor {
   private static readonly QUEUE_TABLE_MAPPING: Partial<
     Record<QueueName, string[]>
   > = {
-      [QueueName.TraceDelete]: ["traces", "observations", "scores", "events"],
-      [QueueName.ScoreDelete]: ["scores"],
-      [QueueName.DatasetDelete]: ["dataset_run_items_rmt"],
-      [QueueName.ProjectDelete]: ["scores", "dataset_run_items_rmt"],
-      [QueueName.DataRetentionProcessingQueue]: [
-        "traces",
-        "observations",
-        "scores",
-        "events",
-      ],
-    };
+    [QueueName.TraceDelete]: ["traces", "observations", "scores", "events"],
+    [QueueName.ScoreDelete]: ["scores"],
+    [QueueName.DatasetDelete]: ["dataset_run_items_rmt"],
+    [QueueName.ProjectDelete]: ["scores", "dataset_run_items_rmt"],
+    [QueueName.DataRetentionProcessingQueue]: [
+      "traces",
+      "observations",
+      "scores",
+      "events",
+    ],
+  };
 
   private static readonly TABLES_TO_MONITOR = Array.from(
     new Set(Object.values(this.QUEUE_TABLE_MAPPING).flat()).values(),

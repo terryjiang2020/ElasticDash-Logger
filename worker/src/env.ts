@@ -22,9 +22,13 @@ const EnvSchema = z.object({
 
   STRIPE_SECRET_KEY: z.string().optional(),
 
-  ELASTICDASH_CACHE_AUTOMATIONS_ENABLED: z.enum(["true", "false"]).default("true"),
+  ELASTICDASH_CACHE_AUTOMATIONS_ENABLED: z
+    .enum(["true", "false"])
+    .default("true"),
   ELASTICDASH_CACHE_AUTOMATIONS_TTL_SECONDS: z.coerce.number().default(60),
-  ELASTICDASH_S3_BATCH_EXPORT_ENABLED: z.enum(["true", "false"]).default("false"),
+  ELASTICDASH_S3_BATCH_EXPORT_ENABLED: z
+    .enum(["true", "false"])
+    .default("false"),
   ELASTICDASH_S3_BATCH_EXPORT_BUCKET: z.string().optional(),
   ELASTICDASH_S3_BATCH_EXPORT_PREFIX: z.string().default(""),
   ELASTICDASH_S3_BATCH_EXPORT_REGION: z.string().optional(),
@@ -79,7 +83,9 @@ const EnvSchema = z.object({
     .number()
     .positive()
     .default(5),
-  ELASTICDASH_SECONDARY_INGESTION_QUEUE_ENABLED_PROJECT_IDS: z.string().optional(),
+  ELASTICDASH_SECONDARY_INGESTION_QUEUE_ENABLED_PROJECT_IDS: z
+    .string()
+    .optional(),
   ELASTICDASH_INGESTION_CLICKHOUSE_WRITE_BATCH_SIZE: z.coerce
     .number()
     .positive()
@@ -115,8 +121,14 @@ const EnvSchema = z.object({
     .default(25),
   ELASTICDASH_TRACE_DELETE_CONCURRENCY: z.coerce.number().positive().default(1),
   ELASTICDASH_SCORE_DELETE_CONCURRENCY: z.coerce.number().positive().default(1),
-  ELASTICDASH_DATASET_DELETE_CONCURRENCY: z.coerce.number().positive().default(1),
-  ELASTICDASH_PROJECT_DELETE_CONCURRENCY: z.coerce.number().positive().default(1),
+  ELASTICDASH_DATASET_DELETE_CONCURRENCY: z.coerce
+    .number()
+    .positive()
+    .default(1),
+  ELASTICDASH_PROJECT_DELETE_CONCURRENCY: z.coerce
+    .number()
+    .positive()
+    .default(1),
   ELASTICDASH_EVAL_EXECUTION_WORKER_CONCURRENCY: z.coerce
     .number()
     .positive()
@@ -129,7 +141,9 @@ const EnvSchema = z.object({
   // Skip the read from ClickHouse within the Ingestion pipeline for the given
   // project ids. Applicable for projects that were created after the S3 write
   // was activated and which don't rely on historic updates.
-  ELASTICDASH_SKIP_INGESTION_CLICKHOUSE_READ_PROJECT_IDS: z.string().default(""),
+  ELASTICDASH_SKIP_INGESTION_CLICKHOUSE_READ_PROJECT_IDS: z
+    .string()
+    .default(""),
   // Set a date after which S3 was active. Projects created after this date do
   // perform a ClickHouse read as part of the ingestion pipeline.
   ELASTICDASH_SKIP_INGESTION_CLICKHOUSE_READ_MIN_PROJECT_CREATE_DATE: z
@@ -307,7 +321,9 @@ const EnvSchema = z.object({
     .default(120_000), // 2 minutes
 
   // ClickHouse mutation monitoring
-  ELASTICDASH_MUTATION_MONITOR_ENABLED: z.enum(["true", "false"]).default("false"),
+  ELASTICDASH_MUTATION_MONITOR_ENABLED: z
+    .enum(["true", "false"])
+    .default("false"),
   ELASTICDASH_MUTATION_MONITOR_CHECK_INTERVAL_MS: z.coerce
     .number()
     .positive()

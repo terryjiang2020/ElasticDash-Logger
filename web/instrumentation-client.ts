@@ -56,7 +56,8 @@ Sentry.init({
 
   // Capture Replay for 100% of all sessions,
   // plus for 100% of sessions with an error
-  replaysSessionSampleRate: process.env.NEXT_PUBLIC_ELASTICDASH_TRACING_SAMPLE_RATE
+  replaysSessionSampleRate: process.env
+    .NEXT_PUBLIC_ELASTICDASH_TRACING_SAMPLE_RATE
     ? Number(process.env.NEXT_PUBLIC_ELASTICDASH_TRACING_SAMPLE_RATE)
     : 0,
   replaysOnErrorSampleRate: 1.0,

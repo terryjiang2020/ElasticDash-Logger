@@ -82,7 +82,7 @@ const test = baseTest.extend<{
   ) => Promise<void>;
   getJobs: () => Promise<JobExecutions>;
 }>({
-  projectId: async ({ }, use) => {
+  projectId: async ({}, use) => {
     const projectId = randomUUID();
 
     await createOrgProjectAndApiKey({

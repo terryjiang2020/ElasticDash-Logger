@@ -428,8 +428,8 @@ const getScoresForTracesInternal = async <
   const rows = await queryClickhouse<
     ScoreRecordReadType & {
       metadata: ExcludeMetadata extends true
-      ? never
-      : ScoreRecordReadType["metadata"];
+        ? never
+        : ScoreRecordReadType["metadata"];
       // has_metadata is 0 or 1 from ClickHouse, later converted to a boolean
       has_metadata: IncludeHasMetadata extends true ? 0 | 1 : never;
     }
@@ -559,8 +559,8 @@ export const getScoresForObservations = async <
   const rows = await queryClickhouse<
     ScoreRecordReadType & {
       metadata: ExcludeMetadata extends true
-      ? never
-      : ScoreRecordReadType["metadata"];
+        ? never
+        : ScoreRecordReadType["metadata"];
       // has_metadata is 0 or 1 from ClickHouse, later converted to a boolean
       has_metadata: IncludeHasMetadata extends true ? 0 | 1 : never;
     }
@@ -680,13 +680,13 @@ export const getNumericScoresGroupedByName = async (
 ) => {
   const chFilter = timestampFilter
     ? createFilterFromFilterState(timestampFilter, [
-      {
-        uiTableName: "Timestamp",
-        uiTableId: "timestamp",
-        clickhouseTableName: "scores",
-        clickhouseSelect: "timestamp",
-      },
-    ])
+        {
+          uiTableName: "Timestamp",
+          uiTableId: "timestamp",
+          clickhouseTableName: "scores",
+          clickhouseSelect: "timestamp",
+        },
+      ])
     : undefined;
 
   const timestampFilterRes = chFilter
@@ -732,13 +732,13 @@ export const getCategoricalScoresGroupedByName = async (
 ) => {
   const chFilter = timestampFilter
     ? createFilterFromFilterState(timestampFilter, [
-      {
-        uiTableName: "Timestamp",
-        uiTableId: "timestamp",
-        clickhouseTableName: "scores",
-        clickhouseSelect: "timestamp",
-      },
-    ])
+        {
+          uiTableName: "Timestamp",
+          uiTableId: "timestamp",
+          clickhouseTableName: "scores",
+          clickhouseSelect: "timestamp",
+        },
+      ])
     : undefined;
 
   const timestampFilterRes = chFilter
@@ -782,19 +782,19 @@ export const getCategoricalScoresGroupedByName = async (
   const scoreConfigs =
     scoreNames.length > 0
       ? await prisma.scoreConfig.findMany({
-        where: {
-          projectId: projectId,
-          name: {
-            in: scoreNames,
+          where: {
+            projectId: projectId,
+            name: {
+              in: scoreNames,
+            },
+            dataType: "CATEGORICAL",
+            isArchived: false,
           },
-          dataType: "CATEGORICAL",
-          isArchived: false,
-        },
-        select: {
-          name: true,
-          categories: true,
-        },
-      })
+          select: {
+            name: true,
+            categories: true,
+          },
+        })
       : [];
 
   // Create a map of score configs for easy lookup
@@ -1507,10 +1507,10 @@ export const getDistinctScoreNames = async (p: {
       dataTypes: AGGREGATABLE_SCORE_TYPES,
       ...(scoreTimestampFilter
         ? {
-          filterTimestamp: convertDateToClickhouseDateTime(
-            scoreTimestampFilter.value,
-          ),
-        }
+            filterTimestamp: convertDateToClickhouseDateTime(
+              scoreTimestampFilter.value,
+            ),
+          }
         : {}),
     },
     tags: {
@@ -1566,7 +1566,8 @@ export const getScoresForBlobStorageExport = function (
       projectId,
     },
     clickhouseConfigs: {
-      request_timeout: env.ELASTICDASH_CLICKHOUSE_DATA_EXPORT_REQUEST_TIMEOUT_MS,
+      request_timeout:
+        env.ELASTICDASH_CLICKHOUSE_DATA_EXPORT_REQUEST_TIMEOUT_MS,
     },
   });
 
@@ -1638,7 +1639,8 @@ export const getScoresForAnalyticsIntegrations = async function* (
       projectId,
     },
     clickhouseConfigs: {
-      request_timeout: env.ELASTICDASH_CLICKHOUSE_DATA_EXPORT_REQUEST_TIMEOUT_MS,
+      request_timeout:
+        env.ELASTICDASH_CLICKHOUSE_DATA_EXPORT_REQUEST_TIMEOUT_MS,
       clickhouse_settings: {
         join_algorithm: "grace_hash",
         grace_hash_join_initial_buckets: "32",

@@ -28,7 +28,7 @@ export class PromptService {
 
     private metricIncrementer?: // used for otel metrics
 
-      (name: string, value?: number) => void,
+    (name: string, value?: number) => void,
     cacheEnabled?: boolean, // used for testing
   ) {
     if (cacheEnabled !== undefined) {

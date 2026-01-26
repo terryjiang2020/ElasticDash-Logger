@@ -68,7 +68,7 @@ class BillingService {
   constructor(
     private stripe: Stripe,
     private ctx: OrgAuthedContext,
-  ) { }
+  ) {}
 
   /** Returns true if a Price is metered (classic `usage_type` or flexible `recurring.meter`). */
   private isMetered(price: Stripe.Price | undefined): boolean {
@@ -373,12 +373,12 @@ class BillingService {
         const firstItem = subscription.items?.data?.[0];
         const billingPeriod =
           firstItem &&
-            typeof firstItem.current_period_start === "number" &&
-            typeof firstItem.current_period_end === "number"
+          typeof firstItem.current_period_start === "number" &&
+          typeof firstItem.current_period_end === "number"
             ? {
-              start: new Date(firstItem.current_period_start * 1000),
-              end: new Date(firstItem.current_period_end * 1000),
-            }
+                start: new Date(firstItem.current_period_start * 1000),
+                end: new Date(firstItem.current_period_end * 1000),
+              }
             : null;
 
         // Next scheduled change from subscription schedule phases
@@ -695,11 +695,11 @@ class BillingService {
           },
           ...(stripeCustomerId
             ? {
-              customer_update: {
-                name: "auto",
-                address: "auto",
-              },
-            }
+                customer_update: {
+                  name: "auto",
+                  address: "auto",
+                },
+              }
             : {}),
           payment_method_collection: "if_required",
           billing_address_collection: "required",
@@ -861,9 +861,9 @@ class BillingService {
           const newLineItems = isNewProductLegacy
             ? [{ price: newProduct.default_price.id }]
             : [
-              { price: newProduct.default_price.id, quantity: 1 },
-              { price: usageProduct.default_price.id },
-            ];
+                { price: newProduct.default_price.id, quantity: 1 },
+                { price: usageProduct.default_price.id },
+              ];
 
           await this.releaseExistingSubscriptionScheduleIfAny(
             subscription,
@@ -1580,10 +1580,10 @@ class BillingService {
 
         const preview = stripeSubscriptionId
           ? await this.createInvoicePreview(
-            client,
-            stripeCustomerId,
-            stripeSubscriptionId,
-          )
+              client,
+              stripeCustomerId,
+              stripeSubscriptionId,
+            )
           : null;
 
         const priceCache = new Map<string, Stripe.Price>();
@@ -1677,16 +1677,16 @@ class BillingService {
             (invoice as any).total_discount_amounts,
           )
             ? (invoice as any).total_discount_amounts.reduce(
-              (acc: number, d: any) => acc + (d.amount ?? 0),
-              0,
-            )
+                (acc: number, d: any) => acc + (d.amount ?? 0),
+                0,
+              )
             : 0;
 
           const taxCents = Array.isArray(invoice.total_taxes)
             ? invoice.total_taxes.reduce(
-              (acc: number, t: any) => acc + (t.amount ?? 0),
-              0,
-            )
+                (acc: number, t: any) => acc + (t.amount ?? 0),
+                0,
+              )
             : 0;
           const totalCents =
             (typeof invoice.total === "number"
@@ -1728,9 +1728,9 @@ class BillingService {
           // remove the last item to account for the preview row
           const modifiedInvoiceRows = shouldTruncate
             ? [
-              previewRow,
-              ...invoices.slice(0, Math.max(0, pagination.limit - 1)),
-            ]
+                previewRow,
+                ...invoices.slice(0, Math.max(0, pagination.limit - 1)),
+              ]
             : [previewRow, ...invoices];
 
           return {

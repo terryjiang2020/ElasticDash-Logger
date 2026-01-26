@@ -84,9 +84,9 @@ export const cloudStatusRouter = createTRPCRouter({
               return incident.current_worst_impact;
             },
             "degraded_performance" as
-            | "degraded_performance"
-            | "partial_outage"
-            | "full_outage",
+              | "degraded_performance"
+              | "partial_outage"
+              | "full_outage",
           );
 
           if (worstImpact === "full_outage") {

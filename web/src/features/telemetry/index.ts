@@ -69,11 +69,11 @@ export async function telemetry() {
 async function jobScheduler(): Promise<
   | { shouldRunJob: false }
   | {
-    shouldRunJob: true;
-    jobStartedAt: Date;
-    lastRun: Date | null;
-    clientId: string;
-  }
+      shouldRunJob: true;
+      jobStartedAt: Date;
+      lastRun: Date | null;
+      clientId: string;
+    }
 > {
   // Check if job should run, without a lock to not impact performance
   // "not exists" triggers when this is run for the very first time in a container

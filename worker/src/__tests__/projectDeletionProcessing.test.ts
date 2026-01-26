@@ -35,7 +35,9 @@ describe("ProjectDeletionProcessingJob", () => {
   const orgId = "seed-org-id";
 
   const maybeEventsIt =
-    env.ELASTICDASH_EXPERIMENT_INSERT_INTO_EVENTS_TABLE === "true" ? it : it.skip;
+    env.ELASTICDASH_EXPERIMENT_INSERT_INTO_EVENTS_TABLE === "true"
+      ? it
+      : it.skip;
 
   beforeAll(() => {
     storageService = StorageServiceFactory.getInstance({
@@ -44,7 +46,8 @@ describe("ProjectDeletionProcessingJob", () => {
       bucketName: String(env.ELASTICDASH_S3_MEDIA_UPLOAD_BUCKET),
       endpoint: env.ELASTICDASH_S3_MEDIA_UPLOAD_ENDPOINT,
       region: env.ELASTICDASH_S3_MEDIA_UPLOAD_REGION,
-      forcePathStyle: env.ELASTICDASH_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE === "true",
+      forcePathStyle:
+        env.ELASTICDASH_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE === "true",
     });
   });
 

@@ -15,7 +15,8 @@ export const getS3MediaStorageClient = (bucketName: string): StorageService => {
       secretAccessKey: env.ELASTICDASH_S3_MEDIA_UPLOAD_SECRET_ACCESS_KEY,
       endpoint: env.ELASTICDASH_S3_MEDIA_UPLOAD_ENDPOINT,
       region: env.ELASTICDASH_S3_MEDIA_UPLOAD_REGION,
-      forcePathStyle: env.ELASTICDASH_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE === "true",
+      forcePathStyle:
+        env.ELASTICDASH_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE === "true",
       awsSse: env.ELASTICDASH_S3_MEDIA_UPLOAD_SSE,
       awsSseKmsKeyId: env.ELASTICDASH_S3_MEDIA_UPLOAD_SSE_KMS_KEY_ID,
     });
@@ -31,7 +32,8 @@ export const getS3EventStorageClient = (bucketName: string): StorageService => {
       secretAccessKey: env.ELASTICDASH_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY,
       endpoint: env.ELASTICDASH_S3_EVENT_UPLOAD_ENDPOINT,
       region: env.ELASTICDASH_S3_EVENT_UPLOAD_REGION,
-      forcePathStyle: env.ELASTICDASH_S3_EVENT_UPLOAD_FORCE_PATH_STYLE === "true",
+      forcePathStyle:
+        env.ELASTICDASH_S3_EVENT_UPLOAD_FORCE_PATH_STYLE === "true",
       awsSse: env.ELASTICDASH_S3_EVENT_UPLOAD_SSE,
       awsSseKmsKeyId: env.ELASTICDASH_S3_EVENT_UPLOAD_SSE_KMS_KEY_ID,
     });

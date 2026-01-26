@@ -258,9 +258,9 @@ async function executeHttpAction({
           error: error instanceof Error ? error.message : "Unknown error",
           output: httpStatus
             ? {
-              httpStatus,
-              responseBody: responseBody?.substring(0, 1000),
-            }
+                httpStatus,
+                responseBody: responseBody?.substring(0, 1000),
+              }
             : undefined,
         },
       });

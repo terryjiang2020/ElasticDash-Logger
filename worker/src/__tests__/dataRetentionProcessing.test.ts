@@ -32,7 +32,8 @@ describe("DataRetentionProcessingJob", () => {
       bucketName: String(env.ELASTICDASH_S3_MEDIA_UPLOAD_BUCKET),
       endpoint: env.ELASTICDASH_S3_MEDIA_UPLOAD_ENDPOINT,
       region: env.ELASTICDASH_S3_MEDIA_UPLOAD_REGION,
-      forcePathStyle: env.ELASTICDASH_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE === "true",
+      forcePathStyle:
+        env.ELASTICDASH_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE === "true",
     });
   });
 

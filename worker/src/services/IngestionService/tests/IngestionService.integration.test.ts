@@ -2874,7 +2874,7 @@ async function getClickhouseRecord<T extends TableName>(
 type RecordReadType<T extends TableName> = T extends TableName.Scores
   ? ScoreRecordReadType
   : T extends TableName.Observations
-  ? ObservationRecordReadType
-  : T extends TableName.Traces
-  ? TraceRecordReadType
-  : never;
+    ? ObservationRecordReadType
+    : T extends TableName.Traces
+      ? TraceRecordReadType
+      : never;

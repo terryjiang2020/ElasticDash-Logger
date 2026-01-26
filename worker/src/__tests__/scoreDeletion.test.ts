@@ -23,7 +23,8 @@ describe("score deletion", () => {
       bucketName: env.ELASTICDASH_S3_EVENT_UPLOAD_BUCKET,
       endpoint: env.ELASTICDASH_S3_EVENT_UPLOAD_ENDPOINT,
       region: env.ELASTICDASH_S3_EVENT_UPLOAD_REGION,
-      forcePathStyle: env.ELASTICDASH_S3_EVENT_UPLOAD_FORCE_PATH_STYLE === "true",
+      forcePathStyle:
+        env.ELASTICDASH_S3_EVENT_UPLOAD_FORCE_PATH_STYLE === "true",
     });
   });
 

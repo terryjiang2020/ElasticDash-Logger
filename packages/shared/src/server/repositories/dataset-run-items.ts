@@ -139,12 +139,12 @@ export type EnrichedDatasetRunItem = {
   datasetRunId: string;
   datasetRunName: string;
   observation:
-  | {
-    id: string;
-    latency: number;
-    calculatedTotalCost: Decimal;
-  }
-  | undefined;
+    | {
+        id: string;
+        latency: number;
+        calculatedTotalCost: Decimal;
+      }
+    | undefined;
   trace: {
     id: string;
     duration: number;
@@ -203,23 +203,23 @@ const getProjectDatasetIdDefaultFilter = (
       }),
       ...(datasetId
         ? [
-          new StringFilter({
-            clickhouseTable: "dataset_run_items_rmt",
-            field: "dataset_id",
-            operator: "=",
-            value: datasetId,
-          }),
-        ]
+            new StringFilter({
+              clickhouseTable: "dataset_run_items_rmt",
+              field: "dataset_id",
+              operator: "=",
+              value: datasetId,
+            }),
+          ]
         : []),
       ...(runIds && runIds.length > 0
         ? [
-          new StringOptionsFilter({
-            clickhouseTable: "dataset_run_items_rmt",
-            field: "dataset_run_id",
-            operator: "any of",
-            values: runIds,
-          }),
-        ]
+            new StringOptionsFilter({
+              clickhouseTable: "dataset_run_items_rmt",
+              field: "dataset_run_id",
+              operator: "any of",
+              values: runIds,
+            }),
+          ]
         : []),
     ]),
   };

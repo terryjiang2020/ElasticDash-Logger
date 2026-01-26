@@ -2,7 +2,8 @@
 // Set environment variable before any imports to ensure it's picked up by env module
 process.env.ELASTICDASH_DATASET_SERVICE_READ_FROM_VERSIONED_IMPLEMENTATION =
   "true";
-process.env.ELASTICDASH_DATASET_SERVICE_WRITE_TO_VERSIONED_IMPLEMENTATION = "true";
+process.env.ELASTICDASH_DATASET_SERVICE_WRITE_TO_VERSIONED_IMPLEMENTATION =
+  "true";
 
 import { prisma } from "@langfuse/shared/src/db";
 import {

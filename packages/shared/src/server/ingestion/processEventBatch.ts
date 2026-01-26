@@ -45,7 +45,8 @@ const getS3StorageServiceClient = (bucketName: string): StorageService => {
       secretAccessKey: env.ELASTICDASH_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY,
       endpoint: env.ELASTICDASH_S3_EVENT_UPLOAD_ENDPOINT,
       region: env.ELASTICDASH_S3_EVENT_UPLOAD_REGION,
-      forcePathStyle: env.ELASTICDASH_S3_EVENT_UPLOAD_FORCE_PATH_STYLE === "true",
+      forcePathStyle:
+        env.ELASTICDASH_S3_EVENT_UPLOAD_FORCE_PATH_STYLE === "true",
       awsSse: env.ELASTICDASH_S3_EVENT_UPLOAD_SSE,
       awsSseKmsKeyId: env.ELASTICDASH_S3_EVENT_UPLOAD_SSE_KMS_KEY_ID,
     });
@@ -254,7 +255,7 @@ export const processEventBatch = async (
             },
           );
           // Fire and forget - don't await, don't block the error flow
-          markProjectS3Slowdown(authCheck.scope.projectId!).catch(() => { });
+          markProjectS3Slowdown(authCheck.scope.projectId!).catch(() => {});
         }
 
         logger.error("Failed to upload event to S3", {
@@ -328,30 +329,30 @@ export const processEventBatch = async (
 
       return queue
         ? queue.add(
-          QueueJobs.IngestionJob,
-          {
-            id: randomUUID(),
-            timestamp: new Date(),
-            name: QueueJobs.IngestionJob as const,
-            payload: {
-              data: {
-                type: eventData.type,
-                eventBodyId: eventData.eventBodyId,
-                fileKey: eventData.key,
-                skipS3List: shouldSkipS3List,
-                forwardToEventsTable,
-              },
-              authCheck: authCheck as {
-                validKey: true;
-                scope: {
-                  projectId: string;
-                  accessLevel: "project" | "scores";
-                };
+            QueueJobs.IngestionJob,
+            {
+              id: randomUUID(),
+              timestamp: new Date(),
+              name: QueueJobs.IngestionJob as const,
+              payload: {
+                data: {
+                  type: eventData.type,
+                  eventBodyId: eventData.eventBodyId,
+                  fileKey: eventData.key,
+                  skipS3List: shouldSkipS3List,
+                  forwardToEventsTable,
+                },
+                authCheck: authCheck as {
+                  validKey: true;
+                  scope: {
+                    projectId: string;
+                    accessLevel: "project" | "scores";
+                  };
+                },
               },
             },
-          },
-          { delay: getDelay(delay, source) },
-        )
+            { delay: getDelay(delay, source) },
+          )
         : Promise.reject("Failed to instantiate ingestion queue");
     }),
   );

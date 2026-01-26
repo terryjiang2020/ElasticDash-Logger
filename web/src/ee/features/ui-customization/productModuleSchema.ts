@@ -40,7 +40,7 @@ export function getVisibleProductModules(
   if (visibleModulesEnv && hiddenModulesEnv) {
     console.warn(
       "Both ELASTICDASH_UI_VISIBLE_PRODUCT_MODULES and ELASTICDASH_UI_HIDDEN_PRODUCT_MODULES are set. " +
-      "Using ELASTICDASH_UI_VISIBLE_PRODUCT_MODULES as the allow list.",
+        "Using ELASTICDASH_UI_VISIBLE_PRODUCT_MODULES as the allow list.",
     );
     return parseModulesList(visibleModulesEnv);
   }

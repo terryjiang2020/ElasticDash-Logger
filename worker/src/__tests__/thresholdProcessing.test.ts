@@ -3,7 +3,8 @@ import { type Mock } from "vitest";
 
 // Hoist environment variable setting to ensure it happens before module initialization
 vi.hoisted(() => {
-  process.env.ELASTICDASH_FREE_TIER_USAGE_THRESHOLD_ENFORCEMENT_ENABLED = "true";
+  process.env.ELASTICDASH_FREE_TIER_USAGE_THRESHOLD_ENFORCEMENT_ENABLED =
+    "true";
 });
 
 // Mock prisma

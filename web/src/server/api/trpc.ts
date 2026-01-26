@@ -455,14 +455,14 @@ const enforceTraceAccess = t.middleware(async (opts) => {
 
   const traceSession = !!trace.sessionId
     ? await ctx.prisma.traceSession.findFirst({
-      where: {
-        id: trace.sessionId,
-        projectId,
-      },
-      select: {
-        public: true,
-      },
-    })
+        where: {
+          id: trace.sessionId,
+          projectId,
+        },
+        select: {
+          public: true,
+        },
+      })
     : null;
 
   const isSessionPublic = traceSession?.public === true;

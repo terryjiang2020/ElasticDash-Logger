@@ -221,12 +221,12 @@ export async function executeQuery(
     query: string;
     params: Record<string, unknown>;
   }> = [
-      {
-        type: "regular",
-        query: compiledQuery,
-        params: parameters,
-      },
-    ];
+    {
+      type: "regular",
+      query: compiledQuery,
+      params: parameters,
+    },
+  ];
 
   // Add shadow test query if optimization is OFF and shadow testing is enabled
   const shadowTestEnabled =

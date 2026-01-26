@@ -510,20 +510,20 @@ export enum TableName {
 type RecordInsertType<T extends TableName> = T extends TableName.Scores
   ? ScoreRecordInsertType
   : T extends TableName.Observations
-  ? ObservationRecordInsertType
-  : T extends TableName.ObservationsBatchStaging
-  ? ObservationBatchStagingRecordInsertType
-  : T extends TableName.Traces
-  ? TraceRecordInsertType
-  : T extends TableName.TracesNull
-  ? TraceNullRecordInsertType
-  : T extends TableName.BlobStorageFileLog
-  ? BlobStorageFileLogInsertType
-  : T extends TableName.DatasetRunItems
-  ? DatasetRunItemRecordInsertType
-  : T extends TableName.Events
-  ? EventRecordInsertType
-  : never;
+    ? ObservationRecordInsertType
+    : T extends TableName.ObservationsBatchStaging
+      ? ObservationBatchStagingRecordInsertType
+      : T extends TableName.Traces
+        ? TraceRecordInsertType
+        : T extends TableName.TracesNull
+          ? TraceNullRecordInsertType
+          : T extends TableName.BlobStorageFileLog
+            ? BlobStorageFileLogInsertType
+            : T extends TableName.DatasetRunItems
+              ? DatasetRunItemRecordInsertType
+              : T extends TableName.Events
+                ? EventRecordInsertType
+                : never;
 
 type ClickhouseQueue = {
   [T in TableName]: ClickhouseWriterQueueItem<T>[];

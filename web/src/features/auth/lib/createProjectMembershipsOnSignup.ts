@@ -18,11 +18,11 @@ export async function createProjectMembershipsOnSignup(user: {
     const demoProject =
       env.NEXT_PUBLIC_DEMO_ORG_ID && env.NEXT_PUBLIC_DEMO_PROJECT_ID
         ? ((await prisma.project.findUnique({
-          where: {
-            orgId: env.NEXT_PUBLIC_DEMO_ORG_ID,
-            id: env.NEXT_PUBLIC_DEMO_PROJECT_ID,
-          },
-        })) ?? undefined)
+            where: {
+              orgId: env.NEXT_PUBLIC_DEMO_ORG_ID,
+              id: env.NEXT_PUBLIC_DEMO_PROJECT_ID,
+            },
+          })) ?? undefined)
         : undefined;
     if (demoProject !== undefined) {
       await prisma.organizationMembership.upsert({
@@ -41,33 +41,33 @@ export async function createProjectMembershipsOnSignup(user: {
     // self-hosted: ELASTICDASH_DEFAULT_ORG_ID
     const defaultOrg = env.ELASTICDASH_DEFAULT_ORG_ID
       ? ((await prisma.organization.findUnique({
-        where: {
-          id: env.ELASTICDASH_DEFAULT_ORG_ID,
-        },
-      })) ?? undefined)
+          where: {
+            id: env.ELASTICDASH_DEFAULT_ORG_ID,
+          },
+        })) ?? undefined)
       : undefined;
     const defaultOrgMembership =
       defaultOrg !== undefined
         ? await prisma.organizationMembership.upsert({
-          where: {
-            orgId_userId: { orgId: defaultOrg.id, userId: user.id },
-          },
-          update: {}, // No-op: preserve existing role
-          create: {
-            orgId: defaultOrg.id,
-            userId: user.id,
-            role: env.ELASTICDASH_DEFAULT_ORG_ROLE ?? "VIEWER",
-          },
-        })
+            where: {
+              orgId_userId: { orgId: defaultOrg.id, userId: user.id },
+            },
+            update: {}, // No-op: preserve existing role
+            create: {
+              orgId: defaultOrg.id,
+              userId: user.id,
+              role: env.ELASTICDASH_DEFAULT_ORG_ROLE ?? "VIEWER",
+            },
+          })
         : undefined;
 
     // self-hosted: ELASTICDASH_DEFAULT_PROJECT_ID
     const defaultProject = env.ELASTICDASH_DEFAULT_PROJECT_ID
       ? ((await prisma.project.findUnique({
-        where: {
-          id: env.ELASTICDASH_DEFAULT_PROJECT_ID,
-        },
-      })) ?? undefined)
+          where: {
+            id: env.ELASTICDASH_DEFAULT_PROJECT_ID,
+          },
+        })) ?? undefined)
       : undefined;
     if (defaultProject !== undefined) {
       if (defaultOrgMembership) {
@@ -151,14 +151,14 @@ async function processMembershipInvitations(email: string, userId: string) {
     role: invitation.orgRole,
     ...(invitation.projectId && invitation.projectRole
       ? {
-        ProjectMemberships: {
-          create: {
-            userId: userId,
-            projectId: invitation.projectId,
-            role: invitation.projectRole,
+          ProjectMemberships: {
+            create: {
+              userId: userId,
+              projectId: invitation.projectId,
+              role: invitation.projectRole,
+            },
           },
-        },
-      }
+        }
       : {}),
   }));
 

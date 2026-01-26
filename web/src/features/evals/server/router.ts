@@ -339,11 +339,11 @@ export const evalRouter = createTRPCRouter({
           ...config,
           evalTemplate: config.evalTemplateId
             ? {
-              id: config.evalTemplateId,
-              name: config.templateName,
-              version: config.templateVersion,
-              projectId: config.templateProjectId,
-            }
+                id: config.evalTemplateId,
+                name: config.templateName,
+                version: config.templateVersion,
+                projectId: config.templateProjectId,
+              }
             : null,
           jobExecutionsByState: jobExecutionsByState.filter(
             (je) => je.jobConfigurationId === config.id,

@@ -21,7 +21,8 @@ const stripeClient = env.STRIPE_SECRET_KEY
  * This migration is idempotent and can be safely re-run if interrupted.
  */
 export default class BackfillBillingCycleAnchors
-  implements IBackgroundMigration {
+  implements IBackgroundMigration
+{
   private isAborted = false;
 
   async validate(

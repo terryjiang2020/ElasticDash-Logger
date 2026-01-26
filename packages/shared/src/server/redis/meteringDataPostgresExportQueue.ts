@@ -27,18 +27,18 @@ export class MeteringDataPostgresExportQueue {
 
     MeteringDataPostgresExportQueue.instance = newRedis
       ? new Queue(QueueName.MeteringDataPostgresExportQueue, {
-        connection: newRedis,
-        prefix: getQueuePrefix(QueueName.MeteringDataPostgresExportQueue),
-        defaultJobOptions: {
-          removeOnComplete: true,
-          removeOnFail: 100,
-          attempts: 5,
-          backoff: {
-            type: "exponential",
-            delay: 5000,
+          connection: newRedis,
+          prefix: getQueuePrefix(QueueName.MeteringDataPostgresExportQueue),
+          defaultJobOptions: {
+            removeOnComplete: true,
+            removeOnFail: 100,
+            attempts: 5,
+            backoff: {
+              type: "exponential",
+              delay: 5000,
+            },
           },
-        },
-      })
+        })
       : null;
 
     MeteringDataPostgresExportQueue.instance?.on("error", (err) => {

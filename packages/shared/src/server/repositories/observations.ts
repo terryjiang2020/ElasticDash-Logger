@@ -585,16 +585,16 @@ export const getObservationsTableWithModelData = async (
   const [models, traces] = await Promise.all([
     uniqueModels.length > 0
       ? prisma.model.findMany({
-        where: {
-          id: {
-            in: uniqueModels,
+          where: {
+            id: {
+              in: uniqueModels,
+            },
+            OR: [{ projectId: opts.projectId }, { projectId: null }],
           },
-          OR: [{ projectId: opts.projectId }, { projectId: null }],
-        },
-        include: {
-          Price: true,
-        },
-      })
+          include: {
+            Price: true,
+          },
+        })
       : [],
     getTracesByIds(
       observationRecords
@@ -714,20 +714,20 @@ const getObservationsTableInternal = async <T>(
 
   const orderByTraces = orderBy
     ? observationsTableTraceUiColumnDefinitions.some(
-      (c) =>
-        c.uiTableId === orderBy.column || c.uiTableName === orderBy.column,
-    )
+        (c) =>
+          c.uiTableId === orderBy.column || c.uiTableName === orderBy.column,
+      )
     : undefined;
 
   timeFilter
     ? scoresFilter.push(
-      new DateTimeFilter({
-        clickhouseTable: "scores",
-        field: "timestamp",
-        operator: ">=",
-        value: timeFilter.value as Date,
-      }),
-    )
+        new DateTimeFilter({
+          clickhouseTable: "scores",
+          field: "timestamp",
+          operator: ">=",
+          value: timeFilter.value as Date,
+        }),
+      )
     : undefined;
 
   const observationsFilter = new FilterList([
@@ -841,10 +841,10 @@ const getObservationsTableInternal = async <T>(
         ...appliedObservationsFilter.params,
         ...(timeFilter
           ? {
-            tracesTimestampFilter: convertDateToClickhouseDateTime(
-              timeFilter.value as Date,
-            ),
-          }
+              tracesTimestampFilter: convertDateToClickhouseDateTime(
+                timeFilter.value as Date,
+              ),
+            }
           : {}),
         ...search.params,
       },
@@ -1168,17 +1168,17 @@ export const getObservationsGroupedByPromptName = async (
   const pgPrompts =
     prompts.length > 0
       ? await prisma.prompt.findMany({
-        select: {
-          id: true,
-          name: true,
-        },
-        where: {
-          id: {
-            in: prompts,
+          select: {
+            id: true,
+            name: true,
           },
-          projectId,
-        },
-      })
+          where: {
+            id: {
+              in: prompts,
+            },
+            projectId,
+          },
+        })
       : [];
 
   return pgPrompts.map((p) => ({

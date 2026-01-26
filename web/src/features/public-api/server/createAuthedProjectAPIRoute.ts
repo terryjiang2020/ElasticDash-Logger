@@ -113,8 +113,8 @@ async function verifyBasicAuth(authHeader: string | undefined): Promise<
  */
 async function verifyAdminApiKeyAuth(req: NextApiRequest): Promise<
   | (AuthHeaderValidVerificationResult & {
-    scope: { projectId: string; accessLevel: "project" };
-  })
+      scope: { projectId: string; accessLevel: "project" };
+    })
   | null
 > {
   const authHeader = req.headers.authorization;

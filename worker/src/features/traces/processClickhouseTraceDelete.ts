@@ -23,7 +23,8 @@ const getS3MediaStorageClient = (bucketName: string): StorageService => {
       secretAccessKey: env.ELASTICDASH_S3_MEDIA_UPLOAD_SECRET_ACCESS_KEY,
       endpoint: env.ELASTICDASH_S3_MEDIA_UPLOAD_ENDPOINT,
       region: env.ELASTICDASH_S3_MEDIA_UPLOAD_REGION,
-      forcePathStyle: env.ELASTICDASH_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE === "true",
+      forcePathStyle:
+        env.ELASTICDASH_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE === "true",
       awsSse: env.ELASTICDASH_S3_MEDIA_UPLOAD_SSE,
       awsSseKmsKeyId: env.ELASTICDASH_S3_MEDIA_UPLOAD_SSE_KMS_KEY_ID,
     });
@@ -151,9 +152,9 @@ export const processClickhouseTraceDelete = async (
     await Promise.all([
       env.ELASTICDASH_ENABLE_BLOB_STORAGE_FILE_LOG === "true"
         ? removeIngestionEventsFromS3AndDeleteClickhouseRefsForTraces({
-          projectId,
-          traceIds,
-        })
+            projectId,
+            traceIds,
+          })
         : Promise.resolve(),
       deleteTraces(projectId, traceIds),
       deleteObservationsByTraceIds(projectId, traceIds),

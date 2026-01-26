@@ -1200,10 +1200,10 @@ export const getUserMetrics = async (
         ...chFilterRes.params,
         ...(timestampFilter
           ? {
-            traceTimestamp: convertDateToClickhouseDateTime(
-              (timestampFilter as DateTimeFilter).value,
-            ),
-          }
+              traceTimestamp: convertDateToClickhouseDateTime(
+                (timestampFilter as DateTimeFilter).value,
+              ),
+            }
           : {}),
       },
       tags: {

@@ -19,7 +19,8 @@ import { validateFieldAgainstSchema } from "@langfuse/shared";
 
 process.env.ELASTICDASH_DATASET_SERVICE_READ_FROM_VERSIONED_IMPLEMENTATION =
   "true";
-process.env.ELASTICDASH_DATASET_SERVICE_WRITE_TO_VERSIONED_IMPLEMENTATION = "true";
+process.env.ELASTICDASH_DATASET_SERVICE_WRITE_TO_VERSIONED_IMPLEMENTATION =
+  "true";
 
 // Test schemas
 const TEST_SCHEMAS = {

@@ -163,30 +163,30 @@ export const handleBatchActionJob = async (
     const dbReadStream =
       actionId === "trace-delete"
         ? await getTraceIdentifierStream({
-          projectId: projectId,
-          cutoffCreatedAt: new Date(cutoffCreatedAt),
-          filter: convertDatesInFiltersFromStrings(query.filter ?? []),
-          orderBy: query.orderBy,
-          searchQuery: query.searchQuery ?? undefined,
-          searchType: query.searchType ?? ["id" as const],
-        })
-        : tableName === BatchTableNames.Observations
-          ? await getObservationStream({
-            projectId: projectId,
-            cutoffCreatedAt: new Date(cutoffCreatedAt),
-            filter: convertDatesInFiltersFromStrings(query.filter ?? []),
-            searchQuery: query.searchQuery ?? undefined,
-            searchType: query.searchType ?? ["id" as const],
-          })
-          : await getDatabaseReadStreamPaginated({
             projectId: projectId,
             cutoffCreatedAt: new Date(cutoffCreatedAt),
             filter: convertDatesInFiltersFromStrings(query.filter ?? []),
             orderBy: query.orderBy,
-            tableName: tableName as BatchTableNames,
             searchQuery: query.searchQuery ?? undefined,
             searchType: query.searchType ?? ["id" as const],
-          });
+          })
+        : tableName === BatchTableNames.Observations
+          ? await getObservationStream({
+              projectId: projectId,
+              cutoffCreatedAt: new Date(cutoffCreatedAt),
+              filter: convertDatesInFiltersFromStrings(query.filter ?? []),
+              searchQuery: query.searchQuery ?? undefined,
+              searchType: query.searchType ?? ["id" as const],
+            })
+          : await getDatabaseReadStreamPaginated({
+              projectId: projectId,
+              cutoffCreatedAt: new Date(cutoffCreatedAt),
+              filter: convertDatesInFiltersFromStrings(query.filter ?? []),
+              orderBy: query.orderBy,
+              tableName: tableName as BatchTableNames,
+              searchQuery: query.searchQuery ?? undefined,
+              searchType: query.searchType ?? ["id" as const],
+            });
 
     // Process stream in database-sized batches
     // 1. Read all records
@@ -231,22 +231,22 @@ export const handleBatchActionJob = async (
     const dbReadStream =
       targetObject === "trace"
         ? await getTraceIdentifierStream({
-          projectId: projectId,
-          cutoffCreatedAt: new Date(cutoffCreatedAt),
-          filter: convertDatesInFiltersFromStrings(query.filter ?? []),
-          orderBy: query.orderBy,
-          searchQuery: query.searchQuery ?? undefined,
-          searchType: query.searchType,
-          rowLimit: env.ELASTICDASH_MAX_HISTORIC_EVAL_CREATION_LIMIT,
-        }) // when reading from clickhouse, we only want to read the necessary identifiers.
+            projectId: projectId,
+            cutoffCreatedAt: new Date(cutoffCreatedAt),
+            filter: convertDatesInFiltersFromStrings(query.filter ?? []),
+            orderBy: query.orderBy,
+            searchQuery: query.searchQuery ?? undefined,
+            searchType: query.searchType,
+            rowLimit: env.ELASTICDASH_MAX_HISTORIC_EVAL_CREATION_LIMIT,
+          }) // when reading from clickhouse, we only want to read the necessary identifiers.
         : await getDatabaseReadStreamPaginated({
-          projectId: projectId,
-          cutoffCreatedAt: new Date(cutoffCreatedAt),
-          filter: convertDatesInFiltersFromStrings(query.filter ?? []),
-          orderBy: query.orderBy,
-          tableName: BatchTableNames.DatasetRunItems,
-          rowLimit: env.ELASTICDASH_MAX_HISTORIC_EVAL_CREATION_LIMIT,
-        });
+            projectId: projectId,
+            cutoffCreatedAt: new Date(cutoffCreatedAt),
+            filter: convertDatesInFiltersFromStrings(query.filter ?? []),
+            orderBy: query.orderBy,
+            tableName: BatchTableNames.DatasetRunItems,
+            rowLimit: env.ELASTICDASH_MAX_HISTORIC_EVAL_CREATION_LIMIT,
+          });
 
     const evalCreatorQueue = CreateEvalQueue.getInstance();
     if (!evalCreatorQueue) {

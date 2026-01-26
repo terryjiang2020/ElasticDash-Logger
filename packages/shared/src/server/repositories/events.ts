@@ -107,28 +107,28 @@ async function enrichObservationsWithModelData(
   // Fetch model data if needed
   const models = shouldEnrichModel
     ? await (async () => {
-      const uniqueModels: string[] = Array.from(
-        new Set(
-          observationRecords
-            .map((r) => r.internal_model_id)
-            .filter((r): r is string => Boolean(r)),
-        ),
-      );
+        const uniqueModels: string[] = Array.from(
+          new Set(
+            observationRecords
+              .map((r) => r.internal_model_id)
+              .filter((r): r is string => Boolean(r)),
+          ),
+        );
 
-      return uniqueModels.length > 0
-        ? await prisma.model.findMany({
-          where: {
-            id: {
-              in: uniqueModels,
-            },
-            OR: [{ projectId: projectId }, { projectId: null }],
-          },
-          include: {
-            Price: true,
-          },
-        })
-        : [];
-    })()
+        return uniqueModels.length > 0
+          ? await prisma.model.findMany({
+              where: {
+                id: {
+                  in: uniqueModels,
+                },
+                OR: [{ projectId: projectId }, { projectId: null }],
+              },
+              include: {
+                Price: true,
+              },
+            })
+          : [];
+      })()
     : [];
 
   return observationRecords.map((o) => {

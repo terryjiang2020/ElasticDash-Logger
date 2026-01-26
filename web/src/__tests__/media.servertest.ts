@@ -201,16 +201,16 @@ describe("Media Upload API", () => {
         });
         result.observationMediaRecord = observationId
           ? await prisma.observationMedia.findUnique({
-            where: {
-              projectId_traceId_observationId_mediaId_field: {
-                projectId,
-                traceId,
-                observationId,
-                mediaId,
-                field,
+              where: {
+                projectId_traceId_observationId_mediaId_field: {
+                  projectId,
+                  traceId,
+                  observationId,
+                  mediaId,
+                  field,
+                },
               },
-            },
-          })
+            })
           : null;
       }
       return result;

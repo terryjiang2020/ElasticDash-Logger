@@ -33,7 +33,8 @@ describe("BlobStorageIntegrationProcessingJob", () => {
   let s3Prefix: string | null = null;
   const bucketName = env.ELASTICDASH_S3_EVENT_UPLOAD_BUCKET || "";
   const accessKeyId = env.ELASTICDASH_S3_EVENT_UPLOAD_ACCESS_KEY_ID || "";
-  const secretAccessKey = env.ELASTICDASH_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY || "";
+  const secretAccessKey =
+    env.ELASTICDASH_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY || "";
   const endpoint = env.ELASTICDASH_S3_EVENT_UPLOAD_ENDPOINT || undefined;
   const region = env.ELASTICDASH_S3_EVENT_UPLOAD_REGION || undefined;
   const minioAccessKeyId = "minio";
@@ -47,7 +48,8 @@ describe("BlobStorageIntegrationProcessingJob", () => {
       bucketName,
       endpoint,
       region,
-      forcePathStyle: env.ELASTICDASH_S3_EVENT_UPLOAD_FORCE_PATH_STYLE === "true",
+      forcePathStyle:
+        env.ELASTICDASH_S3_EVENT_UPLOAD_FORCE_PATH_STYLE === "true",
     });
     s3StorageService = StorageServiceFactory.getInstance({
       accessKeyId: minioAccessKeyId,

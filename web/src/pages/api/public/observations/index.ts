@@ -80,16 +80,16 @@ export default withMiddlewares({
       const models =
         uniqueModels.length > 0
           ? await prisma.model.findMany({
-            where: {
-              id: {
-                in: uniqueModels,
+              where: {
+                id: {
+                  in: uniqueModels,
+                },
+                OR: [{ projectId: auth.scope.projectId }, { projectId: null }],
               },
-              OR: [{ projectId: auth.scope.projectId }, { projectId: null }],
-            },
-            include: {
-              Price: true,
-            },
-          })
+              include: {
+                Price: true,
+              },
+            })
           : [];
       const finalCount = count ? count : 0;
 

@@ -332,7 +332,7 @@ export async function fetchLLMCompletion(
     const isSelfHosted = !isLangfuseCloud;
     const credentials =
       apiKey === BEDROCK_USE_DEFAULT_CREDENTIALS &&
-        (isSelfHosted || shouldUseLangfuseAPIKey)
+      (isSelfHosted || shouldUseLangfuseAPIKey)
         ? undefined // undefined = use AWS SDK default credential provider chain
         : BedrockCredentialSchema.parse(JSON.parse(apiKey));
 
@@ -365,10 +365,10 @@ export async function fetchLLMCompletion(
     const authOptions = shouldUseDefaultCredentials
       ? undefined // Always use ADC auto-detection, never allow user-specified projectId
       : {
-        credentials: GCPServiceAccountKeySchema.parse(JSON.parse(apiKey)),
-        projectId: GCPServiceAccountKeySchema.parse(JSON.parse(apiKey))
-          .project_id,
-      };
+          credentials: GCPServiceAccountKeySchema.parse(JSON.parse(apiKey)),
+          projectId: GCPServiceAccountKeySchema.parse(JSON.parse(apiKey))
+            .project_id,
+        };
 
     // Requests time out after 60 seconds for both public and private endpoints by default
     // Reference: https://cloud.google.com/vertex-ai/docs/predictions/get-online-predictions#send-request

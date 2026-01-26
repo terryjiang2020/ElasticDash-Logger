@@ -173,7 +173,8 @@ if (env.QUEUE_CONSUMER_TRACE_DELETE_QUEUE_IS_ENABLED === "true") {
     limiter: {
       // Process at most `max` delete jobs per 2 min
       max: env.ELASTICDASH_TRACE_DELETE_CONCURRENCY,
-      duration: env.ELASTICDASH_CLICKHOUSE_TRACE_DELETION_CONCURRENCY_DURATION_MS,
+      duration:
+        env.ELASTICDASH_CLICKHOUSE_TRACE_DELETION_CONCURRENCY_DURATION_MS,
     },
   });
 }
@@ -184,7 +185,8 @@ if (env.QUEUE_CONSUMER_SCORE_DELETE_QUEUE_IS_ENABLED === "true") {
     limiter: {
       // Process at most `max` delete jobs per 15 seconds
       max: env.ELASTICDASH_SCORE_DELETE_CONCURRENCY,
-      duration: env.ELASTICDASH_CLICKHOUSE_TRACE_DELETION_CONCURRENCY_DURATION_MS,
+      duration:
+        env.ELASTICDASH_CLICKHOUSE_TRACE_DELETION_CONCURRENCY_DURATION_MS,
     },
   });
 }
@@ -272,7 +274,8 @@ if (env.QUEUE_CONSUMER_OTEL_INGESTION_QUEUE_IS_ENABLED === "true") {
       shardName as QueueName,
       otelIngestionQueueProcessor,
       {
-        concurrency: env.ELASTICDASH_OTEL_INGESTION_QUEUE_PROCESSING_CONCURRENCY,
+        concurrency:
+          env.ELASTICDASH_OTEL_INGESTION_QUEUE_PROCESSING_CONCURRENCY,
       },
     );
   });

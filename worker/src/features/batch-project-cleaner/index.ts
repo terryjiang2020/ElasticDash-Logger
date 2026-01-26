@@ -118,9 +118,9 @@ export class BatchProjectCleaner {
       // Calculate projects that couldn't be fully cleaned
       const incompleteProjects = finalCounts
         ? projectIdsWithData.filter((projectId) => {
-          const finalCount = finalCounts.get(projectId) ?? 0;
-          return finalCount > 0;
-        })
+            const finalCount = finalCounts.get(projectId) ?? 0;
+            return finalCount > 0;
+          })
         : projectIdsWithData;
 
       if (incompleteProjects.length > 0) {
@@ -207,7 +207,8 @@ export class BatchProjectCleaner {
       query,
       params: { projectIds },
       clickhouseConfigs: {
-        request_timeout: env.ELASTICDASH_BATCH_PROJECT_CLEANER_DELETE_TIMEOUT_MS,
+        request_timeout:
+          env.ELASTICDASH_BATCH_PROJECT_CLEANER_DELETE_TIMEOUT_MS,
       },
       tags: {
         feature: "batch-project-cleaner",
