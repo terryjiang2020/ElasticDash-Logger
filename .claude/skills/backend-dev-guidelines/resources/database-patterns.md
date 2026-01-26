@@ -648,7 +648,7 @@ ClickHouse queries automatically retry network errors (socket hang up) with expo
 
 ```typescript
 // In packages/shared/src/env.ts
-LANGFUSE_CLICKHOUSE_QUERY_MAX_ATTEMPTS: z.coerce.number().positive().default(3)
+ELASTICDASH_CLICKHOUSE_QUERY_MAX_ATTEMPTS: z.coerce.number().positive().default(3)
 ```
 
 ---

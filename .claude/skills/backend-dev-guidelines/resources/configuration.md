@@ -74,7 +74,7 @@ export const env = createEnv({
 
   // Client-side variables (exposed to browser)
   client: {
-    NEXT_PUBLIC_LANGFUSE_CLOUD_REGION: z
+    NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION: z
       .enum(["US", "EU", "STAGING", "DEV", "HIPAA"])
       .optional(),
     NEXT_PUBLIC_SIGN_UP_DISABLED: z.enum(["true", "false"]).default("false"),
@@ -85,8 +85,8 @@ export const env = createEnv({
   runtimeEnv: {
     DATABASE_URL: process.env.DATABASE_URL,
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
-    NEXT_PUBLIC_LANGFUSE_CLOUD_REGION:
-      process.env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION,
+    NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION:
+      process.env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION,
     // ... must map ALL variables
   },
 
@@ -108,7 +108,7 @@ const salt = env.SALT;
 // In client-side code (React components)
 import { env } from "@/src/env.mjs";
 
-const region = env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION;
+const region = env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION;
 ```
 
 ### Worker Package (`worker/src/env.ts`)
@@ -135,16 +135,16 @@ const EnvSchema = z.object({
   CLICKHOUSE_PASSWORD: z.string(),
 
   // S3 Event Upload (required)
-  LANGFUSE_S3_EVENT_UPLOAD_BUCKET: z.string({
+  ELASTICDASH_S3_EVENT_UPLOAD_BUCKET: z.string({
     error: "ElasticDash requires a bucket name for S3 Event Uploads.",
   }),
 
   // Queue concurrency settings
-  LANGFUSE_INGESTION_QUEUE_PROCESSING_CONCURRENCY: z.coerce
+  ELASTICDASH_INGESTION_QUEUE_PROCESSING_CONCURRENCY: z.coerce
     .number()
     .positive()
     .default(20),
-  LANGFUSE_EVAL_EXECUTION_WORKER_CONCURRENCY: z.coerce
+  ELASTICDASH_EVAL_EXECUTION_WORKER_CONCURRENCY: z.coerce
     .number()
     .positive()
     .default(5),
@@ -171,8 +171,8 @@ export const env: z.infer<typeof EnvSchema> =
 ```typescript
 import { env } from "./env";
 
-const concurrency = env.LANGFUSE_INGESTION_QUEUE_PROCESSING_CONCURRENCY;
-const s3Bucket = env.LANGFUSE_S3_EVENT_UPLOAD_BUCKET;
+const concurrency = env.ELASTICDASH_INGESTION_QUEUE_PROCESSING_CONCURRENCY;
+const s3Bucket = env.ELASTICDASH_S3_EVENT_UPLOAD_BUCKET;
 ```
 
 ### Shared Package (`packages/shared/src/env.ts`)
@@ -204,14 +204,14 @@ const EnvSchema = z.object({
   CLICKHOUSE_MAX_OPEN_CONNECTIONS: z.coerce.number().int().default(25),
 
   // S3 Event Upload
-  LANGFUSE_S3_EVENT_UPLOAD_BUCKET: z.string(),
-  LANGFUSE_S3_EVENT_UPLOAD_REGION: z.string().optional(),
+  ELASTICDASH_S3_EVENT_UPLOAD_BUCKET: z.string(),
+  ELASTICDASH_S3_EVENT_UPLOAD_REGION: z.string().optional(),
 
   // Logging
-  LANGFUSE_LOG_LEVEL: z
+  ELASTICDASH_LOG_LEVEL: z
     .enum(["trace", "debug", "info", "warn", "error", "fatal"])
     .optional(),
-  LANGFUSE_LOG_FORMAT: z.enum(["text", "json"]).default("text"),
+  ELASTICDASH_LOG_FORMAT: z.enum(["text", "json"]).default("text"),
 
   // Encryption
   ENCRYPTION_KEY: z
@@ -251,8 +251,8 @@ import { z } from "zod/v4";
 import { removeEmptyEnvVariables } from "@langfuse/shared";
 
 const EnvSchema = z.object({
-  NEXT_PUBLIC_LANGFUSE_CLOUD_REGION: z.string().optional(),
-  LANGFUSE_EE_LICENSE_KEY: z.string().optional(),
+  NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION: z.string().optional(),
+  ELASTICDASH_EE_LICENSE_KEY: z.string().optional(),
 });
 
 export const env = EnvSchema.parse(removeEmptyEnvVariables(process.env));
@@ -263,14 +263,14 @@ export const env = EnvSchema.parse(removeEmptyEnvVariables(process.env));
 ```typescript
 import { env } from "@langfuse/ee/src/env";
 
-const licenseKey = env.LANGFUSE_EE_LICENSE_KEY;
+const licenseKey = env.ELASTICDASH_EE_LICENSE_KEY;
 ```
 
 ---
 
 ## Special Environment Variables
 
-### NEXT_PUBLIC_LANGFUSE_CLOUD_REGION
+### NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION
 
 **Purpose:** Identifies the cloud deployment region for ElasticDash Cloud.
 
@@ -297,7 +297,7 @@ const licenseKey = env.LANGFUSE_EE_LICENSE_KEY;
 
 ```typescript
 // Check if running in cloud
-if (env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION) {
+if (env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION) {
   // Enable cloud-specific features
   - Usage metering and billing
   - Cloud spend alerts
@@ -307,12 +307,12 @@ if (env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION) {
 }
 
 // Region-specific behavior
-if (env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION === "HIPAA") {
+if (env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION === "HIPAA") {
   // HIPAA compliance features
 }
 
 // Development/staging checks
-if (env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION === "DEV") {
+if (env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION === "DEV") {
   // Enable debug features
 }
 ```
@@ -321,16 +321,16 @@ if (env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION === "DEV") {
 
 ```bash
 # .env file on developer laptop
-NEXT_PUBLIC_LANGFUSE_CLOUD_REGION=DEV
+NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION=DEV
 
 # Cloud US deployment
-NEXT_PUBLIC_LANGFUSE_CLOUD_REGION=US
+NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION=US
 
 # Self-hosted OSS deployment
 # (variable not set)
 ```
 
-### LANGFUSE_EE_LICENSE_KEY
+### ELASTICDASH_EE_LICENSE_KEY
 
 **Purpose:** Enables Enterprise Edition features in self-hosted deployments.
 
@@ -343,15 +343,15 @@ NEXT_PUBLIC_LANGFUSE_CLOUD_REGION=US
 
 **When Set:**
 
-| Deployment            | Value              | Features Enabled                                                 |
-|-----------------------|--------------------|------------------------------------------------------------------|
-| **ElasticDash Cloud** | Not set            | Cloud features controlled by `NEXT_PUBLIC_LANGFUSE_CLOUD_REGION` |
-| **OSS Self-Hosted**   | Not set            | Core open-source features only                                   |
-| **EE Self-Hosted**    | License key string | Enterprise features enabled                                      |
+| Deployment            | Value              | Features Enabled                                                    |
+|-----------------------|--------------------|---------------------------------------------------------------------|
+| **ElasticDash Cloud** | Not set            | Cloud features controlled by `NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION` |
+| **OSS Self-Hosted**   | Not set            | Core open-source features only                                      |
+| **EE Self-Hosted**    | License key string | Enterprise features enabled                                         |
 
 **Enterprise Features Controlled:**
 
-When `LANGFUSE_EE_LICENSE_KEY` is set and valid:
+When `ELASTICDASH_EE_LICENSE_KEY` is set and valid:
 
 - SSO integrations (custom OIDC, SAML)
 - Advanced RBAC
@@ -366,9 +366,9 @@ When `LANGFUSE_EE_LICENSE_KEY` is set and valid:
 import { env } from "@/src/env.mjs";
 
 // Check if EE license is present
-if (env.LANGFUSE_EE_LICENSE_KEY) {
+if (env.ELASTICDASH_EE_LICENSE_KEY) {
   // Validate license
-  const isValidLicense = await validateEELicense(env.LANGFUSE_EE_LICENSE_KEY);
+  const isValidLicense = await validateEELicense(env.ELASTICDASH_EE_LICENSE_KEY);
 
   if (isValidLicense) {
     // Enable EE features
@@ -382,14 +382,14 @@ if (env.LANGFUSE_EE_LICENSE_KEY) {
 
 ```bash
 # OSS self-hosted (no license)
-# LANGFUSE_EE_LICENSE_KEY not set
+# ELASTICDASH_EE_LICENSE_KEY not set
 
 # EE self-hosted
-LANGFUSE_EE_LICENSE_KEY=ee_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+ELASTICDASH_EE_LICENSE_KEY=ee_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 # ElasticDash Cloud (uses region instead)
-NEXT_PUBLIC_LANGFUSE_CLOUD_REGION=US
-# LANGFUSE_EE_LICENSE_KEY not used
+NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION=US
+# ELASTICDASH_EE_LICENSE_KEY not used
 ```
 
 ### Other Important Variables
@@ -480,12 +480,12 @@ PORT: z.coerce.number(); // Converts "3000" to 3000
 
 ```typescript
 // Split comma-separated values
-LANGFUSE_LOG_PROPAGATED_HEADERS: z.string().optional().transform((s) =>
+ELASTICDASH_LOG_PROPAGATED_HEADERS: z.string().optional().transform((s) =>
   s ? s.split(",").map((s) => s.toLowerCase().trim()) : []
 ),
 
 // Parse project:rate pairs
-LANGFUSE_INGESTION_PROCESSING_SAMPLED_PROJECTS: z.string().optional().transform((val) => {
+ELASTICDASH_INGESTION_PROCESSING_SAMPLED_PROJECTS: z.string().optional().transform((val) => {
   const map = new Map<string, number>();
   val?.split(",").forEach(part => {
     const [projectId, rate] = part.split(":");

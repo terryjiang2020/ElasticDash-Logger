@@ -19,13 +19,13 @@ const getS3MediaStorageClient = (bucketName: string): StorageService => {
   if (!s3MediaStorageClient) {
     s3MediaStorageClient = StorageServiceFactory.getInstance({
       bucketName,
-      accessKeyId: env.LANGFUSE_S3_MEDIA_UPLOAD_ACCESS_KEY_ID,
-      secretAccessKey: env.LANGFUSE_S3_MEDIA_UPLOAD_SECRET_ACCESS_KEY,
-      endpoint: env.LANGFUSE_S3_MEDIA_UPLOAD_ENDPOINT,
-      region: env.LANGFUSE_S3_MEDIA_UPLOAD_REGION,
-      forcePathStyle: env.LANGFUSE_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE === "true",
-      awsSse: env.LANGFUSE_S3_MEDIA_UPLOAD_SSE,
-      awsSseKmsKeyId: env.LANGFUSE_S3_MEDIA_UPLOAD_SSE_KMS_KEY_ID,
+      accessKeyId: env.ELASTICDASH_S3_MEDIA_UPLOAD_ACCESS_KEY_ID,
+      secretAccessKey: env.ELASTICDASH_S3_MEDIA_UPLOAD_SECRET_ACCESS_KEY,
+      endpoint: env.ELASTICDASH_S3_MEDIA_UPLOAD_ENDPOINT,
+      region: env.ELASTICDASH_S3_MEDIA_UPLOAD_REGION,
+      forcePathStyle: env.ELASTICDASH_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE === "true",
+      awsSse: env.ELASTICDASH_S3_MEDIA_UPLOAD_SSE,
+      awsSseKmsKeyId: env.ELASTICDASH_S3_MEDIA_UPLOAD_SSE_KMS_KEY_ID,
     });
   }
   return s3MediaStorageClient;
@@ -35,7 +35,7 @@ const deleteMediaItemsForTraces = async (
   projectId: string,
   traceIds: string[],
 ): Promise<void> => {
-  if (!env.LANGFUSE_S3_MEDIA_UPLOAD_BUCKET) {
+  if (!env.ELASTICDASH_S3_MEDIA_UPLOAD_BUCKET) {
     return;
   }
 
@@ -121,7 +121,7 @@ const deleteMediaItemsForTraces = async (
     if (orphanedMedia.length > 0) {
       // Delete from S3
       await getS3MediaStorageClient(
-        env.LANGFUSE_S3_MEDIA_UPLOAD_BUCKET ?? "", // Fallback is never used.
+        env.ELASTICDASH_S3_MEDIA_UPLOAD_BUCKET ?? "", // Fallback is never used.
       ).deleteFiles(orphanedMedia.map((f) => f.bucketPath));
 
       // Delete from postgres
@@ -149,16 +149,16 @@ export const processClickhouseTraceDelete = async (
 
   try {
     await Promise.all([
-      env.LANGFUSE_ENABLE_BLOB_STORAGE_FILE_LOG === "true"
+      env.ELASTICDASH_ENABLE_BLOB_STORAGE_FILE_LOG === "true"
         ? removeIngestionEventsFromS3AndDeleteClickhouseRefsForTraces({
-            projectId,
-            traceIds,
-          })
+          projectId,
+          traceIds,
+        })
         : Promise.resolve(),
       deleteTraces(projectId, traceIds),
       deleteObservationsByTraceIds(projectId, traceIds),
       deleteScoresByTraceIds(projectId, traceIds),
-      env.LANGFUSE_EXPERIMENT_INSERT_INTO_EVENTS_TABLE === "true"
+      env.ELASTICDASH_EXPERIMENT_INSERT_INTO_EVENTS_TABLE === "true"
         ? deleteEventsByTraceIds(projectId, traceIds)
         : Promise.resolve(),
     ]);

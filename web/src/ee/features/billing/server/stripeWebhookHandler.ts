@@ -48,7 +48,7 @@ export async function stripeWebhookHandler(req: NextRequest) {
       { status: 405 },
     );
 
-  if (!env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION || !stripeClient) {
+  if (!env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION || !stripeClient) {
     logger.error(
       "[Stripe Webhook] Endpoint only available in ElasticDash Cloud",
     );
@@ -294,14 +294,14 @@ async function ensureMetadataIsSetOnStripeSubscription(
   if (subscription.metadata?.orgId && subscription.metadata?.cloudRegion) {
     return;
   }
-  const currentEnvironment = env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION;
+  const currentEnvironment = env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION;
 
   if (!currentEnvironment) {
     traceException(
-      "[Stripe Webhook] NEXT_PUBLIC_LANGFUSE_CLOUD_REGION is not set but webhook is running",
+      "[Stripe Webhook] NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION is not set but webhook is running",
     );
     throw new InternalServerError(
-      "[Stripe Webhook] NEXT_PUBLIC_LANGFUSE_CLOUD_REGION is not set but webhook is running",
+      "[Stripe Webhook] NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION is not set but webhook is running",
     ); // we throw here because this should really never happen
   }
 
@@ -381,14 +381,14 @@ async function handleSubscriptionChanged(
   subscription: Stripe.Subscription,
   action: "created" | "deleted" | "updated",
 ) {
-  const currentEnvironment = env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION;
+  const currentEnvironment = env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION;
 
   if (!currentEnvironment) {
     traceException(
-      `[Stripe Webhook] NEXT_PUBLIC_LANGFUSE_CLOUD_REGION is not set but webhook received event subscription.${action}`,
+      `[Stripe Webhook] NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION is not set but webhook received event subscription.${action}`,
     );
     throw new InternalServerError(
-      `[Stripe Webhook] NEXT_PUBLIC_LANGFUSE_CLOUD_REGION is not set but webhook received event subscription.${action}`, // we throw here because this should really never happen
+      `[Stripe Webhook] NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION is not set but webhook received event subscription.${action}`, // we throw here because this should really never happen
     );
   }
 
@@ -491,16 +491,16 @@ async function handleSubscriptionChanged(
     items.length == 1
       ? items[0]
       : items.find((it) => {
-          return it.price && it.price.recurring?.usage_type !== "metered";
-        });
+        return it.price && it.price.recurring?.usage_type !== "metered";
+      });
   const productId = planProductItem?.price.product;
 
   const usageProductItem =
     items.length == 1
       ? null // legacy setup; Set to null, so we can distinguish from the new setup
       : items.find((it) => {
-          return it.price && it.price.recurring?.usage_type === "metered";
-        });
+        return it.price && it.price.recurring?.usage_type === "metered";
+      });
   const usageProductId = usageProductItem?.price.product;
 
   if (!productId || typeof productId !== "string") {

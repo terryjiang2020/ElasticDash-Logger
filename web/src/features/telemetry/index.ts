@@ -23,11 +23,11 @@ export async function telemetry() {
     // Only run in prod
     if (process.env.NODE_ENV !== "production") return;
     // Do not run in ElasticDash cloud, separate telemetry is used
-    if (env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION !== undefined) return;
+    if (env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION !== undefined) return;
     // Check if telemetry is not disabled, except for EE
     if (
       env.TELEMETRY_ENABLED === "false" &&
-      env.LANGFUSE_EE_LICENSE_KEY === undefined
+      env.ELASTICDASH_EE_LICENSE_KEY === undefined
     )
       return;
     // Do not run in CI
@@ -69,11 +69,11 @@ export async function telemetry() {
 async function jobScheduler(): Promise<
   | { shouldRunJob: false }
   | {
-      shouldRunJob: true;
-      jobStartedAt: Date;
-      lastRun: Date | null;
-      clientId: string;
-    }
+    shouldRunJob: true;
+    jobStartedAt: Date;
+    lastRun: Date | null;
+    clientId: string;
+  }
 > {
   // Check if job should run, without a lock to not impact performance
   // "not exists" triggers when this is run for the very first time in a container
@@ -266,8 +266,8 @@ async function posthogTelemetry({
         datasetRunItems: countDatasetRunItems,
         startTimeframe: startTimeframe?.toISOString(),
         endTimeframe: endTimeframe.toISOString(),
-        eeLicenseKey: env.LANGFUSE_EE_LICENSE_KEY,
-        langfuseCloudRegion: env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION,
+        eeLicenseKey: env.ELASTICDASH_EE_LICENSE_KEY,
+        langfuseCloudRegion: env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION,
         $set: {
           environment: process.env.NODE_ENV,
           userDomains: domains,

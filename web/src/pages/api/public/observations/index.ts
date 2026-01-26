@@ -45,7 +45,7 @@ export default withMiddlewares({
       const useEventsTable =
         query.useEventsTable !== undefined && query.useEventsTable !== null
           ? query.useEventsTable === true
-          : env.LANGFUSE_ENABLE_EVENTS_TABLE_OBSERVATIONS;
+          : env.ELASTICDASH_ENABLE_EVENTS_TABLE_OBSERVATIONS;
 
       if (useEventsTable) {
         const [items, count] = await Promise.all([
@@ -80,16 +80,16 @@ export default withMiddlewares({
       const models =
         uniqueModels.length > 0
           ? await prisma.model.findMany({
-              where: {
-                id: {
-                  in: uniqueModels,
-                },
-                OR: [{ projectId: auth.scope.projectId }, { projectId: null }],
+            where: {
+              id: {
+                in: uniqueModels,
               },
-              include: {
-                Price: true,
-              },
-            })
+              OR: [{ projectId: auth.scope.projectId }, { projectId: null }],
+            },
+            include: {
+              Price: true,
+            },
+          })
           : [];
       const finalCount = count ? count : 0;
 

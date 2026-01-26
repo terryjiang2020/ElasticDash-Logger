@@ -45,24 +45,26 @@ export const env = createEnv({
       process.env.VERCEL ? z.string().min(1) : z.string().url(),
     ),
     NEXTAUTH_COOKIE_DOMAIN: z.string().optional(),
-    LANGFUSE_TEAM_SLACK_WEBHOOK: z.string().url().optional(),
-    LANGFUSE_NEW_USER_SIGNUP_WEBHOOK: z.string().url().optional(),
+    ELASTICDASH_TEAM_SLACK_WEBHOOK: z.string().url().optional(),
+    ELASTICDASH_NEW_USER_SIGNUP_WEBHOOK: z.string().url().optional(),
     // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
-    LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES: z.enum(["true", "false"]).optional(),
+    ELASTICDASH_ENABLE_EXPERIMENTAL_FEATURES: z
+      .enum(["true", "false"])
+      .optional(),
     SALT: z.string({
       required_error:
         "A strong Salt is required to encrypt API keys securely. See: https://langfuse.com/self-hosting#deploy-the-container",
     }),
     // Add newly signed up users to default org and/or project with role
-    LANGFUSE_DEFAULT_ORG_ID: z.string().optional(),
-    LANGFUSE_DEFAULT_ORG_ROLE: z
+    ELASTICDASH_DEFAULT_ORG_ID: z.string().optional(),
+    ELASTICDASH_DEFAULT_ORG_ROLE: z
       .enum(["OWNER", "ADMIN", "MEMBER", "VIEWER", "NONE"])
       .optional(),
-    LANGFUSE_DEFAULT_PROJECT_ID: z.string().optional(),
-    LANGFUSE_DEFAULT_PROJECT_ROLE: z
+    ELASTICDASH_DEFAULT_PROJECT_ID: z.string().optional(),
+    ELASTICDASH_DEFAULT_PROJECT_ROLE: z
       .enum(["OWNER", "ADMIN", "MEMBER", "VIEWER"])
       .optional(),
-    LANGFUSE_CSP_ENFORCE_HTTPS: z
+    ELASTICDASH_CSP_ENFORCE_HTTPS: z
       .enum(["true", "false"])
       .optional()
       .default("false"),
@@ -212,21 +214,21 @@ export const env = createEnv({
       .default(32_000_000_000), // ~32GB
 
     // EE ui customization
-    LANGFUSE_UI_API_HOST: z.string().optional(),
-    LANGFUSE_UI_DOCUMENTATION_HREF: z.string().url().optional(),
-    LANGFUSE_UI_SUPPORT_HREF: z.string().url().optional(),
-    LANGFUSE_UI_FEEDBACK_HREF: z.string().url().optional(),
-    LANGFUSE_UI_LOGO_LIGHT_MODE_HREF: z.string().url().optional(),
-    LANGFUSE_UI_LOGO_DARK_MODE_HREF: z.string().url().optional(),
-    LANGFUSE_UI_DEFAULT_MODEL_ADAPTER: z
+    ELASTICDASH_UI_API_HOST: z.string().optional(),
+    ELASTICDASH_UI_DOCUMENTATION_HREF: z.string().url().optional(),
+    ELASTICDASH_UI_SUPPORT_HREF: z.string().url().optional(),
+    ELASTICDASH_UI_FEEDBACK_HREF: z.string().url().optional(),
+    ELASTICDASH_UI_LOGO_LIGHT_MODE_HREF: z.string().url().optional(),
+    ELASTICDASH_UI_LOGO_DARK_MODE_HREF: z.string().url().optional(),
+    ELASTICDASH_UI_DEFAULT_MODEL_ADAPTER: z
       .enum(["OpenAI", "Anthropic", "Azure"])
       .optional(),
-    LANGFUSE_UI_DEFAULT_BASE_URL_OPENAI: z.string().url().optional(),
-    LANGFUSE_UI_DEFAULT_BASE_URL_ANTHROPIC: z.string().url().optional(),
-    LANGFUSE_UI_DEFAULT_BASE_URL_AZURE: z.string().url().optional(),
+    ELASTICDASH_UI_DEFAULT_BASE_URL_OPENAI: z.string().url().optional(),
+    ELASTICDASH_UI_DEFAULT_BASE_URL_ANTHROPIC: z.string().url().optional(),
+    ELASTICDASH_UI_DEFAULT_BASE_URL_AZURE: z.string().url().optional(),
 
     // EE License
-    LANGFUSE_EE_LICENSE_KEY: z.string().optional(),
+    ELASTICDASH_EE_LICENSE_KEY: z.string().optional(),
     ADMIN_API_KEY: z.string().optional(),
     ENCRYPTION_KEY: z
       .string()
@@ -237,32 +239,34 @@ export const env = createEnv({
       .optional(),
 
     // langfuse caching
-    LANGFUSE_CACHE_API_KEY_ENABLED: z.enum(["true", "false"]).default("true"),
-    LANGFUSE_CACHE_API_KEY_TTL_SECONDS: z.coerce.number().default(300),
+    ELASTICDASH_CACHE_API_KEY_ENABLED: z
+      .enum(["true", "false"])
+      .default("true"),
+    ELASTICDASH_CACHE_API_KEY_TTL_SECONDS: z.coerce.number().default(300),
 
     // Multimodal media upload to S3
-    LANGFUSE_S3_MEDIA_MAX_CONTENT_LENGTH: z.coerce
+    ELASTICDASH_S3_MEDIA_MAX_CONTENT_LENGTH: z.coerce
       .number()
       .positive()
       .int()
       .default(1_000_000_000),
-    LANGFUSE_S3_MEDIA_UPLOAD_BUCKET: z.string().optional(),
-    LANGFUSE_S3_MEDIA_UPLOAD_PREFIX: z.string().default(""),
-    LANGFUSE_S3_MEDIA_UPLOAD_REGION: z.string().optional(),
-    LANGFUSE_S3_MEDIA_UPLOAD_ENDPOINT: z.string().optional(),
-    LANGFUSE_S3_MEDIA_UPLOAD_ACCESS_KEY_ID: z.string().optional(),
-    LANGFUSE_S3_MEDIA_UPLOAD_SECRET_ACCESS_KEY: z.string().optional(),
-    LANGFUSE_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE: z
+    ELASTICDASH_S3_MEDIA_UPLOAD_BUCKET: z.string().optional(),
+    ELASTICDASH_S3_MEDIA_UPLOAD_PREFIX: z.string().default(""),
+    ELASTICDASH_S3_MEDIA_UPLOAD_REGION: z.string().optional(),
+    ELASTICDASH_S3_MEDIA_UPLOAD_ENDPOINT: z.string().optional(),
+    ELASTICDASH_S3_MEDIA_UPLOAD_ACCESS_KEY_ID: z.string().optional(),
+    ELASTICDASH_S3_MEDIA_UPLOAD_SECRET_ACCESS_KEY: z.string().optional(),
+    ELASTICDASH_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE: z
       .enum(["true", "false"])
       .default("false"),
-    LANGFUSE_S3_MEDIA_DOWNLOAD_URL_EXPIRY_SECONDS: z.coerce
+    ELASTICDASH_S3_MEDIA_DOWNLOAD_URL_EXPIRY_SECONDS: z.coerce
       .number()
       .nonnegative()
       .default(3600),
-    LANGFUSE_S3_MEDIA_UPLOAD_SSE: z.enum(["AES256", "aws:kms"]).optional(),
-    LANGFUSE_S3_MEDIA_UPLOAD_SSE_KMS_KEY_ID: z.string().optional(),
+    ELASTICDASH_S3_MEDIA_UPLOAD_SSE: z.enum(["AES256", "aws:kms"]).optional(),
+    ELASTICDASH_S3_MEDIA_UPLOAD_SSE_KMS_KEY_ID: z.string().optional(),
 
-    LANGFUSE_ALLOWED_ORGANIZATION_CREATORS: z
+    ELASTICDASH_ALLOWED_ORGANIZATION_CREATORS: z
       .string()
       .optional()
       .refine((value) => {
@@ -272,28 +276,32 @@ export const env = createEnv({
         return creators.every(
           (creator) => emailSchema.safeParse(creator).success,
         );
-      }, "LANGFUSE_ALLOWED_ORGANIZATION_CREATORS must be a comma separated list of valid email addresses"),
+      }, "ELASTICDASH_ALLOWED_ORGANIZATION_CREATORS must be a comma separated list of valid email addresses"),
 
     STRIPE_SECRET_KEY: z.string().optional(),
     STRIPE_WEBHOOK_SIGNING_SECRET: z.string().optional(),
     SENTRY_AUTH_TOKEN: z.string().optional(),
     SENTRY_CSP_REPORT_URI: z.string().optional(),
-    LANGFUSE_RATE_LIMITS_ENABLED: z.enum(["true", "false"]).default("true"),
+    ELASTICDASH_RATE_LIMITS_ENABLED: z.enum(["true", "false"]).default("true"),
 
-    LANGFUSE_INIT_ORG_ID: z.string().optional(),
-    LANGFUSE_INIT_ORG_NAME: z.string().optional(),
-    LANGFUSE_INIT_ORG_CLOUD_PLAN: z.string().optional(), // for use in CI
-    LANGFUSE_INIT_PROJECT_ID: z.string().optional(),
-    LANGFUSE_INIT_PROJECT_NAME: z.string().optional(),
-    LANGFUSE_INIT_PROJECT_RETENTION: z.coerce.number().int().gte(3).optional(),
-    LANGFUSE_INIT_PROJECT_PUBLIC_KEY: z.string().optional(),
-    LANGFUSE_INIT_PROJECT_SECRET_KEY: z.string().optional(),
-    LANGFUSE_INIT_USER_EMAIL: z
+    ELASTICDASH_INIT_ORG_ID: z.string().optional(),
+    ELASTICDASH_INIT_ORG_NAME: z.string().optional(),
+    ELASTICDASH_INIT_ORG_CLOUD_PLAN: z.string().optional(), // for use in CI
+    ELASTICDASH_INIT_PROJECT_ID: z.string().optional(),
+    ELASTICDASH_INIT_PROJECT_NAME: z.string().optional(),
+    ELASTICDASH_INIT_PROJECT_RETENTION: z.coerce
+      .number()
+      .int()
+      .gte(3)
+      .optional(),
+    ELASTICDASH_INIT_PROJECT_PUBLIC_KEY: z.string().optional(),
+    ELASTICDASH_INIT_PROJECT_SECRET_KEY: z.string().optional(),
+    ELASTICDASH_INIT_USER_EMAIL: z
       .union([z.string().email(), z.string().length(0)])
       .optional(),
-    LANGFUSE_INIT_USER_NAME: z.string().optional(),
-    LANGFUSE_INIT_USER_PASSWORD: z.string().optional(),
-    LANGFUSE_MAX_HISTORIC_EVAL_CREATION_LIMIT: z.coerce
+    ELASTICDASH_INIT_USER_NAME: z.string().optional(),
+    ELASTICDASH_INIT_USER_PASSWORD: z.string().optional(),
+    ELASTICDASH_MAX_HISTORIC_EVAL_CREATION_LIMIT: z.coerce
       .number()
       .positive()
       .default(50_000),
@@ -302,58 +310,58 @@ export const env = createEnv({
     PLAIN_CARDS_API_TOKEN: z.string().optional(),
 
     // UI customization - comma-separated list of visible product modules
-    LANGFUSE_UI_VISIBLE_PRODUCT_MODULES: z.string().optional(),
+    ELASTICDASH_UI_VISIBLE_PRODUCT_MODULES: z.string().optional(),
     // UI customization - comma-separated list of hidden product modules
-    LANGFUSE_UI_HIDDEN_PRODUCT_MODULES: z.string().optional(),
+    ELASTICDASH_UI_HIDDEN_PRODUCT_MODULES: z.string().optional(),
 
     SLACK_CLIENT_ID: z.string().optional(),
     SLACK_CLIENT_SECRET: z.string().optional(),
     SLACK_STATE_SECRET: z.string().optional(),
 
     // AWS Bedrock for langfuse native AI feature such as natural language filters
-    LANGFUSE_AWS_BEDROCK_MODEL: z.string().optional(),
+    ELASTICDASH_AWS_BEDROCK_MODEL: z.string().optional(),
 
     // Tracing for ElasticDash AI Features
-    LANGFUSE_AI_FEATURES_HOST: z.string().optional(),
+    ELASTICDASH_AI_FEATURES_HOST: z.string().optional(),
 
     // Natural ElasticDash Filters
-    LANGFUSE_AI_FEATURES_PUBLIC_KEY: z.string().optional(),
-    LANGFUSE_AI_FEATURES_SECRET_KEY: z.string().optional(),
-    LANGFUSE_AI_FEATURES_PROJECT_ID: z.string().optional(),
+    ELASTICDASH_AI_FEATURES_PUBLIC_KEY: z.string().optional(),
+    ELASTICDASH_AI_FEATURES_SECRET_KEY: z.string().optional(),
+    ELASTICDASH_AI_FEATURES_PROJECT_ID: z.string().optional(),
 
     // API Performance Flags
     // Enable Redis-based tracking of projects using OTEL API to optimize ClickHouse queries.
     // When enabled, projects ingesting via OTEL API skip the FINAL modifier on some observations queries for better performance.
-    LANGFUSE_SKIP_FINAL_FOR_OTEL_PROJECTS: z
+    ELASTICDASH_SKIP_FINAL_FOR_OTEL_PROJECTS: z
       .enum(["true", "false"])
       .default("false"),
     // Whether to propagate the toTimestamp restriction (including a server-side offset)
     // onto the observations CTE in GET /api/public/traces. Can be used to improve performance
     // for self-hosters that have a trace known trace duration of less than multiple hours.
-    LANGFUSE_API_CLICKHOUSE_PROPAGATE_OBSERVATIONS_TIME_BOUNDS: z
+    ELASTICDASH_API_CLICKHOUSE_PROPAGATE_OBSERVATIONS_TIME_BOUNDS: z
       .enum(["true", "false"])
       .default("false"),
 
     // Events table migration
-    LANGFUSE_ENABLE_EVENTS_TABLE_OBSERVATIONS: z
+    ELASTICDASH_ENABLE_EVENTS_TABLE_OBSERVATIONS: z
       .enum(["true", "false"])
       .default("false"),
 
-    LANGFUSE_ENABLE_EVENTS_TABLE_FLAGS: z
+    ELASTICDASH_ENABLE_EVENTS_TABLE_FLAGS: z
       .enum(["true", "false"])
       .default("false"),
 
     // v2 APIs (events table based) - disabled by default for self-hosters
-    LANGFUSE_ENABLE_EVENTS_TABLE_V2_APIS: z
+    ELASTICDASH_ENABLE_EVENTS_TABLE_V2_APIS: z
       .enum(["true", "false"])
       .default("false"),
 
-    LANGFUSE_ENABLE_QUERY_OPTIMIZATION_SHADOW_TEST: z
+    ELASTICDASH_ENABLE_QUERY_OPTIMIZATION_SHADOW_TEST: z
       .enum(["true", "false"])
       .default("false"),
 
     // Blocked users for chat completion API (userId:reason format)
-    LANGFUSE_BLOCKED_USERIDS_CHATCOMPLETION: z
+    ELASTICDASH_BLOCKED_USERIDS_CHATCOMPLETION: z
       .string()
       .optional()
       .transform((val) => {
@@ -380,7 +388,7 @@ export const env = createEnv({
     // WARNING: Also add these to web/Dockerfile
 
     // NEXT_PUBLIC_CLIENTVAR: z.string().min(1),
-    NEXT_PUBLIC_LANGFUSE_CLOUD_REGION: z
+    NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION: z
       .enum(["US", "EU", "STAGING", "DEV", "HIPAA"])
       .optional(),
     NEXT_PUBLIC_DEMO_PROJECT_ID: z.string().optional(),
@@ -391,7 +399,7 @@ export const env = createEnv({
     NEXT_PUBLIC_PLAIN_APP_ID: z.string().optional(),
     NEXT_PUBLIC_BUILD_ID: z.string().optional(),
     NEXT_PUBLIC_BASE_PATH: z.string().optional(),
-    NEXT_PUBLIC_LANGFUSE_PLAYGROUND_STREAMING_ENABLED_DEFAULT: z
+    NEXT_PUBLIC_ELASTICDASH_PLAYGROUND_STREAMING_ENABLED_DEFAULT: z
       .enum(["true", "false"])
       .optional()
       .default("true"),
@@ -412,22 +420,23 @@ export const env = createEnv({
     NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
     NEXTAUTH_COOKIE_DOMAIN: process.env.NEXTAUTH_COOKIE_DOMAIN,
     NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-    NEXT_PUBLIC_LANGFUSE_CLOUD_REGION:
-      process.env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION,
+    NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION:
+      process.env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION,
     NEXT_PUBLIC_SIGN_UP_DISABLED: process.env.NEXT_PUBLIC_SIGN_UP_DISABLED,
-    LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES:
-      process.env.LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES,
-    LANGFUSE_TEAM_SLACK_WEBHOOK: process.env.LANGFUSE_TEAM_SLACK_WEBHOOK,
-    LANGFUSE_NEW_USER_SIGNUP_WEBHOOK:
-      process.env.LANGFUSE_NEW_USER_SIGNUP_WEBHOOK,
+    ELASTICDASH_ENABLE_EXPERIMENTAL_FEATURES:
+      process.env.ELASTICDASH_ENABLE_EXPERIMENTAL_FEATURES,
+    ELASTICDASH_TEAM_SLACK_WEBHOOK: process.env.ELASTICDASH_TEAM_SLACK_WEBHOOK,
+    ELASTICDASH_NEW_USER_SIGNUP_WEBHOOK:
+      process.env.ELASTICDASH_NEW_USER_SIGNUP_WEBHOOK,
     SALT: process.env.SALT,
-    LANGFUSE_CSP_ENFORCE_HTTPS: process.env.LANGFUSE_CSP_ENFORCE_HTTPS,
+    ELASTICDASH_CSP_ENFORCE_HTTPS: process.env.ELASTICDASH_CSP_ENFORCE_HTTPS,
     TELEMETRY_ENABLED: process.env.TELEMETRY_ENABLED,
     // Default org, project and role
-    LANGFUSE_DEFAULT_ORG_ID: process.env.LANGFUSE_DEFAULT_ORG_ID,
-    LANGFUSE_DEFAULT_ORG_ROLE: process.env.LANGFUSE_DEFAULT_ORG_ROLE,
-    LANGFUSE_DEFAULT_PROJECT_ID: process.env.LANGFUSE_DEFAULT_PROJECT_ID,
-    LANGFUSE_DEFAULT_PROJECT_ROLE: process.env.LANGFUSE_DEFAULT_PROJECT_ROLE,
+    ELASTICDASH_DEFAULT_ORG_ID: process.env.ELASTICDASH_DEFAULT_ORG_ID,
+    ELASTICDASH_DEFAULT_ORG_ROLE: process.env.ELASTICDASH_DEFAULT_ORG_ROLE,
+    ELASTICDASH_DEFAULT_PROJECT_ID: process.env.ELASTICDASH_DEFAULT_PROJECT_ID,
+    ELASTICDASH_DEFAULT_PROJECT_ROLE:
+      process.env.ELASTICDASH_DEFAULT_PROJECT_ROLE,
     // AUTH
     AUTH_GOOGLE_CLIENT_ID: process.env.AUTH_GOOGLE_CLIENT_ID,
     AUTH_GOOGLE_CLIENT_SECRET: process.env.AUTH_GOOGLE_CLIENT_SECRET,
@@ -571,27 +580,28 @@ export const env = createEnv({
     OTEL_TRACE_SAMPLING_RATIO: process.env.OTEL_TRACE_SAMPLING_RATIO,
 
     // S3 media upload
-    LANGFUSE_S3_MEDIA_MAX_CONTENT_LENGTH:
-      process.env.LANGFUSE_S3_MEDIA_MAX_CONTENT_LENGTH,
-    LANGFUSE_S3_MEDIA_UPLOAD_BUCKET:
-      process.env.LANGFUSE_S3_MEDIA_UPLOAD_BUCKET,
-    LANGFUSE_S3_MEDIA_UPLOAD_PREFIX:
-      process.env.LANGFUSE_S3_MEDIA_UPLOAD_PREFIX,
-    LANGFUSE_S3_MEDIA_UPLOAD_REGION:
-      process.env.LANGFUSE_S3_MEDIA_UPLOAD_REGION,
-    LANGFUSE_S3_MEDIA_UPLOAD_ENDPOINT:
-      process.env.LANGFUSE_S3_MEDIA_UPLOAD_ENDPOINT,
-    LANGFUSE_S3_MEDIA_UPLOAD_ACCESS_KEY_ID:
-      process.env.LANGFUSE_S3_MEDIA_UPLOAD_ACCESS_KEY_ID,
-    LANGFUSE_S3_MEDIA_UPLOAD_SECRET_ACCESS_KEY:
-      process.env.LANGFUSE_S3_MEDIA_UPLOAD_SECRET_ACCESS_KEY,
-    LANGFUSE_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE:
-      process.env.LANGFUSE_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE,
-    LANGFUSE_S3_MEDIA_DOWNLOAD_URL_EXPIRY_SECONDS:
-      process.env.LANGFUSE_S3_MEDIA_DOWNLOAD_URL_EXPIRY_SECONDS,
-    LANGFUSE_S3_MEDIA_UPLOAD_SSE: process.env.LANGFUSE_S3_MEDIA_UPLOAD_SSE,
-    LANGFUSE_S3_MEDIA_UPLOAD_SSE_KMS_KEY_ID:
-      process.env.LANGFUSE_S3_MEDIA_UPLOAD_SSE_KMS_KEY_ID,
+    ELASTICDASH_S3_MEDIA_MAX_CONTENT_LENGTH:
+      process.env.ELASTICDASH_S3_MEDIA_MAX_CONTENT_LENGTH,
+    ELASTICDASH_S3_MEDIA_UPLOAD_BUCKET:
+      process.env.ELASTICDASH_S3_MEDIA_UPLOAD_BUCKET,
+    ELASTICDASH_S3_MEDIA_UPLOAD_PREFIX:
+      process.env.ELASTICDASH_S3_MEDIA_UPLOAD_PREFIX,
+    ELASTICDASH_S3_MEDIA_UPLOAD_REGION:
+      process.env.ELASTICDASH_S3_MEDIA_UPLOAD_REGION,
+    ELASTICDASH_S3_MEDIA_UPLOAD_ENDPOINT:
+      process.env.ELASTICDASH_S3_MEDIA_UPLOAD_ENDPOINT,
+    ELASTICDASH_S3_MEDIA_UPLOAD_ACCESS_KEY_ID:
+      process.env.ELASTICDASH_S3_MEDIA_UPLOAD_ACCESS_KEY_ID,
+    ELASTICDASH_S3_MEDIA_UPLOAD_SECRET_ACCESS_KEY:
+      process.env.ELASTICDASH_S3_MEDIA_UPLOAD_SECRET_ACCESS_KEY,
+    ELASTICDASH_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE:
+      process.env.ELASTICDASH_S3_MEDIA_UPLOAD_FORCE_PATH_STYLE,
+    ELASTICDASH_S3_MEDIA_DOWNLOAD_URL_EXPIRY_SECONDS:
+      process.env.ELASTICDASH_S3_MEDIA_DOWNLOAD_URL_EXPIRY_SECONDS,
+    ELASTICDASH_S3_MEDIA_UPLOAD_SSE:
+      process.env.ELASTICDASH_S3_MEDIA_UPLOAD_SSE,
+    ELASTICDASH_S3_MEDIA_UPLOAD_SSE_KMS_KEY_ID:
+      process.env.ELASTICDASH_S3_MEDIA_UPLOAD_SSE_KMS_KEY_ID,
     // Worker
     NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY,
     NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
@@ -610,96 +620,100 @@ export const env = createEnv({
     CLICKHOUSE_MAX_BYTES_BEFORE_EXTERNAL_GROUP_BY:
       process.env.CLICKHOUSE_MAX_BYTES_BEFORE_EXTERNAL_GROUP_BY,
     // EE ui customization
-    LANGFUSE_UI_API_HOST: process.env.LANGFUSE_UI_API_HOST,
-    LANGFUSE_UI_DOCUMENTATION_HREF: process.env.LANGFUSE_UI_DOCUMENTATION_HREF,
-    LANGFUSE_UI_SUPPORT_HREF: process.env.LANGFUSE_UI_SUPPORT_HREF,
-    LANGFUSE_UI_FEEDBACK_HREF: process.env.LANGFUSE_UI_FEEDBACK_HREF,
-    LANGFUSE_UI_LOGO_LIGHT_MODE_HREF:
-      process.env.LANGFUSE_UI_LOGO_LIGHT_MODE_HREF,
-    LANGFUSE_UI_LOGO_DARK_MODE_HREF:
-      process.env.LANGFUSE_UI_LOGO_DARK_MODE_HREF,
-    LANGFUSE_UI_DEFAULT_MODEL_ADAPTER:
-      process.env.LANGFUSE_UI_DEFAULT_MODEL_ADAPTER,
-    LANGFUSE_UI_DEFAULT_BASE_URL_OPENAI:
-      process.env.LANGFUSE_UI_DEFAULT_BASE_URL_OPENAI,
-    LANGFUSE_UI_DEFAULT_BASE_URL_ANTHROPIC:
-      process.env.LANGFUSE_UI_DEFAULT_BASE_URL_ANTHROPIC,
-    LANGFUSE_UI_DEFAULT_BASE_URL_AZURE:
-      process.env.LANGFUSE_UI_DEFAULT_BASE_URL_AZURE,
-    LANGFUSE_UI_VISIBLE_PRODUCT_MODULES:
-      process.env.LANGFUSE_UI_VISIBLE_PRODUCT_MODULES,
-    LANGFUSE_UI_HIDDEN_PRODUCT_MODULES:
-      process.env.LANGFUSE_UI_HIDDEN_PRODUCT_MODULES,
+    ELASTICDASH_UI_API_HOST: process.env.ELASTICDASH_UI_API_HOST,
+    ELASTICDASH_UI_DOCUMENTATION_HREF:
+      process.env.ELASTICDASH_UI_DOCUMENTATION_HREF,
+    ELASTICDASH_UI_SUPPORT_HREF: process.env.ELASTICDASH_UI_SUPPORT_HREF,
+    ELASTICDASH_UI_FEEDBACK_HREF: process.env.ELASTICDASH_UI_FEEDBACK_HREF,
+    ELASTICDASH_UI_LOGO_LIGHT_MODE_HREF:
+      process.env.ELASTICDASH_UI_LOGO_LIGHT_MODE_HREF,
+    ELASTICDASH_UI_LOGO_DARK_MODE_HREF:
+      process.env.ELASTICDASH_UI_LOGO_DARK_MODE_HREF,
+    ELASTICDASH_UI_DEFAULT_MODEL_ADAPTER:
+      process.env.ELASTICDASH_UI_DEFAULT_MODEL_ADAPTER,
+    ELASTICDASH_UI_DEFAULT_BASE_URL_OPENAI:
+      process.env.ELASTICDASH_UI_DEFAULT_BASE_URL_OPENAI,
+    ELASTICDASH_UI_DEFAULT_BASE_URL_ANTHROPIC:
+      process.env.ELASTICDASH_UI_DEFAULT_BASE_URL_ANTHROPIC,
+    ELASTICDASH_UI_DEFAULT_BASE_URL_AZURE:
+      process.env.ELASTICDASH_UI_DEFAULT_BASE_URL_AZURE,
+    ELASTICDASH_UI_VISIBLE_PRODUCT_MODULES:
+      process.env.ELASTICDASH_UI_VISIBLE_PRODUCT_MODULES,
+    ELASTICDASH_UI_HIDDEN_PRODUCT_MODULES:
+      process.env.ELASTICDASH_UI_HIDDEN_PRODUCT_MODULES,
     // Playground
-    NEXT_PUBLIC_LANGFUSE_PLAYGROUND_STREAMING_ENABLED_DEFAULT:
-      process.env.NEXT_PUBLIC_LANGFUSE_PLAYGROUND_STREAMING_ENABLED_DEFAULT,
+    NEXT_PUBLIC_ELASTICDASH_PLAYGROUND_STREAMING_ENABLED_DEFAULT:
+      process.env.NEXT_PUBLIC_ELASTICDASH_PLAYGROUND_STREAMING_ENABLED_DEFAULT,
     // EE License
-    LANGFUSE_EE_LICENSE_KEY: process.env.LANGFUSE_EE_LICENSE_KEY,
+    ELASTICDASH_EE_LICENSE_KEY: process.env.ELASTICDASH_EE_LICENSE_KEY,
     ADMIN_API_KEY: process.env.ADMIN_API_KEY,
     ENCRYPTION_KEY: process.env.ENCRYPTION_KEY,
     // langfuse caching
-    LANGFUSE_CACHE_API_KEY_ENABLED: process.env.LANGFUSE_CACHE_API_KEY_ENABLED,
-    LANGFUSE_CACHE_API_KEY_TTL_SECONDS:
-      process.env.LANGFUSE_CACHE_API_KEY_TTL_SECONDS,
-    LANGFUSE_ALLOWED_ORGANIZATION_CREATORS:
-      process.env.LANGFUSE_ALLOWED_ORGANIZATION_CREATORS,
+    ELASTICDASH_CACHE_API_KEY_ENABLED:
+      process.env.ELASTICDASH_CACHE_API_KEY_ENABLED,
+    ELASTICDASH_CACHE_API_KEY_TTL_SECONDS:
+      process.env.ELASTICDASH_CACHE_API_KEY_TTL_SECONDS,
+    ELASTICDASH_ALLOWED_ORGANIZATION_CREATORS:
+      process.env.ELASTICDASH_ALLOWED_ORGANIZATION_CREATORS,
     STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
     STRIPE_WEBHOOK_SIGNING_SECRET: process.env.STRIPE_WEBHOOK_SIGNING_SECRET,
     SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN,
     SENTRY_CSP_REPORT_URI: process.env.SENTRY_CSP_REPORT_URI,
-    LANGFUSE_RATE_LIMITS_ENABLED: process.env.LANGFUSE_RATE_LIMITS_ENABLED,
+    ELASTICDASH_RATE_LIMITS_ENABLED:
+      process.env.ELASTICDASH_RATE_LIMITS_ENABLED,
     // provisioning
-    LANGFUSE_INIT_ORG_ID: process.env.LANGFUSE_INIT_ORG_ID,
-    LANGFUSE_INIT_ORG_NAME: process.env.LANGFUSE_INIT_ORG_NAME,
-    LANGFUSE_INIT_ORG_CLOUD_PLAN: process.env.LANGFUSE_INIT_ORG_CLOUD_PLAN,
-    LANGFUSE_INIT_PROJECT_ID: process.env.LANGFUSE_INIT_PROJECT_ID,
-    LANGFUSE_INIT_PROJECT_NAME: process.env.LANGFUSE_INIT_PROJECT_NAME,
-    LANGFUSE_INIT_PROJECT_RETENTION:
-      process.env.LANGFUSE_INIT_PROJECT_RETENTION,
-    LANGFUSE_INIT_PROJECT_PUBLIC_KEY:
-      process.env.LANGFUSE_INIT_PROJECT_PUBLIC_KEY,
-    LANGFUSE_INIT_PROJECT_SECRET_KEY:
-      process.env.LANGFUSE_INIT_PROJECT_SECRET_KEY,
-    LANGFUSE_INIT_USER_EMAIL: process.env.LANGFUSE_INIT_USER_EMAIL,
-    LANGFUSE_INIT_USER_NAME: process.env.LANGFUSE_INIT_USER_NAME,
-    LANGFUSE_INIT_USER_PASSWORD: process.env.LANGFUSE_INIT_USER_PASSWORD,
+    ELASTICDASH_INIT_ORG_ID: process.env.ELASTICDASH_INIT_ORG_ID,
+    ELASTICDASH_INIT_ORG_NAME: process.env.ELASTICDASH_INIT_ORG_NAME,
+    ELASTICDASH_INIT_ORG_CLOUD_PLAN:
+      process.env.ELASTICDASH_INIT_ORG_CLOUD_PLAN,
+    ELASTICDASH_INIT_PROJECT_ID: process.env.ELASTICDASH_INIT_PROJECT_ID,
+    ELASTICDASH_INIT_PROJECT_NAME: process.env.ELASTICDASH_INIT_PROJECT_NAME,
+    ELASTICDASH_INIT_PROJECT_RETENTION:
+      process.env.ELASTICDASH_INIT_PROJECT_RETENTION,
+    ELASTICDASH_INIT_PROJECT_PUBLIC_KEY:
+      process.env.ELASTICDASH_INIT_PROJECT_PUBLIC_KEY,
+    ELASTICDASH_INIT_PROJECT_SECRET_KEY:
+      process.env.ELASTICDASH_INIT_PROJECT_SECRET_KEY,
+    ELASTICDASH_INIT_USER_EMAIL: process.env.ELASTICDASH_INIT_USER_EMAIL,
+    ELASTICDASH_INIT_USER_NAME: process.env.ELASTICDASH_INIT_USER_NAME,
+    ELASTICDASH_INIT_USER_PASSWORD: process.env.ELASTICDASH_INIT_USER_PASSWORD,
     NEXT_PUBLIC_BASE_PATH: process.env.NEXT_PUBLIC_BASE_PATH,
-    LANGFUSE_MAX_HISTORIC_EVAL_CREATION_LIMIT:
-      process.env.LANGFUSE_MAX_HISTORIC_EVAL_CREATION_LIMIT,
+    ELASTICDASH_MAX_HISTORIC_EVAL_CREATION_LIMIT:
+      process.env.ELASTICDASH_MAX_HISTORIC_EVAL_CREATION_LIMIT,
     SLACK_CLIENT_ID: process.env.SLACK_CLIENT_ID,
     SLACK_CLIENT_SECRET: process.env.SLACK_CLIENT_SECRET,
     SLACK_STATE_SECRET: process.env.SLACK_STATE_SECRET,
 
     // AWS Bedrock for langfuse native AI feature such as natural language filters
-    LANGFUSE_AWS_BEDROCK_MODEL: process.env.LANGFUSE_AWS_BEDROCK_MODEL,
+    ELASTICDASH_AWS_BEDROCK_MODEL: process.env.ELASTICDASH_AWS_BEDROCK_MODEL,
 
     // ElasticDash Tracing AI Features
-    LANGFUSE_AI_FEATURES_HOST: process.env.LANGFUSE_AI_FEATURES_HOST,
+    ELASTICDASH_AI_FEATURES_HOST: process.env.ELASTICDASH_AI_FEATURES_HOST,
 
     // Api Performance Flags
-    LANGFUSE_API_CLICKHOUSE_PROPAGATE_OBSERVATIONS_TIME_BOUNDS:
-      process.env.LANGFUSE_API_CLICKHOUSE_PROPAGATE_OBSERVATIONS_TIME_BOUNDS,
-    LANGFUSE_SKIP_FINAL_FOR_OTEL_PROJECTS:
-      process.env.LANGFUSE_SKIP_FINAL_FOR_OTEL_PROJECTS,
+    ELASTICDASH_API_CLICKHOUSE_PROPAGATE_OBSERVATIONS_TIME_BOUNDS:
+      process.env.ELASTICDASH_API_CLICKHOUSE_PROPAGATE_OBSERVATIONS_TIME_BOUNDS,
+    ELASTICDASH_SKIP_FINAL_FOR_OTEL_PROJECTS:
+      process.env.ELASTICDASH_SKIP_FINAL_FOR_OTEL_PROJECTS,
 
     // Natural Language Filters
-    LANGFUSE_AI_FEATURES_PUBLIC_KEY:
-      process.env.LANGFUSE_AI_FEATURES_PUBLIC_KEY,
-    LANGFUSE_AI_FEATURES_SECRET_KEY:
-      process.env.LANGFUSE_AI_FEATURES_SECRET_KEY,
-    LANGFUSE_AI_FEATURES_PROJECT_ID:
-      process.env.LANGFUSE_AI_FEATURES_PROJECT_ID,
+    ELASTICDASH_AI_FEATURES_PUBLIC_KEY:
+      process.env.ELASTICDASH_AI_FEATURES_PUBLIC_KEY,
+    ELASTICDASH_AI_FEATURES_SECRET_KEY:
+      process.env.ELASTICDASH_AI_FEATURES_SECRET_KEY,
+    ELASTICDASH_AI_FEATURES_PROJECT_ID:
+      process.env.ELASTICDASH_AI_FEATURES_PROJECT_ID,
     // Events table migration
-    LANGFUSE_ENABLE_EVENTS_TABLE_OBSERVATIONS:
-      process.env.LANGFUSE_ENABLE_EVENTS_TABLE_OBSERVATIONS,
-    LANGFUSE_ENABLE_EVENTS_TABLE_FLAGS:
-      process.env.LANGFUSE_ENABLE_EVENTS_TABLE_FLAGS,
-    LANGFUSE_ENABLE_EVENTS_TABLE_V2_APIS:
-      process.env.LANGFUSE_ENABLE_EVENTS_TABLE_V2_APIS,
-    LANGFUSE_ENABLE_QUERY_OPTIMIZATION_SHADOW_TEST:
-      process.env.LANGFUSE_ENABLE_QUERY_OPTIMIZATION_SHADOW_TEST,
-    LANGFUSE_BLOCKED_USERIDS_CHATCOMPLETION:
-      process.env.LANGFUSE_BLOCKED_USERIDS_CHATCOMPLETION,
+    ELASTICDASH_ENABLE_EVENTS_TABLE_OBSERVATIONS:
+      process.env.ELASTICDASH_ENABLE_EVENTS_TABLE_OBSERVATIONS,
+    ELASTICDASH_ENABLE_EVENTS_TABLE_FLAGS:
+      process.env.ELASTICDASH_ENABLE_EVENTS_TABLE_FLAGS,
+    ELASTICDASH_ENABLE_EVENTS_TABLE_V2_APIS:
+      process.env.ELASTICDASH_ENABLE_EVENTS_TABLE_V2_APIS,
+    ELASTICDASH_ENABLE_QUERY_OPTIMIZATION_SHADOW_TEST:
+      process.env.ELASTICDASH_ENABLE_QUERY_OPTIMIZATION_SHADOW_TEST,
+    ELASTICDASH_BLOCKED_USERIDS_CHATCOMPLETION:
+      process.env.ELASTICDASH_BLOCKED_USERIDS_CHATCOMPLETION,
   },
   // Skip validation in Docker builds
   // DOCKER_BUILD is set in Dockerfile

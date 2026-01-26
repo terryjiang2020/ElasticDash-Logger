@@ -86,13 +86,14 @@ const getS3StorageServiceClient = (bucketName: string): StorageService => {
   if (!s3StorageServiceClient) {
     s3StorageServiceClient = StorageServiceFactory.getInstance({
       bucketName,
-      accessKeyId: env.LANGFUSE_S3_EVENT_UPLOAD_ACCESS_KEY_ID,
-      secretAccessKey: env.LANGFUSE_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY,
-      endpoint: env.LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT,
-      region: env.LANGFUSE_S3_EVENT_UPLOAD_REGION,
-      forcePathStyle: env.LANGFUSE_S3_EVENT_UPLOAD_FORCE_PATH_STYLE === "true",
-      awsSse: env.LANGFUSE_S3_EVENT_UPLOAD_SSE,
-      awsSseKmsKeyId: env.LANGFUSE_S3_EVENT_UPLOAD_SSE_KMS_KEY_ID,
+      accessKeyId: env.ELASTICDASH_S3_EVENT_UPLOAD_ACCESS_KEY_ID,
+      secretAccessKey: env.ELASTICDASH_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY,
+      endpoint: env.ELASTICDASH_S3_EVENT_UPLOAD_ENDPOINT,
+      region: env.ELASTICDASH_S3_EVENT_UPLOAD_REGION,
+      forcePathStyle:
+        env.ELASTICDASH_S3_EVENT_UPLOAD_FORCE_PATH_STYLE === "true",
+      awsSse: env.ELASTICDASH_S3_EVENT_UPLOAD_SSE,
+      awsSseKmsKeyId: env.ELASTICDASH_S3_EVENT_UPLOAD_SSE_KMS_KEY_ID,
     });
   }
   return s3StorageServiceClient;
@@ -125,9 +126,9 @@ export async function upsertClickhouse<
           }
 
           const eventId = randomUUID();
-          const bucketPath = `${env.LANGFUSE_S3_EVENT_UPLOAD_PREFIX}${record.project_id}/${getClickhouseEntityType(eventType)}/${record.id}/${eventId}.json`;
+          const bucketPath = `${env.ELASTICDASH_S3_EVENT_UPLOAD_PREFIX}${record.project_id}/${getClickhouseEntityType(eventType)}/${record.id}/${eventId}.json`;
 
-          if (env.LANGFUSE_ENABLE_BLOB_STORAGE_FILE_LOG === "true") {
+          if (env.ELASTICDASH_ENABLE_BLOB_STORAGE_FILE_LOG === "true") {
             // Write new file directly to ClickHouse. We don't use the ClickHouse writer here as we expect more limited traffic
             // and are not worried that much about latency.
             await clickhouseClient().insert({
@@ -139,7 +140,7 @@ export async function upsertClickhouse<
                   entity_type: getClickhouseEntityType(eventType),
                   entity_id: record.id,
                   event_id: eventId,
-                  bucket_name: env.LANGFUSE_S3_EVENT_UPLOAD_BUCKET,
+                  bucket_name: env.ELASTICDASH_S3_EVENT_UPLOAD_BUCKET,
                   bucket_path: bucketPath,
                   event_ts: convertDateToClickhouseDateTime(new Date()),
                   is_deleted: 0,
@@ -153,7 +154,7 @@ export async function upsertClickhouse<
           }
 
           return getS3StorageServiceClient(
-            env.LANGFUSE_S3_EVENT_UPLOAD_BUCKET,
+            env.ELASTICDASH_S3_EVENT_UPLOAD_BUCKET,
           ).uploadJson(bucketPath, [
             {
               id: eventId,
@@ -404,12 +405,12 @@ export async function queryClickhouse<T>(opts: {
           return (await res.json<T>()).map(handleExceptionRow);
         },
         {
-          numOfAttempts: env.LANGFUSE_CLICKHOUSE_QUERY_MAX_ATTEMPTS,
+          numOfAttempts: env.ELASTICDASH_CLICKHOUSE_QUERY_MAX_ATTEMPTS,
           retry: (error: Error, attemptNumber: number) => {
             const shouldRetry = isRetryableError(error);
             if (shouldRetry) {
               logger.warn(
-                `ClickHouse query failed with retryable error (attempt ${attemptNumber}/${env.LANGFUSE_CLICKHOUSE_QUERY_MAX_ATTEMPTS}): ${error.message}`,
+                `ClickHouse query failed with retryable error (attempt ${attemptNumber}/${env.ELASTICDASH_CLICKHOUSE_QUERY_MAX_ATTEMPTS}): ${error.message}`,
                 {
                   error: error.message,
                   attemptNumber,

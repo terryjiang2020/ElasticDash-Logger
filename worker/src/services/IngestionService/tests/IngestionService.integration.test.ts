@@ -2829,7 +2829,7 @@ async function getClickhouseRecord<T extends TableName>(
 
   if (
     tableName === "traces" &&
-    env.LANGFUSE_EXPERIMENT_RETURN_NEW_RESULT === "true"
+    env.ELASTICDASH_EXPERIMENT_RETURN_NEW_RESULT === "true"
   ) {
     await new Promise((resolve) => setTimeout(resolve, 100));
     query = await clickhouseClient().query({
@@ -2874,7 +2874,7 @@ async function getClickhouseRecord<T extends TableName>(
 type RecordReadType<T extends TableName> = T extends TableName.Scores
   ? ScoreRecordReadType
   : T extends TableName.Observations
-    ? ObservationRecordReadType
-    : T extends TableName.Traces
-      ? TraceRecordReadType
-      : never;
+  ? ObservationRecordReadType
+  : T extends TableName.Traces
+  ? TraceRecordReadType
+  : never;

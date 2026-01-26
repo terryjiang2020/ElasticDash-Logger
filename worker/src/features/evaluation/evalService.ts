@@ -64,13 +64,13 @@ const getS3StorageServiceClient = (bucketName: string): StorageService => {
   if (!s3StorageServiceClient) {
     s3StorageServiceClient = StorageServiceFactory.getInstance({
       bucketName,
-      accessKeyId: env.LANGFUSE_S3_EVENT_UPLOAD_ACCESS_KEY_ID,
-      secretAccessKey: env.LANGFUSE_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY,
-      endpoint: env.LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT,
-      region: env.LANGFUSE_S3_EVENT_UPLOAD_REGION,
-      forcePathStyle: env.LANGFUSE_S3_EVENT_UPLOAD_FORCE_PATH_STYLE === "true",
-      awsSse: env.LANGFUSE_S3_EVENT_UPLOAD_SSE,
-      awsSseKmsKeyId: env.LANGFUSE_S3_EVENT_UPLOAD_SSE_KMS_KEY_ID,
+      accessKeyId: env.ELASTICDASH_S3_EVENT_UPLOAD_ACCESS_KEY_ID,
+      secretAccessKey: env.ELASTICDASH_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY,
+      endpoint: env.ELASTICDASH_S3_EVENT_UPLOAD_ENDPOINT,
+      region: env.ELASTICDASH_S3_EVENT_UPLOAD_REGION,
+      forcePathStyle: env.ELASTICDASH_S3_EVENT_UPLOAD_FORCE_PATH_STYLE === "true",
+      awsSse: env.ELASTICDASH_S3_EVENT_UPLOAD_SSE,
+      awsSseKmsKeyId: env.ELASTICDASH_S3_EVENT_UPLOAD_SSE_KMS_KEY_ID,
     });
   }
   return s3StorageServiceClient;
@@ -153,19 +153,19 @@ type CreateEvalJobsParams = {
   jobTimestamp: Date;
   enforcedJobTimeScope?: JobTimeScope;
 } & (
-  | {
+    | {
       sourceEventType: "trace-upsert";
       event: TraceQueueEventType;
     }
-  | {
+    | {
       sourceEventType: "dataset-run-item-upsert";
       event: TraceQueueEventType;
     }
-  | {
+    | {
       sourceEventType: "ui-create-eval";
       event: CreateEvalQueueEventType;
     }
-);
+  );
 
 export const createEvalJobs = async ({
   event,
@@ -339,7 +339,7 @@ export const createEvalJobs = async ({
 
     const maxTimeStamp =
       "timestamp" in event &&
-      new Date(event.timestamp).getTime() === new Date("2020-01-01").getTime() // min time for historic evals
+        new Date(event.timestamp).getTime() === new Date("2020-01-01").getTime() // min time for historic evals
         ? new Date()
         : undefined;
 
@@ -578,9 +578,9 @@ export const createEvalJobs = async ({
           startTime: new Date(),
           ...(datasetItem
             ? {
-                jobInputDatasetItemId: datasetItem.id,
-                jobInputObservationId: observationId || null,
-              }
+              jobInputDatasetItemId: datasetItem.id,
+              jobInputObservationId: observationId || null,
+            }
             : {}),
         },
       });
@@ -849,9 +849,9 @@ export const evaluate = async ({
   // Write score to S3 and ingest into queue for Clickhouse processing
   try {
     const eventId = randomUUID();
-    const bucketPath = `${env.LANGFUSE_S3_EVENT_UPLOAD_PREFIX}${event.projectId}/score/${scoreId}/${eventId}.json`;
+    const bucketPath = `${env.ELASTICDASH_S3_EVENT_UPLOAD_PREFIX}${event.projectId}/score/${scoreId}/${eventId}.json`;
     await getS3StorageServiceClient(
-      env.LANGFUSE_S3_EVENT_UPLOAD_BUCKET,
+      env.ELASTICDASH_S3_EVENT_UPLOAD_BUCKET,
     ).uploadJson(bucketPath, [
       {
         id: eventId,

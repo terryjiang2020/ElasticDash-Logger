@@ -17,7 +17,7 @@ export class IngestionQueue {
 
   public static getShardNames() {
     return Array.from(
-      { length: env.LANGFUSE_INGESTION_QUEUE_SHARD_COUNT },
+      { length: env.ELASTICDASH_INGESTION_QUEUE_SHARD_COUNT },
       (_, i) => `${QueueName.IngestionQueue}${i > 0 ? `-${i}` : ""}`,
     );
   }
@@ -52,7 +52,7 @@ export class IngestionQueue {
     const shardIndex =
       IngestionQueue.getShardIndexFromShardName(shardName) ??
       (env.REDIS_CLUSTER_ENABLED === "true" && shardingKey
-        ? getShardIndex(shardingKey, env.LANGFUSE_INGESTION_QUEUE_SHARD_COUNT)
+        ? getShardIndex(shardingKey, env.ELASTICDASH_INGESTION_QUEUE_SHARD_COUNT)
         : 0);
 
     // Check if we already have an instance for this shard
@@ -68,18 +68,18 @@ export class IngestionQueue {
     const name = `${QueueName.IngestionQueue}${shardIndex > 0 ? `-${shardIndex}` : ""}`;
     const queueInstance = newRedis
       ? new Queue<TQueueJobTypes[QueueName.IngestionQueue]>(name, {
-          connection: newRedis,
-          prefix: getQueuePrefix(name),
-          defaultJobOptions: {
-            removeOnComplete: true,
-            removeOnFail: 100_000,
-            attempts: 6,
-            backoff: {
-              type: "exponential",
-              delay: 5000,
-            },
+        connection: newRedis,
+        prefix: getQueuePrefix(name),
+        defaultJobOptions: {
+          removeOnComplete: true,
+          removeOnFail: 100_000,
+          attempts: 6,
+          backoff: {
+            type: "exponential",
+            delay: 5000,
           },
-        })
+        },
+      })
       : null;
 
     queueInstance?.on("error", (err) => {
@@ -110,21 +110,21 @@ export class SecondaryIngestionQueue {
 
     SecondaryIngestionQueue.instance = newRedis
       ? new Queue<TQueueJobTypes[QueueName.IngestionSecondaryQueue]>(
-          QueueName.IngestionSecondaryQueue,
-          {
-            connection: newRedis,
-            prefix: getQueuePrefix(QueueName.IngestionSecondaryQueue),
-            defaultJobOptions: {
-              removeOnComplete: true,
-              removeOnFail: 100_000,
-              attempts: 5,
-              backoff: {
-                type: "exponential",
-                delay: 5000,
-              },
+        QueueName.IngestionSecondaryQueue,
+        {
+          connection: newRedis,
+          prefix: getQueuePrefix(QueueName.IngestionSecondaryQueue),
+          defaultJobOptions: {
+            removeOnComplete: true,
+            removeOnFail: 100_000,
+            attempts: 5,
+            backoff: {
+              type: "exponential",
+              delay: 5000,
             },
           },
-        )
+        },
+      )
       : null;
 
     SecondaryIngestionQueue.instance?.on("error", (err) => {

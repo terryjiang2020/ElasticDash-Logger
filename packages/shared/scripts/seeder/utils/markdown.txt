@@ -22,8 +22,8 @@ pip install langfuse
    import { ElasticDash } from 'langfuse'  
 
    const langfuse = new ElasticDash({  
-     secretKey: process.env.LANGFUSE_SECRET_KEY,  
-     publicKey: process.env.LANGFUSE_PUBLIC_KEY,  
+     secretKey: process.env.ELASTICDASH_SECRET_KEY,  
+     publicKey: process.env.ELASTICDASH_PUBLIC_KEY,  
      baseUrl: 'https://cloud.langfuse.com'  
    })  
    \`\`\`

@@ -12,7 +12,7 @@ export class CoreDataS3ExportQueue {
   private static instance: Queue | null = null;
 
   public static getInstance(): Queue | null {
-    if (env.LANGFUSE_S3_CORE_DATA_EXPORT_IS_ENABLED !== "true") {
+    if (env.ELASTICDASH_S3_CORE_DATA_EXPORT_IS_ENABLED !== "true") {
       return null;
     }
 
@@ -27,18 +27,18 @@ export class CoreDataS3ExportQueue {
 
     CoreDataS3ExportQueue.instance = newRedis
       ? new Queue(QueueName.CoreDataS3ExportQueue, {
-          connection: newRedis,
-          prefix: getQueuePrefix(QueueName.CoreDataS3ExportQueue),
-          defaultJobOptions: {
-            removeOnComplete: true,
-            removeOnFail: 100,
-            attempts: 5,
-            backoff: {
-              type: "exponential",
-              delay: 5000,
-            },
+        connection: newRedis,
+        prefix: getQueuePrefix(QueueName.CoreDataS3ExportQueue),
+        defaultJobOptions: {
+          removeOnComplete: true,
+          removeOnFail: 100,
+          attempts: 5,
+          backoff: {
+            type: "exponential",
+            delay: 5000,
           },
-        })
+        },
+      })
       : null;
 
     CoreDataS3ExportQueue.instance?.on("error", (err) => {

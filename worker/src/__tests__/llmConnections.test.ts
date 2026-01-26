@@ -14,16 +14,16 @@ import { z } from "zod/v3";
  * 3. Tool calling
  *
  * Required environment variables (tests will FAIL if not set):
- * - LANGFUSE_LLM_CONNECTION_OPENAI_KEY
- * - LANGFUSE_LLM_CONNECTION_ANTHROPIC_KEY
- * - LANGFUSE_LLM_CONNECTION_AZURE_KEY
- * - LANGFUSE_LLM_CONNECTION_AZURE_BASE_URL
- * - LANGFUSE_LLM_CONNECTION_AZURE_MODEL
- * - LANGFUSE_LLM_CONNECTION_BEDROCK_ACCESS_KEY_ID
- * - LANGFUSE_LLM_CONNECTION_BEDROCK_SECRET_ACCESS_KEY
- * - LANGFUSE_LLM_CONNECTION_BEDROCK_REGION
- * - LANGFUSE_LLM_CONNECTION_VERTEXAI_KEY
- * - LANGFUSE_LLM_CONNECTION_GOOGLEAISTUDIO_KEY
+ * - ELASTICDASH_LLM_CONNECTION_OPENAI_KEY
+ * - ELASTICDASH_LLM_CONNECTION_ANTHROPIC_KEY
+ * - ELASTICDASH_LLM_CONNECTION_AZURE_KEY
+ * - ELASTICDASH_LLM_CONNECTION_AZURE_BASE_URL
+ * - ELASTICDASH_LLM_CONNECTION_AZURE_MODEL
+ * - ELASTICDASH_LLM_CONNECTION_BEDROCK_ACCESS_KEY_ID
+ * - ELASTICDASH_LLM_CONNECTION_BEDROCK_SECRET_ACCESS_KEY
+ * - ELASTICDASH_LLM_CONNECTION_BEDROCK_REGION
+ * - ELASTICDASH_LLM_CONNECTION_VERTEXAI_KEY
+ * - ELASTICDASH_LLM_CONNECTION_GOOGLEAISTUDIO_KEY
  */
 
 // Eval schema matching production usage
@@ -53,11 +53,11 @@ describe("LLM Connection Tests", () => {
     const MODEL = "gpt-4o-mini";
 
     const checkEnvVar = () => {
-      if (!process.env.LANGFUSE_LLM_CONNECTION_OPENAI_KEY) {
+      if (!process.env.ELASTICDASH_LLM_CONNECTION_OPENAI_KEY) {
         throw new Error(
-          "LANGFUSE_LLM_CONNECTION_OPENAI_KEY not set. " +
-            "This test requires a valid OpenAI API key to verify the LLM connection. " +
-            "Set the environment variable to run this test.",
+          "ELASTICDASH_LLM_CONNECTION_OPENAI_KEY not set. " +
+          "This test requires a valid OpenAI API key to verify the LLM connection. " +
+          "Set the environment variable to run this test.",
         );
       }
     };
@@ -82,7 +82,7 @@ describe("LLM Connection Tests", () => {
           max_tokens: 10,
         },
         llmConnection: {
-          secretKey: encrypt(process.env.LANGFUSE_LLM_CONNECTION_OPENAI_KEY!),
+          secretKey: encrypt(process.env.ELASTICDASH_LLM_CONNECTION_OPENAI_KEY!),
         },
       });
 
@@ -112,7 +112,7 @@ describe("LLM Connection Tests", () => {
         },
         structuredOutputSchema: evalOutputSchema,
         llmConnection: {
-          secretKey: encrypt(process.env.LANGFUSE_LLM_CONNECTION_OPENAI_KEY!),
+          secretKey: encrypt(process.env.ELASTICDASH_LLM_CONNECTION_OPENAI_KEY!),
         },
       });
 
@@ -146,7 +146,7 @@ describe("LLM Connection Tests", () => {
         },
         tools: [weatherTool],
         llmConnection: {
-          secretKey: encrypt(process.env.LANGFUSE_LLM_CONNECTION_OPENAI_KEY!),
+          secretKey: encrypt(process.env.ELASTICDASH_LLM_CONNECTION_OPENAI_KEY!),
         },
       });
 
@@ -162,11 +162,11 @@ describe("LLM Connection Tests", () => {
     const MODEL = "claude-3-5-haiku-20241022";
 
     const checkEnvVar = () => {
-      if (!process.env.LANGFUSE_LLM_CONNECTION_ANTHROPIC_KEY) {
+      if (!process.env.ELASTICDASH_LLM_CONNECTION_ANTHROPIC_KEY) {
         throw new Error(
-          "LANGFUSE_LLM_CONNECTION_ANTHROPIC_KEY not set. " +
-            "This test requires a valid Anthropic API key to verify the LLM connection. " +
-            "Set the environment variable to run this test.",
+          "ELASTICDASH_LLM_CONNECTION_ANTHROPIC_KEY not set. " +
+          "This test requires a valid Anthropic API key to verify the LLM connection. " +
+          "Set the environment variable to run this test.",
         );
       }
     };
@@ -192,7 +192,7 @@ describe("LLM Connection Tests", () => {
         },
         llmConnection: {
           secretKey: encrypt(
-            process.env.LANGFUSE_LLM_CONNECTION_ANTHROPIC_KEY!,
+            process.env.ELASTICDASH_LLM_CONNECTION_ANTHROPIC_KEY!,
           ),
         },
       });
@@ -224,7 +224,7 @@ describe("LLM Connection Tests", () => {
         structuredOutputSchema: evalOutputSchema,
         llmConnection: {
           secretKey: encrypt(
-            process.env.LANGFUSE_LLM_CONNECTION_ANTHROPIC_KEY!,
+            process.env.ELASTICDASH_LLM_CONNECTION_ANTHROPIC_KEY!,
           ),
         },
       });
@@ -260,7 +260,7 @@ describe("LLM Connection Tests", () => {
         tools: [weatherTool],
         llmConnection: {
           secretKey: encrypt(
-            process.env.LANGFUSE_LLM_CONNECTION_ANTHROPIC_KEY!,
+            process.env.ELASTICDASH_LLM_CONNECTION_ANTHROPIC_KEY!,
           ),
         },
       });
@@ -275,25 +275,25 @@ describe("LLM Connection Tests", () => {
 
   describe("Azure", () => {
     const checkEnvVars = () => {
-      if (!process.env.LANGFUSE_LLM_CONNECTION_AZURE_KEY) {
+      if (!process.env.ELASTICDASH_LLM_CONNECTION_AZURE_KEY) {
         throw new Error(
-          "LANGFUSE_LLM_CONNECTION_AZURE_KEY not set. " +
-            "This test requires a valid Azure OpenAI API key to verify the LLM connection. " +
-            "Set the environment variable to run this test.",
+          "ELASTICDASH_LLM_CONNECTION_AZURE_KEY not set. " +
+          "This test requires a valid Azure OpenAI API key to verify the LLM connection. " +
+          "Set the environment variable to run this test.",
         );
       }
-      if (!process.env.LANGFUSE_LLM_CONNECTION_AZURE_BASE_URL) {
+      if (!process.env.ELASTICDASH_LLM_CONNECTION_AZURE_BASE_URL) {
         throw new Error(
-          "LANGFUSE_LLM_CONNECTION_AZURE_BASE_URL not set. " +
-            "This test requires a valid Azure OpenAI base URL (deployment endpoint) to verify the LLM connection. " +
-            "Set the environment variable to run this test.",
+          "ELASTICDASH_LLM_CONNECTION_AZURE_BASE_URL not set. " +
+          "This test requires a valid Azure OpenAI base URL (deployment endpoint) to verify the LLM connection. " +
+          "Set the environment variable to run this test.",
         );
       }
-      if (!process.env.LANGFUSE_LLM_CONNECTION_AZURE_MODEL) {
+      if (!process.env.ELASTICDASH_LLM_CONNECTION_AZURE_MODEL) {
         throw new Error(
-          "LANGFUSE_LLM_CONNECTION_AZURE_MODEL not set. " +
-            "This test requires a valid Azure OpenAI deployment name to verify the LLM connection. " +
-            "Set the environment variable to run this test.",
+          "ELASTICDASH_LLM_CONNECTION_AZURE_MODEL not set. " +
+          "This test requires a valid Azure OpenAI deployment name to verify the LLM connection. " +
+          "Set the environment variable to run this test.",
         );
       }
     };
@@ -313,13 +313,13 @@ describe("LLM Connection Tests", () => {
         modelParams: {
           provider: "azure",
           adapter: LLMAdapter.Azure,
-          model: process.env.LANGFUSE_LLM_CONNECTION_AZURE_MODEL!,
+          model: process.env.ELASTICDASH_LLM_CONNECTION_AZURE_MODEL!,
           temperature: 0,
           max_tokens: 10,
         },
         llmConnection: {
-          secretKey: encrypt(process.env.LANGFUSE_LLM_CONNECTION_AZURE_KEY!),
-          baseURL: process.env.LANGFUSE_LLM_CONNECTION_AZURE_BASE_URL!,
+          secretKey: encrypt(process.env.ELASTICDASH_LLM_CONNECTION_AZURE_KEY!),
+          baseURL: process.env.ELASTICDASH_LLM_CONNECTION_AZURE_BASE_URL!,
         },
       });
 
@@ -343,14 +343,14 @@ describe("LLM Connection Tests", () => {
         modelParams: {
           provider: "azure",
           adapter: LLMAdapter.Azure,
-          model: process.env.LANGFUSE_LLM_CONNECTION_AZURE_MODEL!,
+          model: process.env.ELASTICDASH_LLM_CONNECTION_AZURE_MODEL!,
           temperature: 0,
           max_tokens: 200,
         },
         structuredOutputSchema: evalOutputSchema,
         llmConnection: {
-          secretKey: encrypt(process.env.LANGFUSE_LLM_CONNECTION_AZURE_KEY!),
-          baseURL: process.env.LANGFUSE_LLM_CONNECTION_AZURE_BASE_URL!,
+          secretKey: encrypt(process.env.ELASTICDASH_LLM_CONNECTION_AZURE_KEY!),
+          baseURL: process.env.ELASTICDASH_LLM_CONNECTION_AZURE_BASE_URL!,
         },
       });
 
@@ -378,14 +378,14 @@ describe("LLM Connection Tests", () => {
         modelParams: {
           provider: "azure",
           adapter: LLMAdapter.Azure,
-          model: process.env.LANGFUSE_LLM_CONNECTION_AZURE_MODEL!,
+          model: process.env.ELASTICDASH_LLM_CONNECTION_AZURE_MODEL!,
           temperature: 0,
           max_tokens: 100,
         },
         tools: [weatherTool],
         llmConnection: {
-          secretKey: encrypt(process.env.LANGFUSE_LLM_CONNECTION_AZURE_KEY!),
-          baseURL: process.env.LANGFUSE_LLM_CONNECTION_AZURE_BASE_URL!,
+          secretKey: encrypt(process.env.ELASTICDASH_LLM_CONNECTION_AZURE_KEY!),
+          baseURL: process.env.ELASTICDASH_LLM_CONNECTION_AZURE_BASE_URL!,
         },
       });
 
@@ -401,25 +401,25 @@ describe("LLM Connection Tests", () => {
     const MODEL = "eu.anthropic.claude-sonnet-4-20250514-v1:0";
 
     const checkEnvVars = () => {
-      if (!process.env.LANGFUSE_LLM_CONNECTION_BEDROCK_ACCESS_KEY_ID) {
+      if (!process.env.ELASTICDASH_LLM_CONNECTION_BEDROCK_ACCESS_KEY_ID) {
         throw new Error(
-          "LANGFUSE_LLM_CONNECTION_BEDROCK_ACCESS_KEY_ID not set. " +
-            "This test requires a valid AWS access key ID to verify the Bedrock LLM connection. " +
-            "Set the environment variable to run this test.",
+          "ELASTICDASH_LLM_CONNECTION_BEDROCK_ACCESS_KEY_ID not set. " +
+          "This test requires a valid AWS access key ID to verify the Bedrock LLM connection. " +
+          "Set the environment variable to run this test.",
         );
       }
-      if (!process.env.LANGFUSE_LLM_CONNECTION_BEDROCK_SECRET_ACCESS_KEY) {
+      if (!process.env.ELASTICDASH_LLM_CONNECTION_BEDROCK_SECRET_ACCESS_KEY) {
         throw new Error(
-          "LANGFUSE_LLM_CONNECTION_BEDROCK_SECRET_ACCESS_KEY not set. " +
-            "This test requires a valid AWS secret access key to verify the Bedrock LLM connection. " +
-            "Set the environment variable to run this test.",
+          "ELASTICDASH_LLM_CONNECTION_BEDROCK_SECRET_ACCESS_KEY not set. " +
+          "This test requires a valid AWS secret access key to verify the Bedrock LLM connection. " +
+          "Set the environment variable to run this test.",
         );
       }
-      if (!process.env.LANGFUSE_LLM_CONNECTION_BEDROCK_REGION) {
+      if (!process.env.ELASTICDASH_LLM_CONNECTION_BEDROCK_REGION) {
         throw new Error(
-          "LANGFUSE_LLM_CONNECTION_BEDROCK_REGION not set. " +
-            "This test requires a valid AWS region (e.g., 'us-east-1') to verify the Bedrock LLM connection. " +
-            "Set the environment variable to run this test.",
+          "ELASTICDASH_LLM_CONNECTION_BEDROCK_REGION not set. " +
+          "This test requires a valid AWS region (e.g., 'us-east-1') to verify the Bedrock LLM connection. " +
+          "Set the environment variable to run this test.",
         );
       }
     };
@@ -427,15 +427,15 @@ describe("LLM Connection Tests", () => {
     const getApiKey = () => {
       checkEnvVars();
       return JSON.stringify({
-        accessKeyId: process.env.LANGFUSE_LLM_CONNECTION_BEDROCK_ACCESS_KEY_ID!,
+        accessKeyId: process.env.ELASTICDASH_LLM_CONNECTION_BEDROCK_ACCESS_KEY_ID!,
         secretAccessKey:
-          process.env.LANGFUSE_LLM_CONNECTION_BEDROCK_SECRET_ACCESS_KEY!,
+          process.env.ELASTICDASH_LLM_CONNECTION_BEDROCK_SECRET_ACCESS_KEY!,
       });
     };
 
     const getConfig = () => {
       return {
-        region: process.env.LANGFUSE_LLM_CONNECTION_BEDROCK_REGION!,
+        region: process.env.ELASTICDASH_LLM_CONNECTION_BEDROCK_REGION!,
       };
     };
 
@@ -540,11 +540,11 @@ describe("LLM Connection Tests", () => {
     const MODEL = "gemini-2.0-flash";
 
     const checkEnvVar = () => {
-      if (!process.env.LANGFUSE_LLM_CONNECTION_VERTEXAI_KEY) {
+      if (!process.env.ELASTICDASH_LLM_CONNECTION_VERTEXAI_KEY) {
         throw new Error(
-          "LANGFUSE_LLM_CONNECTION_VERTEXAI_KEY not set. " +
-            "This test requires a valid GCP service account JSON string to verify the VertexAI LLM connection. " +
-            "Set the environment variable to run this test.",
+          "ELASTICDASH_LLM_CONNECTION_VERTEXAI_KEY not set. " +
+          "This test requires a valid GCP service account JSON string to verify the VertexAI LLM connection. " +
+          "Set the environment variable to run this test.",
         );
       }
     };
@@ -569,7 +569,7 @@ describe("LLM Connection Tests", () => {
           max_tokens: 10,
         },
         llmConnection: {
-          secretKey: encrypt(process.env.LANGFUSE_LLM_CONNECTION_VERTEXAI_KEY!),
+          secretKey: encrypt(process.env.ELASTICDASH_LLM_CONNECTION_VERTEXAI_KEY!),
           config: null,
         },
       });
@@ -600,7 +600,7 @@ describe("LLM Connection Tests", () => {
         },
         structuredOutputSchema: evalOutputSchema,
         llmConnection: {
-          secretKey: encrypt(process.env.LANGFUSE_LLM_CONNECTION_VERTEXAI_KEY!),
+          secretKey: encrypt(process.env.ELASTICDASH_LLM_CONNECTION_VERTEXAI_KEY!),
           config: null,
         },
       });
@@ -635,7 +635,7 @@ describe("LLM Connection Tests", () => {
         },
         tools: [weatherTool],
         llmConnection: {
-          secretKey: encrypt(process.env.LANGFUSE_LLM_CONNECTION_VERTEXAI_KEY!),
+          secretKey: encrypt(process.env.ELASTICDASH_LLM_CONNECTION_VERTEXAI_KEY!),
           config: null,
         },
       });
@@ -652,11 +652,11 @@ describe("LLM Connection Tests", () => {
     const MODEL = "gemini-2.0-flash";
 
     const checkEnvVar = () => {
-      if (!process.env.LANGFUSE_LLM_CONNECTION_GOOGLEAISTUDIO_KEY) {
+      if (!process.env.ELASTICDASH_LLM_CONNECTION_GOOGLEAISTUDIO_KEY) {
         throw new Error(
-          "LANGFUSE_LLM_CONNECTION_GOOGLEAISTUDIO_KEY not set. " +
-            "This test requires a valid Google AI Studio API key to verify the LLM connection. " +
-            "Set the environment variable to run this test.",
+          "ELASTICDASH_LLM_CONNECTION_GOOGLEAISTUDIO_KEY not set. " +
+          "This test requires a valid Google AI Studio API key to verify the LLM connection. " +
+          "Set the environment variable to run this test.",
         );
       }
     };
@@ -682,7 +682,7 @@ describe("LLM Connection Tests", () => {
         },
         llmConnection: {
           secretKey: encrypt(
-            process.env.LANGFUSE_LLM_CONNECTION_GOOGLEAISTUDIO_KEY!,
+            process.env.ELASTICDASH_LLM_CONNECTION_GOOGLEAISTUDIO_KEY!,
           ),
         },
       });
@@ -714,7 +714,7 @@ describe("LLM Connection Tests", () => {
         structuredOutputSchema: evalOutputSchema,
         llmConnection: {
           secretKey: encrypt(
-            process.env.LANGFUSE_LLM_CONNECTION_GOOGLEAISTUDIO_KEY!,
+            process.env.ELASTICDASH_LLM_CONNECTION_GOOGLEAISTUDIO_KEY!,
           ),
         },
       });
@@ -750,7 +750,7 @@ describe("LLM Connection Tests", () => {
         tools: [weatherTool],
         llmConnection: {
           secretKey: encrypt(
-            process.env.LANGFUSE_LLM_CONNECTION_GOOGLEAISTUDIO_KEY!,
+            process.env.ELASTICDASH_LLM_CONNECTION_GOOGLEAISTUDIO_KEY!,
           ),
         },
       });
@@ -786,7 +786,7 @@ describe("LLM Connection Tests", () => {
         },
         llmConnection: {
           secretKey: encrypt(
-            process.env.LANGFUSE_LLM_CONNECTION_GOOGLEAISTUDIO_KEY!,
+            process.env.ELASTICDASH_LLM_CONNECTION_GOOGLEAISTUDIO_KEY!,
           ),
         },
       });

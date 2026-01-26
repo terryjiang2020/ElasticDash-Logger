@@ -58,7 +58,7 @@ export const handleDataRetentionProcessingJob = async (job: Job) => {
   );
 
   // Delete media files if bucket is configured
-  if (env.LANGFUSE_S3_MEDIA_UPLOAD_BUCKET) {
+  if (env.ELASTICDASH_S3_MEDIA_UPLOAD_BUCKET) {
     logger.info(
       `[Data Retention] Deleting media files older than ${currentRetention} days for project ${projectId}`,
     );
@@ -78,7 +78,7 @@ export const handleDataRetentionProcessingJob = async (job: Job) => {
       },
     });
     const mediaStorageClient = getS3MediaStorageClient(
-      env.LANGFUSE_S3_MEDIA_UPLOAD_BUCKET,
+      env.ELASTICDASH_S3_MEDIA_UPLOAD_BUCKET,
     );
     // Delete from Cloud Storage
     await mediaStorageClient.deleteFiles(
@@ -103,16 +103,16 @@ export const handleDataRetentionProcessingJob = async (job: Job) => {
     `[Data Retention] Deleting ClickHouse and S3 data older than ${currentRetention} days for project ${projectId}`,
   );
   await Promise.all([
-    env.LANGFUSE_ENABLE_BLOB_STORAGE_FILE_LOG === "true"
+    env.ELASTICDASH_ENABLE_BLOB_STORAGE_FILE_LOG === "true"
       ? removeIngestionEventsFromS3AndDeleteClickhouseRefsForProject(
-          projectId,
-          cutoffDate,
-        )
+        projectId,
+        cutoffDate,
+      )
       : Promise.resolve(),
     deleteTracesOlderThanDays(projectId, cutoffDate),
     deleteObservationsOlderThanDays(projectId, cutoffDate),
     deleteScoresOlderThanDays(projectId, cutoffDate),
-    env.LANGFUSE_EXPERIMENT_INSERT_INTO_EVENTS_TABLE === "true"
+    env.ELASTICDASH_EXPERIMENT_INSERT_INTO_EVENTS_TABLE === "true"
       ? deleteEventsOlderThanDays(projectId, cutoffDate)
       : Promise.resolve(),
   ]);

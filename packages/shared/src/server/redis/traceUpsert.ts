@@ -17,7 +17,7 @@ export class TraceUpsertQueue {
 
   public static getShardNames() {
     return Array.from(
-      { length: env.LANGFUSE_TRACE_UPSERT_QUEUE_SHARD_COUNT },
+      { length: env.ELASTICDASH_TRACE_UPSERT_QUEUE_SHARD_COUNT },
       (_, i) => `${QueueName.TraceUpsert}${i > 0 ? `-${i}` : ""}`,
     );
   }
@@ -53,9 +53,9 @@ export class TraceUpsertQueue {
       TraceUpsertQueue.getShardIndexFromShardName(shardName) ??
       (env.REDIS_CLUSTER_ENABLED === "true" && shardingKey
         ? getShardIndex(
-            shardingKey,
-            env.LANGFUSE_TRACE_UPSERT_QUEUE_SHARD_COUNT,
-          )
+          shardingKey,
+          env.ELASTICDASH_TRACE_UPSERT_QUEUE_SHARD_COUNT,
+        )
         : 0);
 
     // Check if we already have an instance for this shard
@@ -71,19 +71,19 @@ export class TraceUpsertQueue {
     const name = `${QueueName.TraceUpsert}${shardIndex > 0 ? `-${shardIndex}` : ""}`;
     const queueInstance = newRedis
       ? new Queue<TQueueJobTypes[QueueName.TraceUpsert]>(name, {
-          connection: newRedis,
-          prefix: getQueuePrefix(name),
-          defaultJobOptions: {
-            removeOnComplete: 100,
-            removeOnFail: 100_000,
-            attempts: env.LANGFUSE_TRACE_UPSERT_QUEUE_ATTEMPTS,
-            delay: 30_000, // 30 seconds
-            backoff: {
-              type: "exponential",
-              delay: 5000,
-            },
+        connection: newRedis,
+        prefix: getQueuePrefix(name),
+        defaultJobOptions: {
+          removeOnComplete: 100,
+          removeOnFail: 100_000,
+          attempts: env.ELASTICDASH_TRACE_UPSERT_QUEUE_ATTEMPTS,
+          delay: 30_000, // 30 seconds
+          backoff: {
+            type: "exponential",
+            delay: 5000,
           },
-        })
+        },
+      })
       : null;
 
     queueInstance?.on("error", (err) => {

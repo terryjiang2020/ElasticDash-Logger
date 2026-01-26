@@ -383,10 +383,10 @@ export const traceRouter = createTRPCRouter({
         obsStartTimes.length > 0
           ? obsEndTimes.length > 0
             ? (obsEndTimes[obsEndTimes.length - 1] as Date).getTime() -
-              obsStartTimes[0]!.getTime()
+            obsStartTimes[0]!.getTime()
             : obsStartTimes.length > 1
               ? obsStartTimes[obsStartTimes.length - 1]!.getTime() -
-                obsStartTimes[0]!.getTime()
+              obsStartTimes[0]!.getTime()
               : undefined
           : undefined;
 
@@ -489,7 +489,7 @@ export const traceRouter = createTRPCRouter({
           const promises = [
             upsertTrace(convertTraceDomainToClickhouse(clickhouseTrace)),
           ];
-          if (env.LANGFUSE_ENABLE_EVENTS_TABLE_FLAGS === "true") {
+          if (env.ELASTICDASH_ENABLE_EVENTS_TABLE_FLAGS === "true") {
             promises.push(
               updateEvents(
                 input.projectId,
@@ -554,7 +554,7 @@ export const traceRouter = createTRPCRouter({
         const promises = [
           upsertTrace(convertTraceDomainToClickhouse(clickhouseTrace)),
         ];
-        if (env.LANGFUSE_ENABLE_EVENTS_TABLE_FLAGS === "true") {
+        if (env.ELASTICDASH_ENABLE_EVENTS_TABLE_FLAGS === "true") {
           promises.push(
             updateEvents(
               input.projectId,

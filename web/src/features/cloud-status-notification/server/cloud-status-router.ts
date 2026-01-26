@@ -33,7 +33,7 @@ export const cloudStatusRouter = createTRPCRouter({
     )
     .query(async () => {
       // Skip status check if not running on ElasticDash Cloud
-      if (!env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION) {
+      if (!env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION) {
         return { status: null };
       }
 
@@ -84,9 +84,9 @@ export const cloudStatusRouter = createTRPCRouter({
               return incident.current_worst_impact;
             },
             "degraded_performance" as
-              | "degraded_performance"
-              | "partial_outage"
-              | "full_outage",
+            | "degraded_performance"
+            | "partial_outage"
+            | "full_outage",
           );
 
           if (worstImpact === "full_outage") {

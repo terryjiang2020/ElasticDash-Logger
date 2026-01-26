@@ -323,9 +323,9 @@ export default class BackfillEventsHistoric implements IBackgroundMigration {
             isLastChunk || !nextChunk
               ? null
               : {
-                  projectId: nextChunk.project_id,
-                  traceId: nextChunk.trace_id,
-                },
+                projectId: nextChunk.project_id,
+                traceId: nextChunk.trace_id,
+              },
           status: "pending",
         });
       }
@@ -427,7 +427,7 @@ export default class BackfillEventsHistoric implements IBackgroundMigration {
 
     // Conditionally filter out 'attributes' key from metadata
     const metadataExpr =
-      env.LANGFUSE_EXPERIMENT_BACKFILL_EXCLUDE_ATTRIBUTES_KEY === "true"
+      env.ELASTICDASH_EXPERIMENT_BACKFILL_EXCLUDE_ATTRIBUTES_KEY === "true"
         ? `mapFilter((k, v) -> k != 'attributes', o.metadata)`
         : `o.metadata`;
 
@@ -524,14 +524,14 @@ export default class BackfillEventsHistoric implements IBackgroundMigration {
     const retrySettings =
       retryCount > 1
         ? {
-            max_threads: 1,
-            max_insert_threads: "1",
-            max_block_size: "2048",
-          }
+          max_threads: 1,
+          max_insert_threads: "1",
+          max_block_size: "2048",
+        }
         : retryCount > 0
           ? {
-              max_block_size: "4096",
-            }
+            max_block_size: "4096",
+          }
           : {};
 
     if (retryCount > 0) {

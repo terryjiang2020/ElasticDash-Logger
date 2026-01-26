@@ -54,7 +54,7 @@ export const mixpanelIntegrationRouter = createTRPCRouter({
         scope: "integrations:CRUD",
       });
       if (!env.ENCRYPTION_KEY) {
-        if (env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION) {
+        if (env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION) {
           throw new TRPCError({
             code: "INTERNAL_SERVER_ERROR",
             message: "Internal server error",

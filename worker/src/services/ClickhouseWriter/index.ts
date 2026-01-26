@@ -32,9 +32,9 @@ export class ClickhouseWriter {
   intervalId: NodeJS.Timeout | null = null;
 
   private constructor() {
-    this.batchSize = env.LANGFUSE_INGESTION_CLICKHOUSE_WRITE_BATCH_SIZE;
-    this.writeInterval = env.LANGFUSE_INGESTION_CLICKHOUSE_WRITE_INTERVAL_MS;
-    this.maxAttempts = env.LANGFUSE_INGESTION_CLICKHOUSE_MAX_ATTEMPTS;
+    this.batchSize = env.ELASTICDASH_INGESTION_CLICKHOUSE_WRITE_BATCH_SIZE;
+    this.writeInterval = env.ELASTICDASH_INGESTION_CLICKHOUSE_WRITE_INTERVAL_MS;
+    this.maxAttempts = env.ELASTICDASH_INGESTION_CLICKHOUSE_MAX_ATTEMPTS;
 
     this.isIntervalFlushInProgress = false;
 
@@ -309,7 +309,7 @@ export class ClickhouseWriter {
             records: recordsToWrite,
           }),
         {
-          numOfAttempts: env.LANGFUSE_INGESTION_CLICKHOUSE_MAX_ATTEMPTS,
+          numOfAttempts: env.ELASTICDASH_INGESTION_CLICKHOUSE_MAX_ATTEMPTS,
           retry: (error: Error, attemptNumber: number) => {
             const isRetryable = this.isRetryableError(error);
             const isSizeError = this.isSizeError(error);
@@ -317,7 +317,7 @@ export class ClickhouseWriter {
 
             if (isRetryable) {
               logger.warn(
-                `ClickHouse Writer failed with retryable error for ${tableName} (attempt ${attemptNumber}/${env.LANGFUSE_INGESTION_CLICKHOUSE_MAX_ATTEMPTS}): ${error.message}`,
+                `ClickHouse Writer failed with retryable error for ${tableName} (attempt ${attemptNumber}/${env.ELASTICDASH_INGESTION_CLICKHOUSE_MAX_ATTEMPTS}): ${error.message}`,
                 {
                   error: error.message,
                   attemptNumber,
@@ -330,7 +330,7 @@ export class ClickhouseWriter {
               return true;
             } else if (isStringLengthError) {
               logger.warn(
-                `ClickHouse Writer failed with string length error for ${tableName} (attempt ${attemptNumber}/${env.LANGFUSE_INGESTION_CLICKHOUSE_MAX_ATTEMPTS}): Splitting batch and retrying`,
+                `ClickHouse Writer failed with string length error for ${tableName} (attempt ${attemptNumber}/${env.ELASTICDASH_INGESTION_CLICKHOUSE_MAX_ATTEMPTS}): Splitting batch and retrying`,
                 {
                   error: error.message,
                   attemptNumber,
@@ -361,7 +361,7 @@ export class ClickhouseWriter {
               return true;
             } else if (isSizeError && !hasBeenTruncated) {
               logger.warn(
-                `ClickHouse Writer failed with size error for ${tableName} (attempt ${attemptNumber}/${env.LANGFUSE_INGESTION_CLICKHOUSE_MAX_ATTEMPTS}): Truncating oversized records and retrying`,
+                `ClickHouse Writer failed with size error for ${tableName} (attempt ${attemptNumber}/${env.ELASTICDASH_INGESTION_CLICKHOUSE_MAX_ATTEMPTS}): Truncating oversized records and retrying`,
                 {
                   error: error.message,
                   attemptNumber,
@@ -510,20 +510,20 @@ export enum TableName {
 type RecordInsertType<T extends TableName> = T extends TableName.Scores
   ? ScoreRecordInsertType
   : T extends TableName.Observations
-    ? ObservationRecordInsertType
-    : T extends TableName.ObservationsBatchStaging
-      ? ObservationBatchStagingRecordInsertType
-      : T extends TableName.Traces
-        ? TraceRecordInsertType
-        : T extends TableName.TracesNull
-          ? TraceNullRecordInsertType
-          : T extends TableName.BlobStorageFileLog
-            ? BlobStorageFileLogInsertType
-            : T extends TableName.DatasetRunItems
-              ? DatasetRunItemRecordInsertType
-              : T extends TableName.Events
-                ? EventRecordInsertType
-                : never;
+  ? ObservationRecordInsertType
+  : T extends TableName.ObservationsBatchStaging
+  ? ObservationBatchStagingRecordInsertType
+  : T extends TableName.Traces
+  ? TraceRecordInsertType
+  : T extends TableName.TracesNull
+  ? TraceNullRecordInsertType
+  : T extends TableName.BlobStorageFileLog
+  ? BlobStorageFileLogInsertType
+  : T extends TableName.DatasetRunItems
+  ? DatasetRunItemRecordInsertType
+  : T extends TableName.Events
+  ? EventRecordInsertType
+  : never;
 
 type ClickhouseQueue = {
   [T in TableName]: ClickhouseWriterQueueItem<T>[];

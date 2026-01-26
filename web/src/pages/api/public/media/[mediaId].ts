@@ -46,7 +46,7 @@ export default withMiddlewares({
         );
 
       const mediaStorageClient = getMediaStorageServiceClient(media.bucketName);
-      const ttlSeconds = env.LANGFUSE_S3_MEDIA_DOWNLOAD_URL_EXPIRY_SECONDS;
+      const ttlSeconds = env.ELASTICDASH_S3_MEDIA_DOWNLOAD_URL_EXPIRY_SECONDS;
       const urlExpiry = new Date(Date.now() + ttlSeconds * 1000).toISOString();
 
       const url = await mediaStorageClient.getSignedUrl(
@@ -123,7 +123,7 @@ export default withMiddlewares({
 
         throw new InternalServerError(
           `Error updating uploadedAt on media ID ${mediaId}` +
-          (e instanceof Error ? e.message : "")
+            (e instanceof Error ? e.message : "")
             ? (e as Error).message
             : "",
         );

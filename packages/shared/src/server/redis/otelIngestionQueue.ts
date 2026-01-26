@@ -18,7 +18,7 @@ export class OtelIngestionQueue {
 
   public static getShardNames() {
     return Array.from(
-      { length: env.LANGFUSE_OTEL_INGESTION_QUEUE_SHARD_COUNT },
+      { length: env.ELASTICDASH_OTEL_INGESTION_QUEUE_SHARD_COUNT },
       (_, i) => `${QueueName.OtelIngestionQueue}${i > 0 ? `-${i}` : ""}`,
     );
   }
@@ -33,9 +33,9 @@ export class OtelIngestionQueue {
       shardName === QueueName.OtelIngestionQueue
         ? 0
         : parseInt(
-            shardName.replace(`${QueueName.OtelIngestionQueue}-`, ""),
-            10,
-          );
+          shardName.replace(`${QueueName.OtelIngestionQueue}-`, ""),
+          10,
+        );
 
     if (isNaN(shardIndex)) return null;
     return shardIndex;
@@ -54,9 +54,9 @@ export class OtelIngestionQueue {
       OtelIngestionQueue.getShardIndexFromShardName(shardName) ??
       (env.REDIS_CLUSTER_ENABLED === "true"
         ? getShardIndex(
-            randomUUID(),
-            env.LANGFUSE_OTEL_INGESTION_QUEUE_SHARD_COUNT,
-          )
+          randomUUID(),
+          env.ELASTICDASH_OTEL_INGESTION_QUEUE_SHARD_COUNT,
+        )
         : 0);
 
     // Check if we already have an instance for this shard
@@ -72,18 +72,18 @@ export class OtelIngestionQueue {
     const name = `${QueueName.OtelIngestionQueue}${shardIndex > 0 ? `-${shardIndex}` : ""}`;
     const queueInstance = newRedis
       ? new Queue<TQueueJobTypes[QueueName.OtelIngestionQueue]>(name, {
-          connection: newRedis,
-          prefix: getQueuePrefix(name),
-          defaultJobOptions: {
-            removeOnComplete: true,
-            removeOnFail: 100_000,
-            attempts: 6,
-            backoff: {
-              type: "exponential",
-              delay: 5000,
-            },
+        connection: newRedis,
+        prefix: getQueuePrefix(name),
+        defaultJobOptions: {
+          removeOnComplete: true,
+          removeOnFail: 100_000,
+          attempts: 6,
+          backoff: {
+            type: "exponential",
+            delay: 5000,
           },
-        })
+        },
+      })
       : null;
 
     queueInstance?.on("error", (err) => {

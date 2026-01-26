@@ -39,15 +39,15 @@ export const applyInputOutputRendering = (
 
   if (
     renderingProps.truncated &&
-    io.length > env.LANGFUSE_SERVER_SIDE_IO_CHAR_LIMIT
+    io.length > env.ELASTICDASH_SERVER_SIDE_IO_CHAR_LIMIT
   ) {
     result =
-      io.slice(0, env.LANGFUSE_SERVER_SIDE_IO_CHAR_LIMIT) + "...[truncated]";
+      io.slice(0, env.ELASTICDASH_SERVER_SIDE_IO_CHAR_LIMIT) + "...[truncated]";
   }
 
   if (
     renderingProps.truncated &&
-    io.length === env.LANGFUSE_SERVER_SIDE_IO_CHAR_LIMIT
+    io.length === env.ELASTICDASH_SERVER_SIDE_IO_CHAR_LIMIT
   ) {
     result = io + "...[truncated]";
   }

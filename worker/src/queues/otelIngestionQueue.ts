@@ -138,7 +138,7 @@ export const otelIngestionQueueProcessor: Processor = async (
 
     // Download file from blob storage
     const resourceSpans = await getS3EventStorageClient(
-      env.LANGFUSE_S3_EVENT_UPLOAD_BUCKET,
+      env.ELASTICDASH_S3_EVENT_UPLOAD_BUCKET,
     ).download(fileKey);
 
     recordHistogram(
@@ -229,9 +229,9 @@ export const otelIngestionQueueProcessor: Processor = async (
 
     const shouldForwardToEventsTable =
       !useDirectEventWrite &&
-      env.LANGFUSE_EXPERIMENT_INSERT_INTO_EVENTS_TABLE === "true" &&
+      env.ELASTICDASH_EXPERIMENT_INSERT_INTO_EVENTS_TABLE === "true" &&
       env.QUEUE_CONSUMER_EVENT_PROPAGATION_QUEUE_IS_ENABLED === "true" &&
-      env.LANGFUSE_EXPERIMENT_EARLY_EXIT_EVENT_BATCH_JOB !== "true";
+      env.ELASTICDASH_EXPERIMENT_EARLY_EXIT_EVENT_BATCH_JOB !== "true";
 
     // Running everything concurrently might be detrimental to the event loop, but has probably
     // the highest possible throughput. Therefore, we start with a Promise.all.
@@ -261,7 +261,7 @@ export const otelIngestionQueueProcessor: Processor = async (
     // If inserts into the events table are enabled AND observations qualify for direct write,
     // run the dedicated processing for the otel spans and move them into the dedicated IngestionService processor.
     if (
-      env.LANGFUSE_EXPERIMENT_INSERT_INTO_EVENTS_TABLE === "true" &&
+      env.ELASTICDASH_EXPERIMENT_INSERT_INTO_EVENTS_TABLE === "true" &&
       useDirectEventWrite
     ) {
       try {

@@ -194,7 +194,7 @@ function UserTracking() {
                 organization: org,
               })),
             ) ?? undefined,
-          LANGFUSE_CLOUD_REGION: region,
+          ELASTICDASH_CLOUD_REGION: region,
         });
 
       // Sentry

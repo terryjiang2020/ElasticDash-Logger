@@ -21,7 +21,7 @@ export class ClickHouseClientManager {
   /**
    * Private constructor to enforce singleton pattern
    */
-  private constructor() {}
+  private constructor() { }
 
   /**
    * Get the singleton instance of the ClickHouseClientManager
@@ -95,7 +95,7 @@ export class ClickHouseClientManager {
       const cloudOptions: Record<string, unknown> = {};
       if (
         ["STAGING", "EU", "US", "HIPAA"].includes(
-          env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION ?? "",
+          env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION ?? "",
         )
       ) {
         cloudOptions.input_format_json_throw_on_bad_escape_sequence = 0;
@@ -110,33 +110,33 @@ export class ClickHouseClientManager {
         max_open_connections: env.CLICKHOUSE_MAX_OPEN_CONNECTIONS,
         log: {
           LoggerClass: ClickHouseLogger,
-          level: mapLogLevel(env.LANGFUSE_LOG_LEVEL ?? "info"),
+          level: mapLogLevel(env.ELASTICDASH_LOG_LEVEL ?? "info"),
         },
         clickhouse_settings: {
           // Overwrite async insert settings to tune throughput
           ...(env.CLICKHOUSE_ASYNC_INSERT_MAX_DATA_SIZE
             ? {
-                async_insert_max_data_size:
-                  env.CLICKHOUSE_ASYNC_INSERT_MAX_DATA_SIZE,
-              }
+              async_insert_max_data_size:
+                env.CLICKHOUSE_ASYNC_INSERT_MAX_DATA_SIZE,
+            }
             : {}),
           ...(env.CLICKHOUSE_ASYNC_INSERT_BUSY_TIMEOUT_MS
             ? {
-                async_insert_busy_timeout_ms:
-                  env.CLICKHOUSE_ASYNC_INSERT_BUSY_TIMEOUT_MS,
-              }
+              async_insert_busy_timeout_ms:
+                env.CLICKHOUSE_ASYNC_INSERT_BUSY_TIMEOUT_MS,
+            }
             : {}),
           ...(env.CLICKHOUSE_ASYNC_INSERT_BUSY_TIMEOUT_MIN_MS
             ? {
-                async_insert_busy_timeout_min_ms:
-                  env.CLICKHOUSE_ASYNC_INSERT_BUSY_TIMEOUT_MIN_MS,
-              }
+              async_insert_busy_timeout_min_ms:
+                env.CLICKHOUSE_ASYNC_INSERT_BUSY_TIMEOUT_MIN_MS,
+            }
             : {}),
           ...(env.CLICKHOUSE_LIGHTWEIGHT_DELETE_MODE !== "alter_update"
             ? {
-                lightweight_delete_mode: env.CLICKHOUSE_LIGHTWEIGHT_DELETE_MODE,
-                update_parallel_mode: env.CLICKHOUSE_UPDATE_PARALLEL_MODE,
-              }
+              lightweight_delete_mode: env.CLICKHOUSE_LIGHTWEIGHT_DELETE_MODE,
+              update_parallel_mode: env.CLICKHOUSE_UPDATE_PARALLEL_MODE,
+            }
             : {}),
           ...cloudOptions,
           ...opts.clickhouse_settings,
@@ -144,9 +144,9 @@ export class ClickHouseClientManager {
           wait_for_async_insert: 1, // if disabled, we won't get errors from clickhouse
           ...(opts.request_timeout && opts.request_timeout > 30000
             ? {
-                send_progress_in_http_headers: 1,
-                http_headers_progress_interval_ms: "25000", // UInt64, should be passed as a string
-              }
+              send_progress_in_http_headers: 1,
+              http_headers_progress_interval_ms: "25000", // UInt64, should be passed as a string
+            }
             : {}),
         },
       });

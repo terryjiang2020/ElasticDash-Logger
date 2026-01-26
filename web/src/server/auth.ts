@@ -67,7 +67,7 @@ function canCreateOrganizations(userEmail: string | null): boolean {
 
   // if no allowlist is set or no entitlement for self-host-allowed-organization-creators, allow all users to create organizations
   if (
-    !env.LANGFUSE_ALLOWED_ORGANIZATION_CREATORS ||
+    !env.ELASTICDASH_ALLOWED_ORGANIZATION_CREATORS ||
     !hasEntitlementBasedOnPlan({
       plan: instancePlan,
       entitlement: "self-host-allowed-organization-creators",
@@ -78,7 +78,7 @@ function canCreateOrganizations(userEmail: string | null): boolean {
   if (!userEmail) return false;
 
   const allowedOrgCreators =
-    env.LANGFUSE_ALLOWED_ORGANIZATION_CREATORS.toLowerCase().split(",");
+    env.ELASTICDASH_ALLOWED_ORGANIZATION_CREATORS.toLowerCase().split(",");
   return allowedOrgCreators.includes(userEmail.toLowerCase());
 }
 
@@ -471,7 +471,7 @@ const extendedPrismaAdapter: Adapter = {
     if (!profile.email) {
       throw new Error(
         "Cannot create db user as login profile does not contain an email: " +
-          JSON.stringify(profile),
+        JSON.stringify(profile),
       );
     }
 
@@ -654,7 +654,7 @@ export async function getAuthOptions(): Promise<NextAuthOptions> {
             ...session,
             environment: {
               enableExperimentalFeatures:
-                env.LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES === "true",
+                env.ELASTICDASH_ENABLE_EXPERIMENTAL_FEATURES === "true",
               // Enables features that are only available under an enterprise license when self-hosting ElasticDash
               // If you edit this line, you risk executing code that is not MIT licensed (self-contained in /ee folders otherwise)
               selfHostedInstancePlan: getSelfHostedInstancePlanServerSide(),
@@ -662,74 +662,74 @@ export async function getAuthOptions(): Promise<NextAuthOptions> {
             user:
               dbUser !== null
                 ? {
-                    ...session.user,
-                    id: dbUser.id,
-                    name: dbUser.name,
-                    email: dbUser.email,
-                    emailSupportHash: dbUser.email
-                      ? createSupportEmailHash(dbUser.email)
-                      : undefined,
-                    image: dbUser.image,
-                    admin: dbUser.admin,
-                    canCreateOrganizations: canCreateOrganizations(
-                      dbUser.email,
-                    ),
-                    organizations: dbUser.organizationMemberships.map(
-                      (orgMembership) => {
-                        const parsedCloudConfig = CloudConfigSchema.safeParse(
-                          orgMembership.organization.cloudConfig,
-                        );
-                        return {
-                          id: orgMembership.organization.id,
-                          name: orgMembership.organization.name,
-                          role: orgMembership.role,
-                          metadata:
-                            (orgMembership.organization.metadata as Record<
-                              string,
-                              unknown
-                            >) ?? {},
-                          aiFeaturesEnabled:
-                            orgMembership.organization.aiFeaturesEnabled,
-                          cloudConfig: parsedCloudConfig.data,
-                          projects: orgMembership.organization.projects
-                            .map((project) => {
-                              const projectRole = resolveProjectRole({
-                                projectId: project.id,
-                                projectMemberships:
-                                  orgMembership.ProjectMemberships,
-                                orgMembershipRole: orgMembership.role,
-                              });
-                              return {
-                                id: project.id,
-                                name: project.name,
-                                role: projectRole,
-                                retentionDays: project.retentionDays,
-                                deletedAt: project.deletedAt,
-                                metadata:
-                                  (project.metadata as Record<
-                                    string,
-                                    unknown
-                                  >) ?? {},
-                              };
-                            })
-                            // Only include projects where the user has the required role
-                            .filter((project) =>
-                              projectRoleAccessRights[project.role].includes(
-                                "project:read",
-                              ),
+                  ...session.user,
+                  id: dbUser.id,
+                  name: dbUser.name,
+                  email: dbUser.email,
+                  emailSupportHash: dbUser.email
+                    ? createSupportEmailHash(dbUser.email)
+                    : undefined,
+                  image: dbUser.image,
+                  admin: dbUser.admin,
+                  canCreateOrganizations: canCreateOrganizations(
+                    dbUser.email,
+                  ),
+                  organizations: dbUser.organizationMemberships.map(
+                    (orgMembership) => {
+                      const parsedCloudConfig = CloudConfigSchema.safeParse(
+                        orgMembership.organization.cloudConfig,
+                      );
+                      return {
+                        id: orgMembership.organization.id,
+                        name: orgMembership.organization.name,
+                        role: orgMembership.role,
+                        metadata:
+                          (orgMembership.organization.metadata as Record<
+                            string,
+                            unknown
+                          >) ?? {},
+                        aiFeaturesEnabled:
+                          orgMembership.organization.aiFeaturesEnabled,
+                        cloudConfig: parsedCloudConfig.data,
+                        projects: orgMembership.organization.projects
+                          .map((project) => {
+                            const projectRole = resolveProjectRole({
+                              projectId: project.id,
+                              projectMemberships:
+                                orgMembership.ProjectMemberships,
+                              orgMembershipRole: orgMembership.role,
+                            });
+                            return {
+                              id: project.id,
+                              name: project.name,
+                              role: projectRole,
+                              retentionDays: project.retentionDays,
+                              deletedAt: project.deletedAt,
+                              metadata:
+                                (project.metadata as Record<
+                                  string,
+                                  unknown
+                                >) ?? {},
+                            };
+                          })
+                          // Only include projects where the user has the required role
+                          .filter((project) =>
+                            projectRoleAccessRights[project.role].includes(
+                              "project:read",
                             ),
-
-                          // Enables features/entitlements based on the plan of the organization, either cloud or EE version when self-hosting
-                          // If you edit this line, you risk executing code that is not MIT licensed (contained in /ee folders, see LICENSE)
-                          plan: getOrganizationPlanServerSide(
-                            parsedCloudConfig.data,
                           ),
-                        };
-                      },
-                    ),
-                    emailVerified: dbUser.emailVerified?.toISOString(),
-                    featureFlags: parseFlags(dbUser.featureFlags),
-                  }
+
+                        // Enables features/entitlements based on the plan of the organization, either cloud or EE version when self-hosting
+                        // If you edit this line, you risk executing code that is not MIT licensed (contained in /ee folders, see LICENSE)
+                        plan: getOrganizationPlanServerSide(
+                          parsedCloudConfig.data,
+                        ),
+                      };
+                    },
+                  ),
+                  emailVerified: dbUser.emailVerified?.toISOString(),
+                  featureFlags: parseFlags(dbUser.featureFlags),
+                }
                 : null,
           };
         });
@@ -837,10 +837,10 @@ export async function getAuthOptions(): Promise<NextAuthOptions> {
     pages: {
       signIn: `${env.NEXT_PUBLIC_BASE_PATH ?? ""}/auth/sign-in`,
       error: `${env.NEXT_PUBLIC_BASE_PATH ?? ""}/auth/error`,
-      ...(env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION
+      ...(env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION
         ? {
-            newUser: `${env.NEXT_PUBLIC_BASE_PATH ?? ""}/onboarding`,
-          }
+          newUser: `${env.NEXT_PUBLIC_BASE_PATH ?? ""}/onboarding`,
+        }
         : {}),
     },
     cookies: {
@@ -872,17 +872,17 @@ export async function getAuthOptions(): Promise<NextAuthOptions> {
     events: {
       createUser: async ({ user }) => {
         if (
-          env.LANGFUSE_NEW_USER_SIGNUP_WEBHOOK &&
-          env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION &&
-          env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION !== "STAGING" &&
-          env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION !== "DEV"
+          env.ELASTICDASH_NEW_USER_SIGNUP_WEBHOOK &&
+          env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION &&
+          env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION !== "STAGING" &&
+          env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION !== "DEV"
         ) {
-          await fetch(env.LANGFUSE_NEW_USER_SIGNUP_WEBHOOK, {
+          await fetch(env.ELASTICDASH_NEW_USER_SIGNUP_WEBHOOK, {
             method: "POST",
             body: JSON.stringify({
               name: user.name,
               email: user.email,
-              cloudRegion: env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION,
+              cloudRegion: env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION,
               userId: user.id,
               // referralSource: ...
             }),

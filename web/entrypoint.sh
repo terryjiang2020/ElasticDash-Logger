@@ -31,7 +31,7 @@ if [ -z "$DIRECT_URL" ]; then
 fi
 
 # Always execute the postgres migration, except when disabled.
-if [ "$LANGFUSE_AUTO_POSTGRES_MIGRATION_DISABLED" != "true" ]; then
+if [ "$ELASTICDASH_AUTO_POSTGRES_MIGRATION_DISABLED" != "true" ]; then
     prisma db execute --url "$DIRECT_URL" --file "./packages/shared/scripts/cleanup.sql"
 
     # Apply migrations
@@ -47,7 +47,7 @@ if [ $status -ne 0 ]; then
 fi
 
 # Execute the Clickhouse migration, except when disabled.
-if [ "$LANGFUSE_AUTO_CLICKHOUSE_MIGRATION_DISABLED" != "true" ]; then
+if [ "$ELASTICDASH_AUTO_CLICKHOUSE_MIGRATION_DISABLED" != "true" ]; then
     # Apply Clickhouse migrations
     cd ./packages/shared
     sh ./clickhouse/scripts/up.sh

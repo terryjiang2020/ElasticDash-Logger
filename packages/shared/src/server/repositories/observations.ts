@@ -228,8 +228,10 @@ export const getObservationsForTrace = async <IncludeIO extends boolean>(
       }
     });
 
-    if (payloadSize >= env.LANGFUSE_API_TRACE_OBSERVATIONS_SIZE_LIMIT_BYTES) {
-      const errorMessage = `Observations in trace are too large: ${(payloadSize / 1e6).toFixed(2)}MB exceeds limit of ${(env.LANGFUSE_API_TRACE_OBSERVATIONS_SIZE_LIMIT_BYTES / 1e6).toFixed(2)}MB`;
+    if (
+      payloadSize >= env.ELASTICDASH_API_TRACE_OBSERVATIONS_SIZE_LIMIT_BYTES
+    ) {
+      const errorMessage = `Observations in trace are too large: ${(payloadSize / 1e6).toFixed(2)}MB exceeds limit of ${(env.ELASTICDASH_API_TRACE_OBSERVATIONS_SIZE_LIMIT_BYTES / 1e6).toFixed(2)}MB`;
 
       throw new Error(errorMessage);
     }
@@ -471,7 +473,7 @@ const getObservationByIdInternal = async ({
     level,
     status_message,
     version,
-    ${fetchWithInputOutput ? (renderingProps.truncated ? `leftUTF8(input, ${env.LANGFUSE_SERVER_SIDE_IO_CHAR_LIMIT}) as input, leftUTF8(output, ${env.LANGFUSE_SERVER_SIDE_IO_CHAR_LIMIT}) as output,` : "input, output,") : ""}
+    ${fetchWithInputOutput ? (renderingProps.truncated ? `leftUTF8(input, ${env.ELASTICDASH_SERVER_SIDE_IO_CHAR_LIMIT}) as input, leftUTF8(output, ${env.ELASTICDASH_SERVER_SIDE_IO_CHAR_LIMIT}) as output,` : "input, output,") : ""}
     provided_model_name,
     internal_model_id,
     model_parameters,
@@ -583,16 +585,16 @@ export const getObservationsTableWithModelData = async (
   const [models, traces] = await Promise.all([
     uniqueModels.length > 0
       ? prisma.model.findMany({
-          where: {
-            id: {
-              in: uniqueModels,
-            },
-            OR: [{ projectId: opts.projectId }, { projectId: null }],
+        where: {
+          id: {
+            in: uniqueModels,
           },
-          include: {
-            Price: true,
-          },
-        })
+          OR: [{ projectId: opts.projectId }, { projectId: null }],
+        },
+        include: {
+          Price: true,
+        },
+      })
       : [],
     getTracesByIds(
       observationRecords
@@ -712,20 +714,20 @@ const getObservationsTableInternal = async <T>(
 
   const orderByTraces = orderBy
     ? observationsTableTraceUiColumnDefinitions.some(
-        (c) =>
-          c.uiTableId === orderBy.column || c.uiTableName === orderBy.column,
-      )
+      (c) =>
+        c.uiTableId === orderBy.column || c.uiTableName === orderBy.column,
+    )
     : undefined;
 
   timeFilter
     ? scoresFilter.push(
-        new DateTimeFilter({
-          clickhouseTable: "scores",
-          field: "timestamp",
-          operator: ">=",
-          value: timeFilter.value as Date,
-        }),
-      )
+      new DateTimeFilter({
+        clickhouseTable: "scores",
+        field: "timestamp",
+        operator: ">=",
+        value: timeFilter.value as Date,
+      }),
+    )
     : undefined;
 
   const observationsFilter = new FilterList([
@@ -839,10 +841,10 @@ const getObservationsTableInternal = async <T>(
         ...appliedObservationsFilter.params,
         ...(timeFilter
           ? {
-              tracesTimestampFilter: convertDateToClickhouseDateTime(
-                timeFilter.value as Date,
-              ),
-            }
+            tracesTimestampFilter: convertDateToClickhouseDateTime(
+              timeFilter.value as Date,
+            ),
+          }
           : {}),
         ...search.params,
       },
@@ -1166,17 +1168,17 @@ export const getObservationsGroupedByPromptName = async (
   const pgPrompts =
     prompts.length > 0
       ? await prisma.prompt.findMany({
-          select: {
-            id: true,
-            name: true,
+        select: {
+          id: true,
+          name: true,
+        },
+        where: {
+          id: {
+            in: prompts,
           },
-          where: {
-            id: {
-              in: prompts,
-            },
-            projectId,
-          },
-        })
+          projectId,
+        },
+      })
       : [];
 
   return pgPrompts.map((p) => ({
@@ -1238,7 +1240,7 @@ export const deleteObservationsByTraceIds = async (
       traceIds,
     },
     clickhouseConfigs: {
-      request_timeout: env.LANGFUSE_CLICKHOUSE_DELETION_TIMEOUT_MS,
+      request_timeout: env.ELASTICDASH_CLICKHOUSE_DELETION_TIMEOUT_MS,
     },
     tags: {
       feature: "tracing",
@@ -1294,7 +1296,7 @@ export const deleteObservationsByProjectId = async (
     query,
     params: { projectId },
     clickhouseConfigs: {
-      request_timeout: env.LANGFUSE_CLICKHOUSE_DELETION_TIMEOUT_MS,
+      request_timeout: env.ELASTICDASH_CLICKHOUSE_DELETION_TIMEOUT_MS,
     },
     tags,
   });
@@ -1352,7 +1354,7 @@ export const deleteObservationsOlderThanDays = async (
       cutoffDate: convertDateToClickhouseDateTime(beforeDate),
     },
     clickhouseConfigs: {
-      request_timeout: env.LANGFUSE_CLICKHOUSE_DELETION_TIMEOUT_MS,
+      request_timeout: env.ELASTICDASH_CLICKHOUSE_DELETION_TIMEOUT_MS,
     },
     tags: {
       feature: "tracing",
@@ -1775,7 +1777,8 @@ export const getObservationsForBlobStorageExport = function (
       projectId,
     },
     clickhouseConfigs: {
-      request_timeout: env.LANGFUSE_CLICKHOUSE_DATA_EXPORT_REQUEST_TIMEOUT_MS,
+      request_timeout:
+        env.ELASTICDASH_CLICKHOUSE_DATA_EXPORT_REQUEST_TIMEOUT_MS,
     },
   });
 
@@ -1838,7 +1841,8 @@ export const getGenerationsForAnalyticsIntegrations = async function* (
       projectId,
     },
     clickhouseConfigs: {
-      request_timeout: env.LANGFUSE_CLICKHOUSE_DATA_EXPORT_REQUEST_TIMEOUT_MS,
+      request_timeout:
+        env.ELASTICDASH_CLICKHOUSE_DATA_EXPORT_REQUEST_TIMEOUT_MS,
       clickhouse_settings: {
         join_algorithm: "grace_hash",
         grace_hash_join_initial_buckets: "32",

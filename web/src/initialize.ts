@@ -7,101 +7,101 @@ import { getOrganizationPlanServerSide } from "@/src/features/entitlements/serve
 import { CloudConfigSchema } from "@langfuse/shared";
 import { logger } from "@langfuse/shared/src/server";
 
-// Warn if LANGFUSE_INIT_* variables are set but LANGFUSE_INIT_ORG_ID is missing
-if (!env.LANGFUSE_INIT_ORG_ID) {
+// Warn if ELASTICDASH_INIT_* variables are set but ELASTICDASH_INIT_ORG_ID is missing
+if (!env.ELASTICDASH_INIT_ORG_ID) {
   const setInitVars = [
-    env.LANGFUSE_INIT_ORG_NAME && "LANGFUSE_INIT_ORG_NAME",
-    env.LANGFUSE_INIT_ORG_CLOUD_PLAN && "LANGFUSE_INIT_ORG_CLOUD_PLAN",
-    env.LANGFUSE_INIT_PROJECT_ID && "LANGFUSE_INIT_PROJECT_ID",
-    env.LANGFUSE_INIT_PROJECT_NAME && "LANGFUSE_INIT_PROJECT_NAME",
-    env.LANGFUSE_INIT_PROJECT_RETENTION && "LANGFUSE_INIT_PROJECT_RETENTION",
-    env.LANGFUSE_INIT_PROJECT_PUBLIC_KEY && "LANGFUSE_INIT_PROJECT_PUBLIC_KEY",
-    env.LANGFUSE_INIT_PROJECT_SECRET_KEY && "LANGFUSE_INIT_PROJECT_SECRET_KEY",
-    env.LANGFUSE_INIT_USER_EMAIL && "LANGFUSE_INIT_USER_EMAIL",
-    env.LANGFUSE_INIT_USER_NAME && "LANGFUSE_INIT_USER_NAME",
-    env.LANGFUSE_INIT_USER_PASSWORD && "LANGFUSE_INIT_USER_PASSWORD",
+    env.ELASTICDASH_INIT_ORG_NAME && "ELASTICDASH_INIT_ORG_NAME",
+    env.ELASTICDASH_INIT_ORG_CLOUD_PLAN && "ELASTICDASH_INIT_ORG_CLOUD_PLAN",
+    env.ELASTICDASH_INIT_PROJECT_ID && "ELASTICDASH_INIT_PROJECT_ID",
+    env.ELASTICDASH_INIT_PROJECT_NAME && "ELASTICDASH_INIT_PROJECT_NAME",
+    env.ELASTICDASH_INIT_PROJECT_RETENTION && "ELASTICDASH_INIT_PROJECT_RETENTION",
+    env.ELASTICDASH_INIT_PROJECT_PUBLIC_KEY && "ELASTICDASH_INIT_PROJECT_PUBLIC_KEY",
+    env.ELASTICDASH_INIT_PROJECT_SECRET_KEY && "ELASTICDASH_INIT_PROJECT_SECRET_KEY",
+    env.ELASTICDASH_INIT_USER_EMAIL && "ELASTICDASH_INIT_USER_EMAIL",
+    env.ELASTICDASH_INIT_USER_NAME && "ELASTICDASH_INIT_USER_NAME",
+    env.ELASTICDASH_INIT_USER_PASSWORD && "ELASTICDASH_INIT_USER_PASSWORD",
   ].filter(Boolean) as string[];
 
   if (setInitVars.length > 0) {
     logger.warn(
-      `[ElasticDash Init] LANGFUSE_INIT_ORG_ID is not set but other LANGFUSE_INIT_* variables are configured. ` +
-        `The following variables will be ignored: ${setInitVars.join(", ")}. ` +
-        `Set LANGFUSE_INIT_ORG_ID to enable initialization.`,
+      `[ElasticDash Init] ELASTICDASH_INIT_ORG_ID is not set but other ELASTICDASH_INIT_* variables are configured. ` +
+      `The following variables will be ignored: ${setInitVars.join(", ")}. ` +
+      `Set ELASTICDASH_INIT_ORG_ID to enable initialization.`,
     );
   }
 }
 
 // Create Organization
-if (env.LANGFUSE_INIT_ORG_ID) {
-  const cloudConfig = env.LANGFUSE_INIT_ORG_CLOUD_PLAN
+if (env.ELASTICDASH_INIT_ORG_ID) {
+  const cloudConfig = env.ELASTICDASH_INIT_ORG_CLOUD_PLAN
     ? CloudConfigSchema.parse({
-        plan: env.LANGFUSE_INIT_ORG_CLOUD_PLAN,
-      })
+      plan: env.ELASTICDASH_INIT_ORG_CLOUD_PLAN,
+    })
     : undefined;
 
   const org = await prisma.organization.upsert({
-    where: { id: env.LANGFUSE_INIT_ORG_ID },
+    where: { id: env.ELASTICDASH_INIT_ORG_ID },
     update: {},
     create: {
-      id: env.LANGFUSE_INIT_ORG_ID,
-      name: env.LANGFUSE_INIT_ORG_NAME ?? "Provisioned Org",
+      id: env.ELASTICDASH_INIT_ORG_ID,
+      name: env.ELASTICDASH_INIT_ORG_NAME ?? "Provisioned Org",
       cloudConfig,
     },
   });
 
   // Warn about partial configurations
-  const hasPublicKey = Boolean(env.LANGFUSE_INIT_PROJECT_PUBLIC_KEY);
-  const hasSecretKey = Boolean(env.LANGFUSE_INIT_PROJECT_SECRET_KEY);
-  const hasEmail = Boolean(env.LANGFUSE_INIT_USER_EMAIL);
-  const hasPassword = Boolean(env.LANGFUSE_INIT_USER_PASSWORD);
+  const hasPublicKey = Boolean(env.ELASTICDASH_INIT_PROJECT_PUBLIC_KEY);
+  const hasSecretKey = Boolean(env.ELASTICDASH_INIT_PROJECT_SECRET_KEY);
+  const hasEmail = Boolean(env.ELASTICDASH_INIT_USER_EMAIL);
+  const hasPassword = Boolean(env.ELASTICDASH_INIT_USER_PASSWORD);
 
   // Partial API key config
   if (hasPublicKey !== hasSecretKey) {
     const missingKey = hasPublicKey
-      ? "LANGFUSE_INIT_PROJECT_SECRET_KEY"
-      : "LANGFUSE_INIT_PROJECT_PUBLIC_KEY";
+      ? "ELASTICDASH_INIT_PROJECT_SECRET_KEY"
+      : "ELASTICDASH_INIT_PROJECT_PUBLIC_KEY";
     logger.warn(
       `[ElasticDash Init] Partial API key configuration: ${missingKey} is not set. ` +
-        `Both LANGFUSE_INIT_PROJECT_PUBLIC_KEY and LANGFUSE_INIT_PROJECT_SECRET_KEY must be set to create API keys.`,
+      `Both ELASTICDASH_INIT_PROJECT_PUBLIC_KEY and ELASTICDASH_INIT_PROJECT_SECRET_KEY must be set to create API keys.`,
     );
   }
 
   // API keys without project ID
-  if ((hasPublicKey || hasSecretKey) && !env.LANGFUSE_INIT_PROJECT_ID) {
+  if ((hasPublicKey || hasSecretKey) && !env.ELASTICDASH_INIT_PROJECT_ID) {
     logger.warn(
-      `[ElasticDash Init] LANGFUSE_INIT_PROJECT_ID is not set but API key variables are configured. ` +
-        `API keys will not be created. Set LANGFUSE_INIT_PROJECT_ID to enable API key creation.`,
+      `[ElasticDash Init] ELASTICDASH_INIT_PROJECT_ID is not set but API key variables are configured. ` +
+      `API keys will not be created. Set ELASTICDASH_INIT_PROJECT_ID to enable API key creation.`,
     );
   }
 
   // Partial user config
   if (hasEmail !== hasPassword) {
     const missingVar = hasEmail
-      ? "LANGFUSE_INIT_USER_PASSWORD"
-      : "LANGFUSE_INIT_USER_EMAIL";
+      ? "ELASTICDASH_INIT_USER_PASSWORD"
+      : "ELASTICDASH_INIT_USER_EMAIL";
     logger.warn(
       `[ElasticDash Init] Partial user configuration: ${missingVar} is not set. ` +
-        `Both LANGFUSE_INIT_USER_EMAIL and LANGFUSE_INIT_USER_PASSWORD must be set to create a user.`,
+      `Both ELASTICDASH_INIT_USER_EMAIL and ELASTICDASH_INIT_USER_PASSWORD must be set to create a user.`,
     );
   }
 
   // Create Project: Org -> Project
-  if (env.LANGFUSE_INIT_PROJECT_ID) {
+  if (env.ELASTICDASH_INIT_PROJECT_ID) {
     let retentionDays: number | null = null;
     const hasRetentionEntitlement = hasEntitlementBasedOnPlan({
       plan: getOrganizationPlanServerSide(),
       entitlement: "data-retention",
     });
-    if (env.LANGFUSE_INIT_PROJECT_RETENTION && hasRetentionEntitlement) {
-      retentionDays = env.LANGFUSE_INIT_PROJECT_RETENTION;
+    if (env.ELASTICDASH_INIT_PROJECT_RETENTION && hasRetentionEntitlement) {
+      retentionDays = env.ELASTICDASH_INIT_PROJECT_RETENTION;
     }
 
     await prisma.project.upsert({
-      where: { id: env.LANGFUSE_INIT_PROJECT_ID },
+      where: { id: env.ELASTICDASH_INIT_PROJECT_ID },
       update: {},
       create: {
-        id: env.LANGFUSE_INIT_PROJECT_ID,
-        name: env.LANGFUSE_INIT_PROJECT_NAME ?? "Provisioned Project",
+        id: env.ELASTICDASH_INIT_PROJECT_ID,
+        name: env.ELASTICDASH_INIT_PROJECT_NAME ?? "Provisioned Project",
         orgId: org.id,
         retentionDays,
       },
@@ -109,36 +109,36 @@ if (env.LANGFUSE_INIT_ORG_ID) {
 
     // Add API Keys: Project -> API Key
     if (
-      env.LANGFUSE_INIT_PROJECT_SECRET_KEY &&
-      env.LANGFUSE_INIT_PROJECT_PUBLIC_KEY
+      env.ELASTICDASH_INIT_PROJECT_SECRET_KEY &&
+      env.ELASTICDASH_INIT_PROJECT_PUBLIC_KEY
     ) {
       const existingApiKey = await prisma.apiKey.findUnique({
-        where: { publicKey: env.LANGFUSE_INIT_PROJECT_PUBLIC_KEY },
+        where: { publicKey: env.ELASTICDASH_INIT_PROJECT_PUBLIC_KEY },
       });
 
       // Delete key if project changed
       if (
         existingApiKey &&
-        existingApiKey.projectId !== env.LANGFUSE_INIT_PROJECT_ID
+        existingApiKey.projectId !== env.ELASTICDASH_INIT_PROJECT_ID
       ) {
         await prisma.apiKey.delete({
-          where: { publicKey: env.LANGFUSE_INIT_PROJECT_PUBLIC_KEY },
+          where: { publicKey: env.ELASTICDASH_INIT_PROJECT_PUBLIC_KEY },
         });
       }
 
       // Create new key if it doesn't exist or project changed
       if (
         !existingApiKey ||
-        existingApiKey.projectId !== env.LANGFUSE_INIT_PROJECT_ID
+        existingApiKey.projectId !== env.ELASTICDASH_INIT_PROJECT_ID
       ) {
         await createAndAddApiKeysToDb({
           prisma,
-          entityId: env.LANGFUSE_INIT_PROJECT_ID,
+          entityId: env.ELASTICDASH_INIT_PROJECT_ID,
           note: "Provisioned API Key",
           scope: "PROJECT",
           predefinedKeys: {
-            secretKey: env.LANGFUSE_INIT_PROJECT_SECRET_KEY,
-            publicKey: env.LANGFUSE_INIT_PROJECT_PUBLIC_KEY,
+            secretKey: env.ELASTICDASH_INIT_PROJECT_SECRET_KEY,
+            publicKey: env.ELASTICDASH_INIT_PROJECT_PUBLIC_KEY,
           },
         });
       }
@@ -146,8 +146,8 @@ if (env.LANGFUSE_INIT_ORG_ID) {
   }
 
   // Create User: Org -> User
-  if (env.LANGFUSE_INIT_USER_EMAIL && env.LANGFUSE_INIT_USER_PASSWORD) {
-    const email = env.LANGFUSE_INIT_USER_EMAIL.toLowerCase();
+  if (env.ELASTICDASH_INIT_USER_EMAIL && env.ELASTICDASH_INIT_USER_PASSWORD) {
+    const email = env.ELASTICDASH_INIT_USER_EMAIL.toLowerCase();
     const existingUser = await prisma.user.findUnique({
       where: { email },
     });
@@ -158,8 +158,8 @@ if (env.LANGFUSE_INIT_ORG_ID) {
     if (!userId) {
       userId = await createUserEmailPassword(
         email,
-        env.LANGFUSE_INIT_USER_PASSWORD,
-        env.LANGFUSE_INIT_USER_NAME ?? "Provisioned User",
+        env.ELASTICDASH_INIT_USER_PASSWORD,
+        env.ELASTICDASH_INIT_USER_NAME ?? "Provisioned User",
       );
     }
 

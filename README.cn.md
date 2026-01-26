@@ -205,10 +205,10 @@ pip install langfuse openai
 配置环境变量（创建名为 **.env** 的文件）：
 
 ```bash:.env
-LANGFUSE_SECRET_KEY="sk-lf-..."
-LANGFUSE_PUBLIC_KEY="pk-lf-..."
-LANGFUSE_BASE_URL="https://cloud.langfuse.com" # 🇪🇺 欧盟区域
-# LANGFUSE_BASE_URL="https://us.cloud.langfuse.com" # 🇺🇸 美洲区域
+ELASTICDASH_SECRET_KEY="sk-lf-..."
+ELASTICDASH_PUBLIC_KEY="pk-lf-..."
+ELASTICDASH_BASE_URL="https://cloud.langfuse.com" # 🇪🇺 欧盟区域
+# ELASTICDASH_BASE_URL="https://us.cloud.langfuse.com" # 🇺🇸 美洲区域
 ```
 
 创建示例代码（文件名：**main.py**）：

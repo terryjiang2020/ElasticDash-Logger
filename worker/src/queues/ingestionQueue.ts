@@ -30,7 +30,7 @@ export const ingestionQueueProcessorBuilder = (
   enableRedirectToSecondaryQueue: boolean,
 ): Processor => {
   const projectIdsToRedirectToSecondaryQueue =
-    env.LANGFUSE_SECONDARY_INGESTION_QUEUE_ENABLED_PROJECT_IDS?.split(",") ??
+    env.ELASTICDASH_SECONDARY_INGESTION_QUEUE_ENABLED_PROJECT_IDS?.split(",") ??
     [];
 
   return async (job: Job<TQueueJobTypes[QueueName.IngestionQueue]>) => {
@@ -60,7 +60,7 @@ export const ingestionQueueProcessorBuilder = (
       const clickhouseWriter = ClickhouseWriter.getInstance();
 
       if (
-        env.LANGFUSE_ENABLE_BLOB_STORAGE_FILE_LOG === "true" &&
+        env.ELASTICDASH_ENABLE_BLOB_STORAGE_FILE_LOG === "true" &&
         job.data.payload.data.fileKey &&
         job.data.payload.data.fileKey
       ) {
@@ -71,8 +71,8 @@ export const ingestionQueueProcessorBuilder = (
           entity_type: getClickhouseEntityType(job.data.payload.data.type),
           entity_id: job.data.payload.data.eventBodyId,
           event_id: job.data.payload.data.fileKey,
-          bucket_name: env.LANGFUSE_S3_EVENT_UPLOAD_BUCKET,
-          bucket_path: `${env.LANGFUSE_S3_EVENT_UPLOAD_PREFIX}${job.data.payload.authCheck.scope.projectId}/${getClickhouseEntityType(job.data.payload.data.type)}/${job.data.payload.data.eventBodyId}/${fileName}`,
+          bucket_name: env.ELASTICDASH_S3_EVENT_UPLOAD_BUCKET,
+          bucket_path: `${env.ELASTICDASH_S3_EVENT_UPLOAD_PREFIX}${job.data.payload.authCheck.scope.projectId}/${getClickhouseEntityType(job.data.payload.data.type)}/${job.data.payload.data.eventBodyId}/${fileName}`,
           created_at: new Date().getTime(),
           updated_at: new Date().getTime(),
           event_ts: new Date().getTime(),
@@ -82,7 +82,7 @@ export const ingestionQueueProcessorBuilder = (
 
       // If fileKey was processed within the last minutes, i.e. has a match in redis, we skip processing.
       if (
-        env.LANGFUSE_ENABLE_REDIS_SEEN_EVENT_CACHE === "true" &&
+        env.ELASTICDASH_ENABLE_REDIS_SEEN_EVENT_CACHE === "true" &&
         redis &&
         job.data.payload.data.fileKey
       ) {
@@ -130,12 +130,11 @@ export const ingestionQueueProcessorBuilder = (
       }
 
       const s3Client = getS3EventStorageClient(
-        env.LANGFUSE_S3_EVENT_UPLOAD_BUCKET,
+        env.ELASTICDASH_S3_EVENT_UPLOAD_BUCKET,
       );
 
       logger.debug(
-        `Processing ingestion event ${
-          enableRedirectToSecondaryQueue ? "" : "secondary"
+        `Processing ingestion event ${enableRedirectToSecondaryQueue ? "" : "secondary"
         }`,
         {
           projectId: job.data.payload.authCheck.scope.projectId,
@@ -155,7 +154,7 @@ export const ingestionQueueProcessorBuilder = (
       const shouldSkipS3List =
         // The producer sets skipS3List to true if it's an OTel observation
         job.data.payload.data.skipS3List && job.data.payload.data.fileKey;
-      const s3Prefix = `${env.LANGFUSE_S3_EVENT_UPLOAD_PREFIX}${job.data.payload.authCheck.scope.projectId}/${clickhouseEntityType}/${job.data.payload.data.eventBodyId}/`;
+      const s3Prefix = `${env.ELASTICDASH_S3_EVENT_UPLOAD_PREFIX}${job.data.payload.authCheck.scope.projectId}/${clickhouseEntityType}/${job.data.payload.data.eventBodyId}/`;
 
       let totalS3DownloadSizeBytes = 0;
 
@@ -196,7 +195,7 @@ export const ingestionQueueProcessorBuilder = (
           return Array.isArray(parsedFile) ? parsedFile : [parsedFile];
         };
 
-        const S3_CONCURRENT_READS = env.LANGFUSE_S3_CONCURRENT_READS;
+        const S3_CONCURRENT_READS = env.ELASTICDASH_S3_CONCURRENT_READS;
         const batches = chunk(eventFiles, S3_CONCURRENT_READS);
         for (const batch of batches) {
           const batchEvents = await Promise.all(
@@ -242,7 +241,7 @@ export const ingestionQueueProcessorBuilder = (
       // Set "seen" keys in Redis to avoid reprocessing for fast updates.
       // We use Promise.all internally instead of a redis.pipeline since autoPipelining should handle it correctly
       // while being redis cluster aware.
-      if (env.LANGFUSE_ENABLE_REDIS_SEEN_EVENT_CACHE === "true" && redis) {
+      if (env.ELASTICDASH_ENABLE_REDIS_SEEN_EVENT_CACHE === "true" && redis) {
         try {
           await Promise.all(
             eventFiles
@@ -272,9 +271,9 @@ export const ingestionQueueProcessorBuilder = (
       // Use explicit flag from job payload if provided, otherwise fall back to env flags
       const forwardToEventsTable =
         job.data.payload.data.forwardToEventsTable ??
-        (env.LANGFUSE_EXPERIMENT_INSERT_INTO_EVENTS_TABLE === "true" &&
+        (env.ELASTICDASH_EXPERIMENT_INSERT_INTO_EVENTS_TABLE === "true" &&
           env.QUEUE_CONSUMER_EVENT_PROPAGATION_QUEUE_IS_ENABLED === "true" &&
-          env.LANGFUSE_EXPERIMENT_EARLY_EXIT_EVENT_BATCH_JOB !== "true");
+          env.ELASTICDASH_EXPERIMENT_EARLY_EXIT_EVENT_BATCH_JOB !== "true");
 
       await new IngestionService(
         redis,

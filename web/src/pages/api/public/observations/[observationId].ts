@@ -24,21 +24,21 @@ export default withMiddlewares({
       const useEventsTable =
         query.useEventsTable !== undefined && query.useEventsTable !== null
           ? query.useEventsTable === true
-          : env.LANGFUSE_ENABLE_EVENTS_TABLE_OBSERVATIONS;
+          : env.ELASTICDASH_ENABLE_EVENTS_TABLE_OBSERVATIONS;
 
       const clickhouseObservation = useEventsTable
         ? await getObservationByIdFromEventsTable({
-            id: query.observationId,
-            projectId: auth.scope.projectId,
-            fetchWithInputOutput: true,
-            preferredClickhouseService: "ReadOnly",
-          })
+          id: query.observationId,
+          projectId: auth.scope.projectId,
+          fetchWithInputOutput: true,
+          preferredClickhouseService: "ReadOnly",
+        })
         : await getObservationById({
-            id: query.observationId,
-            projectId: auth.scope.projectId,
-            fetchWithInputOutput: true,
-            preferredClickhouseService: "ReadOnly",
-          });
+          id: query.observationId,
+          projectId: auth.scope.projectId,
+          fetchWithInputOutput: true,
+          preferredClickhouseService: "ReadOnly",
+        });
 
       if (!clickhouseObservation) {
         throw new LangfuseNotFoundError(
@@ -48,33 +48,33 @@ export default withMiddlewares({
 
       const model = clickhouseObservation.internalModelId
         ? await prisma.model.findFirst({
-            where: {
-              AND: [
-                {
-                  id: clickhouseObservation.internalModelId,
-                },
-                {
-                  OR: [
-                    {
-                      projectId: auth.scope.projectId,
-                    },
-                    {
-                      projectId: null,
-                    },
-                  ],
-                },
-              ],
-            },
-            include: {
-              Price: true,
-            },
-            orderBy: {
-              projectId: {
-                sort: "desc",
-                nulls: "last",
+          where: {
+            AND: [
+              {
+                id: clickhouseObservation.internalModelId,
               },
+              {
+                OR: [
+                  {
+                    projectId: auth.scope.projectId,
+                  },
+                  {
+                    projectId: null,
+                  },
+                ],
+              },
+            ],
+          },
+          include: {
+            Price: true,
+          },
+          orderBy: {
+            projectId: {
+              sort: "desc",
+              nulls: "last",
             },
-          })
+          },
+        })
         : undefined;
 
       const observation = {

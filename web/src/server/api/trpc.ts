@@ -98,7 +98,7 @@ import { BaseError, parseIO } from "@langfuse/shared";
 
 setUpSuperjson();
 
-const isLangfuseCloud = Boolean(env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION);
+const isLangfuseCloud = Boolean(env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION);
 
 const t = initTRPC.context<typeof createTRPCContext>().create({
   transformer: superjson,
@@ -455,14 +455,14 @@ const enforceTraceAccess = t.middleware(async (opts) => {
 
   const traceSession = !!trace.sessionId
     ? await ctx.prisma.traceSession.findFirst({
-        where: {
-          id: trace.sessionId,
-          projectId,
-        },
-        select: {
-          public: true,
-        },
-      })
+      where: {
+        id: trace.sessionId,
+        projectId,
+      },
+      select: {
+        public: true,
+      },
+    })
     : null;
 
   const isSessionPublic = traceSession?.public === true;

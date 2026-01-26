@@ -221,16 +221,16 @@ export async function executeQuery(
     query: string;
     params: Record<string, unknown>;
   }> = [
-    {
-      type: "regular",
-      query: compiledQuery,
-      params: parameters,
-    },
-  ];
+      {
+        type: "regular",
+        query: compiledQuery,
+        params: parameters,
+      },
+    ];
 
   // Add shadow test query if optimization is OFF and shadow testing is enabled
   const shadowTestEnabled =
-    env.LANGFUSE_ENABLE_QUERY_OPTIMIZATION_SHADOW_TEST === "true";
+    env.ELASTICDASH_ENABLE_QUERY_OPTIMIZATION_SHADOW_TEST === "true";
 
   if (!enableSingleLevelOptimization && shadowTestEnabled) {
     const { query: optimizedQuery, parameters: optimizedParams } =

@@ -70,8 +70,8 @@ export const getOrganizationSettingsPages = ({
               name: organization.name,
               id: organization.id,
               ...organization.metadata,
-              ...(env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION && {
-                cloudRegion: env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION,
+              ...(env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION && {
+                cloudRegion: env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION,
               }),
             }}
           />

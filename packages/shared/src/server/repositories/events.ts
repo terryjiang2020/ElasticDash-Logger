@@ -107,28 +107,28 @@ async function enrichObservationsWithModelData(
   // Fetch model data if needed
   const models = shouldEnrichModel
     ? await (async () => {
-        const uniqueModels: string[] = Array.from(
-          new Set(
-            observationRecords
-              .map((r) => r.internal_model_id)
-              .filter((r): r is string => Boolean(r)),
-          ),
-        );
+      const uniqueModels: string[] = Array.from(
+        new Set(
+          observationRecords
+            .map((r) => r.internal_model_id)
+            .filter((r): r is string => Boolean(r)),
+        ),
+      );
 
-        return uniqueModels.length > 0
-          ? await prisma.model.findMany({
-              where: {
-                id: {
-                  in: uniqueModels,
-                },
-                OR: [{ projectId: projectId }, { projectId: null }],
-              },
-              include: {
-                Price: true,
-              },
-            })
-          : [];
-      })()
+      return uniqueModels.length > 0
+        ? await prisma.model.findMany({
+          where: {
+            id: {
+              in: uniqueModels,
+            },
+            OR: [{ projectId: projectId }, { projectId: null }],
+          },
+          include: {
+            Price: true,
+          },
+        })
+        : [];
+    })()
     : [];
 
   return observationRecords.map((o) => {
@@ -369,7 +369,7 @@ async function getObservationsFromEventsTableInternal<T>(
       queryBuilder
         .selectIO(
           renderingProps.truncated,
-          env.LANGFUSE_SERVER_SIDE_IO_CHAR_LIMIT,
+          env.ELASTICDASH_SERVER_SIDE_IO_CHAR_LIMIT,
         )
         .selectFieldSet("metadata");
     }
@@ -510,7 +510,7 @@ async function getObservationByIdFromEventsTableInternal({
     .when(fetchWithInputOutput, (b) =>
       b.selectIO(
         renderingProps.truncated,
-        env.LANGFUSE_SERVER_SIDE_IO_CHAR_LIMIT,
+        env.ELASTICDASH_SERVER_SIDE_IO_CHAR_LIMIT,
       ),
     )
     .whereRaw("span_id = {id: String}", { id })
@@ -607,10 +607,10 @@ export const getTraceByIdFromEventsTable = async ({
   if (renderingProps.truncated) {
     queryBuilder
       .select(
-        `leftUTF8(t.input_truncated, ${env.LANGFUSE_SERVER_SIDE_IO_CHAR_LIMIT}) as input`,
+        `leftUTF8(t.input_truncated, ${env.ELASTICDASH_SERVER_SIDE_IO_CHAR_LIMIT}) as input`,
       )
       .select(
-        `leftUTF8(t.output_truncated, ${env.LANGFUSE_SERVER_SIDE_IO_CHAR_LIMIT}) as output`,
+        `leftUTF8(t.output_truncated, ${env.ELASTICDASH_SERVER_SIDE_IO_CHAR_LIMIT}) as output`,
       );
   } else {
     queryBuilder.selectColumns("t.input", "t.output");
@@ -1682,7 +1682,7 @@ export const deleteEventsByTraceIds = async (
     query,
     params: { projectId, traceIds },
     clickhouseConfigs: {
-      request_timeout: env.LANGFUSE_CLICKHOUSE_DELETION_TIMEOUT_MS,
+      request_timeout: env.ELASTICDASH_CLICKHOUSE_DELETION_TIMEOUT_MS,
     },
     tags: {
       feature: "tracing",
@@ -1742,7 +1742,7 @@ export const deleteEventsByProjectId = async (
     query,
     params: { projectId },
     clickhouseConfigs: {
-      request_timeout: env.LANGFUSE_CLICKHOUSE_DELETION_TIMEOUT_MS,
+      request_timeout: env.ELASTICDASH_CLICKHOUSE_DELETION_TIMEOUT_MS,
     },
     tags,
     clickhouseSettings: {
@@ -1807,7 +1807,7 @@ export const deleteEventsOlderThanDays = async (
       cutoffDate: convertDateToClickhouseDateTime(beforeDate),
     },
     clickhouseConfigs: {
-      request_timeout: env.LANGFUSE_CLICKHOUSE_DELETION_TIMEOUT_MS,
+      request_timeout: env.ELASTICDASH_CLICKHOUSE_DELETION_TIMEOUT_MS,
     },
     tags: {
       feature: "tracing",
@@ -1846,8 +1846,8 @@ export const getObservationsBatchIOFromEventsTable = async (opts: {
   const query = `
     SELECT
       e.span_id as id,
-      leftUTF8(e.input, ${env.LANGFUSE_SERVER_SIDE_IO_CHAR_LIMIT}) as input,
-      leftUTF8(e.output, ${env.LANGFUSE_SERVER_SIDE_IO_CHAR_LIMIT}) as output,
+      leftUTF8(e.input, ${env.ELASTICDASH_SERVER_SIDE_IO_CHAR_LIMIT}) as input,
+      leftUTF8(e.output, ${env.ELASTICDASH_SERVER_SIDE_IO_CHAR_LIMIT}) as output,
       mapFromArrays(e.metadata_names, e.metadata_prefixes) as metadata
     FROM events e
     WHERE e.project_id = {projectId: String}

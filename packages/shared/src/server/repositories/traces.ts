@@ -490,12 +490,12 @@ export const getTraceById = async ({
       const inputColumn = excludeInputOutput
         ? "''"
         : renderingProps.truncated
-          ? `leftUTF8(input, ${env.LANGFUSE_SERVER_SIDE_IO_CHAR_LIMIT})`
+          ? `leftUTF8(input, ${env.ELASTICDASH_SERVER_SIDE_IO_CHAR_LIMIT})`
           : "input";
       const outputColumn = excludeInputOutput
         ? "''"
         : renderingProps.truncated
-          ? `leftUTF8(output, ${env.LANGFUSE_SERVER_SIDE_IO_CHAR_LIMIT})`
+          ? `leftUTF8(output, ${env.ELASTICDASH_SERVER_SIDE_IO_CHAR_LIMIT})`
           : "output";
 
       const query = `
@@ -889,7 +889,7 @@ export const deleteTraces = async (projectId: string, traceIds: string[]) => {
         query: query,
         params: input.params,
         clickhouseConfigs: {
-          request_timeout: env.LANGFUSE_CLICKHOUSE_DELETION_TIMEOUT_MS,
+          request_timeout: env.ELASTICDASH_CLICKHOUSE_DELETION_TIMEOUT_MS,
         },
         tags: input.tags,
       });
@@ -960,7 +960,7 @@ export const deleteTracesOlderThanDays = async (
         query: query,
         params: input.params,
         clickhouseConfigs: {
-          request_timeout: env.LANGFUSE_CLICKHOUSE_DELETION_TIMEOUT_MS,
+          request_timeout: env.ELASTICDASH_CLICKHOUSE_DELETION_TIMEOUT_MS,
         },
         tags: input.tags,
       });
@@ -1002,7 +1002,7 @@ export const deleteTracesByProjectId = async (
         query,
         params: input.params,
         clickhouseConfigs: {
-          request_timeout: env.LANGFUSE_CLICKHOUSE_DELETION_TIMEOUT_MS,
+          request_timeout: env.ELASTICDASH_CLICKHOUSE_DELETION_TIMEOUT_MS,
         },
         tags: input.tags,
       });
@@ -1200,10 +1200,10 @@ export const getUserMetrics = async (
         ...chFilterRes.params,
         ...(timestampFilter
           ? {
-              traceTimestamp: convertDateToClickhouseDateTime(
-                (timestampFilter as DateTimeFilter).value,
-              ),
-            }
+            traceTimestamp: convertDateToClickhouseDateTime(
+              (timestampFilter as DateTimeFilter).value,
+            ),
+          }
           : {}),
       },
       tags: {
@@ -1292,7 +1292,8 @@ export const getTracesForBlobStorageExport = function (
       projectId,
     },
     clickhouseConfigs: {
-      request_timeout: env.LANGFUSE_CLICKHOUSE_DATA_EXPORT_REQUEST_TIMEOUT_MS,
+      request_timeout:
+        env.ELASTICDASH_CLICKHOUSE_DATA_EXPORT_REQUEST_TIMEOUT_MS,
     },
   });
 };
@@ -1354,7 +1355,8 @@ export const getTracesForAnalyticsIntegrations = async function* (
       projectId,
     },
     clickhouseConfigs: {
-      request_timeout: env.LANGFUSE_CLICKHOUSE_DATA_EXPORT_REQUEST_TIMEOUT_MS,
+      request_timeout:
+        env.ELASTICDASH_CLICKHOUSE_DATA_EXPORT_REQUEST_TIMEOUT_MS,
       clickhouse_settings: {
         join_algorithm: "grace_hash",
         grace_hash_join_initial_buckets: "32",

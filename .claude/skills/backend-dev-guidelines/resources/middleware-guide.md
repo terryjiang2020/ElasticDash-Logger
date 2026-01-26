@@ -498,7 +498,7 @@ async function verifyAdminApiKeyAuth(req: NextApiRequest) {
   // 2. x-langfuse-admin-api-key: <ADMIN_API_KEY>
   // 3. x-langfuse-project-id: <project-id>
 
-  if (env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION) {
+  if (env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION) {
     throw { status: 403, message: "Admin API key auth not available on ElasticDash Cloud" };
   }
 

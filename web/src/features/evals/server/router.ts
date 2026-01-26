@@ -205,7 +205,7 @@ export const evalRouter = createTRPCRouter({
         projectId: input.projectId,
         scope: "evalJob:read",
       });
-      return env.LANGFUSE_MAX_HISTORIC_EVAL_CREATION_LIMIT;
+      return env.ELASTICDASH_MAX_HISTORIC_EVAL_CREATION_LIMIT;
     }),
   counts: protectedProjectProcedure
     .input(z.object({ projectId: z.string() }))
@@ -339,11 +339,11 @@ export const evalRouter = createTRPCRouter({
           ...config,
           evalTemplate: config.evalTemplateId
             ? {
-                id: config.evalTemplateId,
-                name: config.templateName,
-                version: config.templateVersion,
-                projectId: config.templateProjectId,
-              }
+              id: config.evalTemplateId,
+              name: config.templateName,
+              version: config.templateVersion,
+              projectId: config.templateProjectId,
+            }
             : null,
           jobExecutionsByState: jobExecutionsByState.filter(
             (je) => je.jobConfigurationId === config.id,

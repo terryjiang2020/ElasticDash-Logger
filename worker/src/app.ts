@@ -94,7 +94,7 @@ app.use("/api", api);
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
 
-if (env.LANGFUSE_ENABLE_BACKGROUND_MIGRATIONS === "true") {
+if (env.ELASTICDASH_ENABLE_BACKGROUND_MIGRATIONS === "true") {
   // Will start background migrations without blocking the queue workers
   BackgroundMigrationManager.run().catch((err) => {
     logger.error("Error running background migrations", err);
@@ -116,7 +116,7 @@ if (env.QUEUE_CONSUMER_TRACE_UPSERT_QUEUE_IS_ENABLED === "true") {
       shardName as QueueName,
       evalJobTraceCreatorQueueProcessor,
       {
-        concurrency: env.LANGFUSE_TRACE_UPSERT_WORKER_CONCURRENCY,
+        concurrency: env.ELASTICDASH_TRACE_UPSERT_WORKER_CONCURRENCY,
       },
     );
   });
@@ -127,17 +127,17 @@ if (env.QUEUE_CONSUMER_CREATE_EVAL_QUEUE_IS_ENABLED === "true") {
     QueueName.CreateEvalQueue,
     evalJobCreatorQueueProcessor,
     {
-      concurrency: env.LANGFUSE_EVAL_CREATOR_WORKER_CONCURRENCY,
+      concurrency: env.ELASTICDASH_EVAL_CREATOR_WORKER_CONCURRENCY,
       limiter: {
         // Process at most `max` jobs per `duration` milliseconds globally
-        max: env.LANGFUSE_EVAL_CREATOR_WORKER_CONCURRENCY,
-        duration: env.LANGFUSE_EVAL_CREATOR_LIMITER_DURATION,
+        max: env.ELASTICDASH_EVAL_CREATOR_WORKER_CONCURRENCY,
+        duration: env.ELASTICDASH_EVAL_CREATOR_LIMITER_DURATION,
       },
     },
   );
 }
 
-if (env.LANGFUSE_S3_CORE_DATA_EXPORT_IS_ENABLED === "true") {
+if (env.ELASTICDASH_S3_CORE_DATA_EXPORT_IS_ENABLED === "true") {
   // Instantiate the queue to trigger scheduled jobs
   CoreDataS3ExportQueue.getInstance();
   WorkerManager.register(
@@ -146,7 +146,7 @@ if (env.LANGFUSE_S3_CORE_DATA_EXPORT_IS_ENABLED === "true") {
   );
 }
 
-if (env.LANGFUSE_POSTGRES_METERING_DATA_EXPORT_IS_ENABLED === "true") {
+if (env.ELASTICDASH_POSTGRES_METERING_DATA_EXPORT_IS_ENABLED === "true") {
   // Instantiate the queue to trigger scheduled jobs
   MeteringDataPostgresExportQueue.getInstance();
   WorkerManager.register(
@@ -164,7 +164,7 @@ if (env.LANGFUSE_POSTGRES_METERING_DATA_EXPORT_IS_ENABLED === "true") {
 
 if (env.QUEUE_CONSUMER_TRACE_DELETE_QUEUE_IS_ENABLED === "true") {
   WorkerManager.register(QueueName.TraceDelete, traceDeleteProcessor, {
-    concurrency: env.LANGFUSE_TRACE_DELETE_CONCURRENCY,
+    concurrency: env.ELASTICDASH_TRACE_DELETE_CONCURRENCY,
     // Same configuration as EvaluationExecution or
     // BlobStorageIntegrationProcessingQueue queue, see detailed comment there
     maxStalledCount: 3,
@@ -172,42 +172,42 @@ if (env.QUEUE_CONSUMER_TRACE_DELETE_QUEUE_IS_ENABLED === "true") {
     stalledInterval: 120000, // 120 seconds
     limiter: {
       // Process at most `max` delete jobs per 2 min
-      max: env.LANGFUSE_TRACE_DELETE_CONCURRENCY,
-      duration: env.LANGFUSE_CLICKHOUSE_TRACE_DELETION_CONCURRENCY_DURATION_MS,
+      max: env.ELASTICDASH_TRACE_DELETE_CONCURRENCY,
+      duration: env.ELASTICDASH_CLICKHOUSE_TRACE_DELETION_CONCURRENCY_DURATION_MS,
     },
   });
 }
 
 if (env.QUEUE_CONSUMER_SCORE_DELETE_QUEUE_IS_ENABLED === "true") {
   WorkerManager.register(QueueName.ScoreDelete, scoreDeleteProcessor, {
-    concurrency: env.LANGFUSE_SCORE_DELETE_CONCURRENCY,
+    concurrency: env.ELASTICDASH_SCORE_DELETE_CONCURRENCY,
     limiter: {
       // Process at most `max` delete jobs per 15 seconds
-      max: env.LANGFUSE_SCORE_DELETE_CONCURRENCY,
-      duration: env.LANGFUSE_CLICKHOUSE_TRACE_DELETION_CONCURRENCY_DURATION_MS,
+      max: env.ELASTICDASH_SCORE_DELETE_CONCURRENCY,
+      duration: env.ELASTICDASH_CLICKHOUSE_TRACE_DELETION_CONCURRENCY_DURATION_MS,
     },
   });
 }
 
 if (env.QUEUE_CONSUMER_DATASET_DELETE_QUEUE_IS_ENABLED === "true") {
   WorkerManager.register(QueueName.DatasetDelete, datasetDeleteProcessor, {
-    concurrency: env.LANGFUSE_DATASET_DELETE_CONCURRENCY,
+    concurrency: env.ELASTICDASH_DATASET_DELETE_CONCURRENCY,
     limiter: {
-      max: env.LANGFUSE_DATASET_DELETE_CONCURRENCY,
+      max: env.ELASTICDASH_DATASET_DELETE_CONCURRENCY,
       duration:
-        env.LANGFUSE_CLICKHOUSE_DATASET_DELETION_CONCURRENCY_DURATION_MS,
+        env.ELASTICDASH_CLICKHOUSE_DATASET_DELETION_CONCURRENCY_DURATION_MS,
     },
   });
 }
 
 if (env.QUEUE_CONSUMER_PROJECT_DELETE_QUEUE_IS_ENABLED === "true") {
   WorkerManager.register(QueueName.ProjectDelete, projectDeleteProcessor, {
-    concurrency: env.LANGFUSE_PROJECT_DELETE_CONCURRENCY,
+    concurrency: env.ELASTICDASH_PROJECT_DELETE_CONCURRENCY,
     limiter: {
-      // Process at most `max` delete jobs per LANGFUSE_CLICKHOUSE_PROJECT_DELETION_CONCURRENCY_DURATION_MS (default 10 min)
-      max: env.LANGFUSE_PROJECT_DELETE_CONCURRENCY,
+      // Process at most `max` delete jobs per ELASTICDASH_CLICKHOUSE_PROJECT_DELETION_CONCURRENCY_DURATION_MS (default 10 min)
+      max: env.ELASTICDASH_PROJECT_DELETE_CONCURRENCY,
       duration:
-        env.LANGFUSE_CLICKHOUSE_PROJECT_DELETION_CONCURRENCY_DURATION_MS,
+        env.ELASTICDASH_CLICKHOUSE_PROJECT_DELETION_CONCURRENCY_DURATION_MS,
     },
   });
 }
@@ -217,7 +217,7 @@ if (env.QUEUE_CONSUMER_DATASET_RUN_ITEM_UPSERT_QUEUE_IS_ENABLED === "true") {
     QueueName.DatasetRunItemUpsert,
     evalJobDatasetCreatorQueueProcessor,
     {
-      concurrency: env.LANGFUSE_EVAL_CREATOR_WORKER_CONCURRENCY,
+      concurrency: env.ELASTICDASH_EVAL_CREATOR_WORKER_CONCURRENCY,
     },
   );
 }
@@ -227,7 +227,7 @@ if (env.QUEUE_CONSUMER_EVAL_EXECUTION_QUEUE_IS_ENABLED === "true") {
     QueueName.EvaluationExecution,
     evalJobExecutorQueueProcessor,
     {
-      concurrency: env.LANGFUSE_EVAL_EXECUTION_WORKER_CONCURRENCY,
+      concurrency: env.ELASTICDASH_EVAL_EXECUTION_WORKER_CONCURRENCY,
       // The default lockDuration is 30s and the lockRenewTime 1/2 of that.
       // We set it to 60s to reduce the number of lock renewals and also be less sensitive to high CPU wait times.
       // We also update the stalledInterval check to 120s from 30s default to perform the check less frequently.
@@ -272,7 +272,7 @@ if (env.QUEUE_CONSUMER_OTEL_INGESTION_QUEUE_IS_ENABLED === "true") {
       shardName as QueueName,
       otelIngestionQueueProcessor,
       {
-        concurrency: env.LANGFUSE_OTEL_INGESTION_QUEUE_PROCESSING_CONCURRENCY,
+        concurrency: env.ELASTICDASH_OTEL_INGESTION_QUEUE_PROCESSING_CONCURRENCY,
       },
     );
   });
@@ -286,7 +286,7 @@ if (env.QUEUE_CONSUMER_INGESTION_QUEUE_IS_ENABLED === "true") {
       shardName as QueueName,
       ingestionQueueProcessorBuilder(true), // this might redirect to secondary queue
       {
-        concurrency: env.LANGFUSE_INGESTION_QUEUE_PROCESSING_CONCURRENCY,
+        concurrency: env.ELASTICDASH_INGESTION_QUEUE_PROCESSING_CONCURRENCY,
       },
     );
   });
@@ -298,7 +298,7 @@ if (env.QUEUE_CONSUMER_INGESTION_SECONDARY_QUEUE_IS_ENABLED === "true") {
     ingestionQueueProcessorBuilder(false),
     {
       concurrency:
-        env.LANGFUSE_INGESTION_SECONDARY_QUEUE_PROCESSING_CONCURRENCY,
+        env.ELASTICDASH_INGESTION_SECONDARY_QUEUE_PROCESSING_CONCURRENCY,
     },
   );
 }
@@ -345,7 +345,7 @@ if (
 // Free Tier Usage Threshold Queue: Only enable in cloud environment
 if (
   env.QUEUE_CONSUMER_FREE_TIER_USAGE_THRESHOLD_QUEUE_IS_ENABLED === "true" &&
-  env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION && // Only in cloud deployments
+  env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION && // Only in cloud deployments
   env.STRIPE_SECRET_KEY
 ) {
   // Instantiate the queue to trigger scheduled jobs
@@ -369,7 +369,7 @@ if (env.QUEUE_CONSUMER_EXPERIMENT_CREATE_QUEUE_IS_ENABLED === "true") {
     QueueName.ExperimentCreate,
     experimentCreateQueueProcessor,
     {
-      concurrency: env.LANGFUSE_EXPERIMENT_CREATOR_WORKER_CONCURRENCY,
+      concurrency: env.ELASTICDASH_EXPERIMENT_CREATOR_WORKER_CONCURRENCY,
     },
   );
 }
@@ -475,10 +475,10 @@ if (env.QUEUE_CONSUMER_DATA_RETENTION_QUEUE_IS_ENABLED === "true") {
     {
       concurrency: 1,
       limiter: {
-        // Process at most `max` delete jobs per LANGFUSE_CLICKHOUSE_PROJECT_DELETION_CONCURRENCY_DURATION_MS (default 10 min)
-        max: env.LANGFUSE_PROJECT_DELETE_CONCURRENCY,
+        // Process at most `max` delete jobs per ELASTICDASH_CLICKHOUSE_PROJECT_DELETION_CONCURRENCY_DURATION_MS (default 10 min)
+        max: env.ELASTICDASH_PROJECT_DELETE_CONCURRENCY,
         duration:
-          env.LANGFUSE_CLICKHOUSE_PROJECT_DELETION_CONCURRENCY_DURATION_MS,
+          env.ELASTICDASH_CLICKHOUSE_PROJECT_DELETION_CONCURRENCY_DURATION_MS,
       },
     },
   );
@@ -499,7 +499,7 @@ if (env.QUEUE_CONSUMER_DEAD_LETTER_RETRY_QUEUE_IS_ENABLED === "true") {
 
 if (env.QUEUE_CONSUMER_WEBHOOK_QUEUE_IS_ENABLED === "true") {
   WorkerManager.register(QueueName.WebhookQueue, webhookProcessor, {
-    concurrency: env.LANGFUSE_WEBHOOK_QUEUE_PROCESSING_CONCURRENCY,
+    concurrency: env.ELASTICDASH_WEBHOOK_QUEUE_PROCESSING_CONCURRENCY,
   });
 }
 
@@ -508,14 +508,14 @@ if (env.QUEUE_CONSUMER_ENTITY_CHANGE_QUEUE_IS_ENABLED === "true") {
     QueueName.EntityChangeQueue,
     entityChangeQueueProcessor,
     {
-      concurrency: env.LANGFUSE_ENTITY_CHANGE_QUEUE_PROCESSING_CONCURRENCY,
+      concurrency: env.ELASTICDASH_ENTITY_CHANGE_QUEUE_PROCESSING_CONCURRENCY,
     },
   );
 }
 
 if (
   env.QUEUE_CONSUMER_EVENT_PROPAGATION_QUEUE_IS_ENABLED === "true" &&
-  env.LANGFUSE_EXPERIMENT_INSERT_INTO_EVENTS_TABLE === "true"
+  env.ELASTICDASH_EXPERIMENT_INSERT_INTO_EVENTS_TABLE === "true"
 ) {
   // Instantiate the queue to trigger scheduled jobs
   EventPropagationQueue.getInstance();
@@ -539,13 +539,13 @@ if (env.QUEUE_CONSUMER_NOTIFICATION_QUEUE_IS_ENABLED === "true") {
   );
 }
 
-if (env.LANGFUSE_MUTATION_MONITOR_ENABLED === "true") {
+if (env.ELASTICDASH_MUTATION_MONITOR_ENABLED === "true") {
   // Start the ClickHouse mutation monitor after all workers are registered
   MutationMonitor.start();
 }
 
 // Batch project cleaners for bulk deletion of ClickHouse data
-if (env.LANGFUSE_BATCH_PROJECT_CLEANER_ENABLED === "true") {
+if (env.ELASTICDASH_BATCH_PROJECT_CLEANER_ENABLED === "true") {
   WorkerManager.register(
     QueueName.BatchProjectCleanerQueue,
     batchProjectCleanerProcessor,
@@ -553,7 +553,7 @@ if (env.LANGFUSE_BATCH_PROJECT_CLEANER_ENABLED === "true") {
       concurrency: 1, // only 1 job at a time per process.
       limiter: {
         max: 1,
-        duration: env.LANGFUSE_BATCH_PROJECT_CLEANER_SLEEP_ON_EMPTY_MS, // no more than 1 job at a time globally
+        duration: env.ELASTICDASH_BATCH_PROJECT_CLEANER_SLEEP_ON_EMPTY_MS, // no more than 1 job at a time globally
       },
     },
   );
@@ -564,13 +564,13 @@ if (env.LANGFUSE_BATCH_PROJECT_CLEANER_ENABLED === "true") {
     const tables = BATCH_DELETION_TABLES.filter(
       (t) =>
         t !== "events" ||
-        env.LANGFUSE_EXPERIMENT_INSERT_INTO_EVENTS_TABLE === "true",
+        env.ELASTICDASH_EXPERIMENT_INSERT_INTO_EVENTS_TABLE === "true",
     );
     for (const table of tables) {
       queue
         .upsertJobScheduler(
           `batch-project-cleaner-${table}`,
-          { every: env.LANGFUSE_BATCH_PROJECT_CLEANER_SLEEP_ON_EMPTY_MS },
+          { every: env.ELASTICDASH_BATCH_PROJECT_CLEANER_SLEEP_ON_EMPTY_MS },
           { name: QueueJobs.BatchProjectCleanerJob, data: { table } },
         )
         .catch((err) =>

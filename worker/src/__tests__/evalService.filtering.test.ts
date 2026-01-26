@@ -20,10 +20,10 @@ import { OpenAIServer } from "./network";
 import { pruneDatabase } from "./utils";
 
 let OPENAI_API_KEY = process.env.OPENAI_API_KEY;
-// Check for both OPENAI_API_KEY and LANGFUSE_LLM_CONNECTION_OPENAI_KEY
+// Check for both OPENAI_API_KEY and ELASTICDASH_LLM_CONNECTION_OPENAI_KEY
 // to avoid interfering with llmConnections tests that use the latter
 const hasActiveKey = Boolean(
-  OPENAI_API_KEY || process.env.LANGFUSE_LLM_CONNECTION_OPENAI_KEY,
+  OPENAI_API_KEY || process.env.ELASTICDASH_LLM_CONNECTION_OPENAI_KEY,
 );
 if (!hasActiveKey) {
   OPENAI_API_KEY = "sk-test_not_used_as_network_mocks_are_activated";
@@ -82,7 +82,7 @@ const test = baseTest.extend<{
   ) => Promise<void>;
   getJobs: () => Promise<JobExecutions>;
 }>({
-  projectId: async ({}, use) => {
+  projectId: async ({ }, use) => {
     const projectId = randomUUID();
 
     await createOrgProjectAndApiKey({

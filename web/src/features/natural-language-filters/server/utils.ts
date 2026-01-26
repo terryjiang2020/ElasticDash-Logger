@@ -10,7 +10,7 @@ export function getDefaultModelParams() {
   return {
     provider: "bedrock",
     adapter: LLMAdapter.Bedrock,
-    model: env.LANGFUSE_AWS_BEDROCK_MODEL ?? "",
+    model: env.ELASTICDASH_AWS_BEDROCK_MODEL ?? "",
     temperature: 0.1,
     maxTokens: 1000,
     topP: 0.9,

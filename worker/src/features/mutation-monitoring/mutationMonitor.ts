@@ -30,7 +30,7 @@ class MutationMonitorRunner extends PeriodicRunner {
   }
 
   protected get defaultIntervalMs(): number {
-    return env.LANGFUSE_MUTATION_MONITOR_CHECK_INTERVAL_MS;
+    return env.ELASTICDASH_MUTATION_MONITOR_CHECK_INTERVAL_MS;
   }
 
   protected async execute(): Promise<void> {
@@ -50,10 +50,10 @@ class MutationMonitorRunner extends PeriodicRunner {
  *
  * `QUEUE_TABLE_MAPPING` below shows how mutations on various tables map to queues.
  *
- * - `LANGFUSE_MUTATION_MONITOR_ENABLED` must be set to `true` to enable this feature.
- * - `LANGFUSE_MUTATION_MONITOR_CHECK_INTERVAL_MS` defines how often to check for mutations.
- * - `LANGFUSE_DELETION_MUTATIONS_MAX_COUNT` once any table for a queue exceeds this threshold, that queue is PAUSED.
- * `- LANGFUSE_DELETION_MUTATIONS_SAFE_COUNT` once all tables for a queue are below this threshold, that queue is RESUMED.
+ * - `ELASTICDASH_MUTATION_MONITOR_ENABLED` must be set to `true` to enable this feature.
+ * - `ELASTICDASH_MUTATION_MONITOR_CHECK_INTERVAL_MS` defines how often to check for mutations.
+ * - `ELASTICDASH_DELETION_MUTATIONS_MAX_COUNT` once any table for a queue exceeds this threshold, that queue is PAUSED.
+ * `- ELASTICDASH_DELETION_MUTATIONS_SAFE_COUNT` once all tables for a queue are below this threshold, that queue is RESUMED.
  */
 export class MutationMonitor {
   private static runner = new MutationMonitorRunner();
@@ -63,17 +63,17 @@ export class MutationMonitor {
   private static readonly QUEUE_TABLE_MAPPING: Partial<
     Record<QueueName, string[]>
   > = {
-    [QueueName.TraceDelete]: ["traces", "observations", "scores", "events"],
-    [QueueName.ScoreDelete]: ["scores"],
-    [QueueName.DatasetDelete]: ["dataset_run_items_rmt"],
-    [QueueName.ProjectDelete]: ["scores", "dataset_run_items_rmt"],
-    [QueueName.DataRetentionProcessingQueue]: [
-      "traces",
-      "observations",
-      "scores",
-      "events",
-    ],
-  };
+      [QueueName.TraceDelete]: ["traces", "observations", "scores", "events"],
+      [QueueName.ScoreDelete]: ["scores"],
+      [QueueName.DatasetDelete]: ["dataset_run_items_rmt"],
+      [QueueName.ProjectDelete]: ["scores", "dataset_run_items_rmt"],
+      [QueueName.DataRetentionProcessingQueue]: [
+        "traces",
+        "observations",
+        "scores",
+        "events",
+      ],
+    };
 
   private static readonly TABLES_TO_MONITOR = Array.from(
     new Set(Object.values(this.QUEUE_TABLE_MAPPING).flat()).values(),
@@ -83,15 +83,15 @@ export class MutationMonitor {
    * Start the mutation monitoring service
    */
   public static start(): void {
-    if (env.LANGFUSE_MUTATION_MONITOR_ENABLED !== "true") {
+    if (env.ELASTICDASH_MUTATION_MONITOR_ENABLED !== "true") {
       logger.info("Mutation monitor is disabled");
       return;
     }
 
     logger.info("Starting mutation monitor", {
-      checkIntervalMs: env.LANGFUSE_MUTATION_MONITOR_CHECK_INTERVAL_MS,
-      maxCount: env.LANGFUSE_DELETION_MUTATIONS_MAX_COUNT,
-      safeCount: env.LANGFUSE_DELETION_MUTATIONS_SAFE_COUNT,
+      checkIntervalMs: env.ELASTICDASH_MUTATION_MONITOR_CHECK_INTERVAL_MS,
+      maxCount: env.ELASTICDASH_DELETION_MUTATIONS_MAX_COUNT,
+      safeCount: env.ELASTICDASH_DELETION_MUTATIONS_SAFE_COUNT,
     });
     this.runner.start();
   }
@@ -209,14 +209,14 @@ export class MutationMonitor {
       logger.debug("Mutation stats", {
         mutationCounts: Object.fromEntries(mutationCounts),
         pausedQueues: Array.from(this.pausedQueues),
-        threshold: env.LANGFUSE_DELETION_MUTATIONS_MAX_COUNT,
+        threshold: env.ELASTICDASH_DELETION_MUTATIONS_MAX_COUNT,
       });
 
       const decisions = this.makeDecisions(
         mutationCounts,
         this.QUEUE_TABLE_MAPPING,
-        env.LANGFUSE_DELETION_MUTATIONS_MAX_COUNT,
-        env.LANGFUSE_DELETION_MUTATIONS_SAFE_COUNT,
+        env.ELASTICDASH_DELETION_MUTATIONS_MAX_COUNT,
+        env.ELASTICDASH_DELETION_MUTATIONS_SAFE_COUNT,
       );
 
       // Separate decisions by action
@@ -266,7 +266,7 @@ export class MutationMonitor {
 
         logger.warn(`Paused ${queueName}`, {
           reason: `tables over threshold: ${offendingTables.join(", ")}`,
-          threshold: env.LANGFUSE_DELETION_MUTATIONS_MAX_COUNT,
+          threshold: env.ELASTICDASH_DELETION_MUTATIONS_MAX_COUNT,
           mutationCounts: Object.fromEntries(mutationCounts),
         });
       } catch (error) {
@@ -300,7 +300,7 @@ export class MutationMonitor {
 
         logger.info(`Resumed ${queueName}`, {
           reason: "all tables below safe threshold",
-          safeThreshold: env.LANGFUSE_DELETION_MUTATIONS_SAFE_COUNT,
+          safeThreshold: env.ELASTICDASH_DELETION_MUTATIONS_SAFE_COUNT,
           mutationCounts: Object.fromEntries(mutationCounts),
         });
       } catch (error) {

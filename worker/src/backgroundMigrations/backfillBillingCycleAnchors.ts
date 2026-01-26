@@ -21,15 +21,14 @@ const stripeClient = env.STRIPE_SECRET_KEY
  * This migration is idempotent and can be safely re-run if interrupted.
  */
 export default class BackfillBillingCycleAnchors
-  implements IBackgroundMigration
-{
+  implements IBackgroundMigration {
   private isAborted = false;
 
   async validate(
     _args: Record<string, unknown>,
   ): Promise<{ valid: boolean; invalidReason: string | undefined }> {
     // If not in cloud environment, validation passes (will skip in run())
-    if (!env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION) {
+    if (!env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION) {
       logger.info(
         "[Background Migration] Not in cloud environment, migration will be skipped",
       );
@@ -84,7 +83,7 @@ export default class BackfillBillingCycleAnchors
     );
 
     // Skip if not in cloud environment (graceful skip, not an error)
-    if (!env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION) {
+    if (!env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION) {
       logger.info(
         "[Background Migration] Not in cloud environment, skipping migration",
       );

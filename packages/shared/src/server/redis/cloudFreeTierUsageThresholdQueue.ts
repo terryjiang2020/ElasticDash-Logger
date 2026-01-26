@@ -13,7 +13,7 @@ export class CloudFreeTierUsageThresholdQueue {
 
   public static getInstance(): Queue | null {
     // Only enable in cloud deployments with Stripe configured
-    if (!env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION) {
+    if (!env.NEXT_PUBLIC_ELASTICDASH_CLOUD_REGION) {
       return null;
     }
 
@@ -28,18 +28,18 @@ export class CloudFreeTierUsageThresholdQueue {
 
     CloudFreeTierUsageThresholdQueue.instance = newRedis
       ? new Queue(QueueName.CloudFreeTierUsageThresholdQueue, {
-          connection: newRedis,
-          prefix: getQueuePrefix(QueueName.CloudFreeTierUsageThresholdQueue),
-          defaultJobOptions: {
-            removeOnComplete: true,
-            removeOnFail: 100,
-            attempts: 5,
-            backoff: {
-              type: "exponential",
-              delay: 5000,
-            },
+        connection: newRedis,
+        prefix: getQueuePrefix(QueueName.CloudFreeTierUsageThresholdQueue),
+        defaultJobOptions: {
+          removeOnComplete: true,
+          removeOnFail: 100,
+          attempts: 5,
+          backoff: {
+            type: "exponential",
+            delay: 5000,
           },
-        })
+        },
+      })
       : null;
 
     CloudFreeTierUsageThresholdQueue.instance?.on("error", (err) => {

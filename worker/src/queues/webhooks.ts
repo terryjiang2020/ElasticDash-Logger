@@ -141,7 +141,7 @@ async function executeHttpAction({
         const abortController = new AbortController();
         const timeoutId = setTimeout(() => {
           abortController.abort();
-        }, env.LANGFUSE_WEBHOOK_TIMEOUT_MS);
+        }, env.ELASTICDASH_WEBHOOK_TIMEOUT_MS);
 
         try {
           // Skip validation when flag is set (for tests with MSW mocking)
@@ -158,7 +158,7 @@ async function executeHttpAction({
               signal: abortController.signal,
             },
             {
-              maxRedirects: env.LANGFUSE_WEBHOOK_MAX_REDIRECTS,
+              maxRedirects: env.ELASTICDASH_WEBHOOK_MAX_REDIRECTS,
               skipValidation,
               whitelist: whitelistFromEnv(),
             },
@@ -191,10 +191,10 @@ async function executeHttpAction({
         } catch (error) {
           if (error instanceof Error && error.name === "AbortError") {
             logger.warn(
-              `Webhook timeout after ${env.LANGFUSE_WEBHOOK_TIMEOUT_MS}ms for url ${url} and project ${projectId}`,
+              `Webhook timeout after ${env.ELASTICDASH_WEBHOOK_TIMEOUT_MS}ms for url ${url} and project ${projectId}`,
             );
             throw new Error(
-              `Webhook timeout after ${env.LANGFUSE_WEBHOOK_TIMEOUT_MS}ms for url ${url} and project ${projectId}`,
+              `Webhook timeout after ${env.ELASTICDASH_WEBHOOK_TIMEOUT_MS}ms for url ${url} and project ${projectId}`,
             );
           }
           throw error;
@@ -258,9 +258,9 @@ async function executeHttpAction({
           error: error instanceof Error ? error.message : "Unknown error",
           output: httpStatus
             ? {
-                httpStatus,
-                responseBody: responseBody?.substring(0, 1000),
-              }
+              httpStatus,
+              responseBody: responseBody?.substring(0, 1000),
+            }
             : undefined,
         },
       });
