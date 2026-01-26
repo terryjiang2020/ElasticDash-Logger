@@ -1,10 +1,10 @@
 import { LLMAdapter } from "@langfuse/shared/src/server";
-import { ElasticDash } from "langfuse";
+import { Langfuse } from "langfuse";
 import { env } from "@/src/env.mjs";
 import { type FilterCondition, singleFilter } from "@langfuse/shared";
 import { z } from "zod/v4";
 
-let langfuseClient: ElasticDash | null = null;
+let langfuseClient: Langfuse | null = null;
 
 export function getDefaultModelParams() {
   return {
@@ -50,9 +50,9 @@ export function getLangfuseClient(
   publicKey: string,
   secretKey: string,
   baseUrl?: string,
-): ElasticDash {
+): Langfuse {
   if (!langfuseClient) {
-    langfuseClient = new ElasticDash({
+    langfuseClient = new Langfuse({
       publicKey,
       secretKey,
       baseUrl,
