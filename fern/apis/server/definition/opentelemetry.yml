@@ -7,7 +7,7 @@ service:
       docs: |
         **OpenTelemetry Traces Ingestion Endpoint**
 
-        This endpoint implements the OTLP/HTTP specification for trace ingestion, providing native OpenTelemetry integration for Langfuse Observability.
+        This endpoint implements the OTLP/HTTP specification for trace ingestion, providing native OpenTelemetry integration for ElasticDash Observability.
 
         **Supported Formats:**
         - Binary Protobuf: `Content-Type: application/x-protobuf`
@@ -57,7 +57,7 @@ service:
                         startTimeUnixNano: "1747872000000000000"
                         endTimeUnixNano: "1747872001000000000"
                         attributes:
-                          - key: "langfuse.observation.type"
+                          - key: "elasticdash.observation.type"
                             value:
                               stringValue: "generation"
                         status: {}
@@ -131,7 +131,7 @@ types:
         docs: End time in nanoseconds since Unix epoch
       attributes:
         type: optional<list<OtelAttribute>>
-        docs: Span attributes including Langfuse-specific attributes (langfuse.observation.*)
+        docs: Span attributes including ElasticDash-specific attributes (langfuse.observation.*)
       status:
         type: optional<unknown>
         docs: Span status object
@@ -141,7 +141,7 @@ types:
     properties:
       key:
         type: optional<string>
-        docs: Attribute key (e.g., "service.name", "langfuse.observation.type")
+        docs: Attribute key (e.g., "service.name", "elasticdash.observation.type")
       value:
         type: optional<OtelAttributeValue>
         docs: Attribute value

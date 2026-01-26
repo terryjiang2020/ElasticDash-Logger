@@ -10,11 +10,11 @@
       "name": "P 95 Latency by Use Case",
       "description": "P95 latency metrics segmented by trace name",
       "view": "TRACES",
-      "dimensions": [{"field": "name"}],
-      "metrics": [{"agg": "p95", "measure": "latency"}],
+      "dimensions": [{ "field": "name" }],
+      "metrics": [{ "agg": "p95", "measure": "latency" }],
       "filters": [],
       "chartType": "LINE_TIME_SERIES",
-      "chartConfig": {"type": "LINE_TIME_SERIES"},
+      "chartConfig": { "type": "LINE_TIME_SERIES" },
       "owner": "LANGFUSE"
     },
     {
@@ -27,11 +27,11 @@
       "name": "P 95 Latency by Level (Observations)",
       "description": "P95 latency metrics for observations segmented by level",
       "view": "OBSERVATIONS",
-      "dimensions": [{"field": "level"}],
-      "metrics": [{"agg": "p95", "measure": "latency"}],
+      "dimensions": [{ "field": "level" }],
+      "metrics": [{ "agg": "p95", "measure": "latency" }],
       "filters": [],
       "chartType": "LINE_TIME_SERIES",
-      "chartConfig": {"type": "LINE_TIME_SERIES"},
+      "chartConfig": { "type": "LINE_TIME_SERIES" },
       "owner": "LANGFUSE"
     },
     {
@@ -45,10 +45,10 @@
       "description": "Total cost across all use cases",
       "view": "OBSERVATIONS",
       "dimensions": [],
-      "metrics": [{"agg": "sum", "measure": "totalCost"}],
+      "metrics": [{ "agg": "sum", "measure": "totalCost" }],
       "filters": [],
       "chartType": "LINE_TIME_SERIES",
-      "chartConfig": {"type": "LINE_TIME_SERIES"},
+      "chartConfig": { "type": "LINE_TIME_SERIES" },
       "owner": "LANGFUSE"
     },
     {
@@ -61,11 +61,11 @@
       "name": "Top 20 Users by Cost",
       "description": "Aggregated model cost (observation.totalCost) by trace.userId",
       "view": "TRACES",
-      "dimensions": [{"field": "userId"}],
-      "metrics": [{"agg": "sum", "measure": "totalCost"}],
+      "dimensions": [{ "field": "userId" }],
+      "metrics": [{ "agg": "sum", "measure": "totalCost" }],
       "filters": [],
       "chartType": "HORIZONTAL_BAR",
-      "chartConfig": {"type": "HORIZONTAL_BAR", "row_limit": 20},
+      "chartConfig": { "type": "HORIZONTAL_BAR", "row_limit": 20 },
       "owner": "LANGFUSE"
     },
     {
@@ -78,11 +78,11 @@
       "name": "Top 20 Use Cases (Observation) by Cost",
       "description": "Aggregated model cost (observation.totalCost) by observation.name",
       "view": "OBSERVATIONS",
-      "dimensions": [{"field": "name"}],
-      "metrics": [{"agg": "sum", "measure": "totalCost"}],
+      "dimensions": [{ "field": "name" }],
+      "metrics": [{ "agg": "sum", "measure": "totalCost" }],
       "filters": [],
       "chartType": "VERTICAL_BAR",
-      "chartConfig": {"type": "VERTICAL_BAR", "row_limit": 20},
+      "chartConfig": { "type": "VERTICAL_BAR", "row_limit": 20 },
       "owner": "LANGFUSE"
     },
     {
@@ -95,11 +95,11 @@
       "name": "Top 20 Use Cases (Trace) by Cost",
       "description": "Aggregated model cost (observation.totalCost) by trace.name",
       "view": "TRACES",
-      "dimensions": [{"field": "name"}],
-      "metrics": [{"agg": "sum", "measure": "totalCost"}],
+      "dimensions": [{ "field": "name" }],
+      "metrics": [{ "agg": "sum", "measure": "totalCost" }],
       "filters": [],
       "chartType": "VERTICAL_BAR",
-      "chartConfig": {"type": "VERTICAL_BAR", "row_limit": 20},
+      "chartConfig": { "type": "VERTICAL_BAR", "row_limit": 20 },
       "owner": "LANGFUSE"
     },
     {
@@ -112,11 +112,11 @@
       "name": "Cost by Environment",
       "description": "Total cost broken down by trace.environment",
       "view": "OBSERVATIONS",
-      "dimensions": [{"field": "environment"}],
-      "metrics": [{"agg": "sum", "measure": "totalCost"}],
+      "dimensions": [{ "field": "environment" }],
+      "metrics": [{ "agg": "sum", "measure": "totalCost" }],
       "filters": [],
       "chartType": "PIE",
-      "chartConfig": {"type": "PIE", "row_limit": 100},
+      "chartConfig": { "type": "PIE", "row_limit": 100 },
       "owner": "LANGFUSE"
     },
     {
@@ -129,11 +129,11 @@
       "name": "Max Latency by User Id (Traces)",
       "description": "Maximum latency for the top 50 users by trace userId",
       "view": "TRACES",
-      "dimensions": [{"field": "userId"}],
-      "metrics": [{"agg": "max", "measure": "latency"}],
+      "dimensions": [{ "field": "userId" }],
+      "metrics": [{ "agg": "max", "measure": "latency" }],
       "filters": [],
       "chartType": "HORIZONTAL_BAR",
-      "chartConfig": {"type": "HORIZONTAL_BAR", "row_limit": 50},
+      "chartConfig": { "type": "HORIZONTAL_BAR", "row_limit": 50 },
       "owner": "LANGFUSE"
     },
     {
@@ -146,11 +146,11 @@
       "name": "Avg Time To First Token by Prompt Name (Observations)",
       "description": "Average time to first token segmented by prompt name",
       "view": "OBSERVATIONS",
-      "dimensions": [{"field": "promptName"}],
-      "metrics": [{"agg": "avg", "measure": "timeToFirstToken"}],
+      "dimensions": [{ "field": "promptName" }],
+      "metrics": [{ "agg": "avg", "measure": "timeToFirstToken" }],
       "filters": [],
       "chartType": "VERTICAL_BAR",
-      "chartConfig": {"type": "VERTICAL_BAR", "row_limit": 100},
+      "chartConfig": { "type": "VERTICAL_BAR", "row_limit": 100 },
       "owner": "LANGFUSE"
     },
     {
@@ -163,11 +163,11 @@
       "name": "P 95 Time To First Token by Model",
       "description": "P95 time to first token metrics segmented by model",
       "view": "OBSERVATIONS",
-      "dimensions": [{"field": "providedModelName"}],
-      "metrics": [{"agg": "p95", "measure": "timeToFirstToken"}],
+      "dimensions": [{ "field": "providedModelName" }],
+      "metrics": [{ "agg": "p95", "measure": "timeToFirstToken" }],
       "filters": [],
       "chartType": "LINE_TIME_SERIES",
-      "chartConfig": {"type": "LINE_TIME_SERIES"},
+      "chartConfig": { "type": "LINE_TIME_SERIES" },
       "owner": "LANGFUSE"
     },
     {
@@ -180,11 +180,11 @@
       "name": "P 95 Latency by Model",
       "description": "P95 latency metrics for observations segmented by model",
       "view": "OBSERVATIONS",
-      "dimensions": [{"field": "providedModelName"}],
-      "metrics": [{"agg": "p95", "measure": "latency"}],
+      "dimensions": [{ "field": "providedModelName" }],
+      "metrics": [{ "agg": "p95", "measure": "latency" }],
       "filters": [],
       "chartType": "LINE_TIME_SERIES",
-      "chartConfig": {"type": "LINE_TIME_SERIES"},
+      "chartConfig": { "type": "LINE_TIME_SERIES" },
       "owner": "LANGFUSE"
     },
     {
@@ -197,11 +197,11 @@
       "name": "Avg Output Tokens Per Second by Model",
       "description": "Average output tokens per second segmented by model",
       "view": "OBSERVATIONS",
-      "dimensions": [{"field": "providedModelName"}],
-      "metrics": [{"agg": "avg", "measure": "outputTokensPerSecond"}],
+      "dimensions": [{ "field": "providedModelName" }],
+      "metrics": [{ "agg": "avg", "measure": "outputTokensPerSecond" }],
       "filters": [],
       "chartType": "LINE_TIME_SERIES",
-      "chartConfig": {"type": "LINE_TIME_SERIES"},
+      "chartConfig": { "type": "LINE_TIME_SERIES" },
       "owner": "LANGFUSE"
     },
     {
@@ -214,11 +214,11 @@
       "name": "P 95 Cost per Trace",
       "description": "95th percentile of cost for each trace",
       "view": "TRACES",
-      "dimensions": [{"field": "name"}],
-      "metrics": [{"agg": "p95", "measure": "totalCost"}],
+      "dimensions": [{ "field": "name" }],
+      "metrics": [{ "agg": "p95", "measure": "totalCost" }],
       "filters": [],
       "chartType": "LINE_TIME_SERIES",
-      "chartConfig": {"type": "LINE_TIME_SERIES"},
+      "chartConfig": { "type": "LINE_TIME_SERIES" },
       "owner": "LANGFUSE"
     },
     {
@@ -232,10 +232,10 @@
       "description": "95th percentile of output cost for each observation (llm call)",
       "view": "OBSERVATIONS",
       "dimensions": [],
-      "metrics": [{"agg": "p95", "measure": "outputCost"}],
+      "metrics": [{ "agg": "p95", "measure": "outputCost" }],
       "filters": [],
       "chartType": "LINE_TIME_SERIES",
-      "chartConfig": {"type": "LINE_TIME_SERIES"},
+      "chartConfig": { "type": "LINE_TIME_SERIES" },
       "owner": "LANGFUSE"
     },
     {
@@ -249,10 +249,10 @@
       "description": "95th percentile of input cost for each observation (llm call)",
       "view": "OBSERVATIONS",
       "dimensions": [],
-      "metrics": [{"agg": "p95", "measure": "inputCost"}],
+      "metrics": [{ "agg": "p95", "measure": "inputCost" }],
       "filters": [],
       "chartType": "LINE_TIME_SERIES",
-      "chartConfig": {"type": "LINE_TIME_SERIES"},
+      "chartConfig": { "type": "LINE_TIME_SERIES" },
       "owner": "LANGFUSE"
     },
     {
@@ -266,10 +266,10 @@
       "description": "Total count of traces across all environments",
       "view": "TRACES",
       "dimensions": [],
-      "metrics": [{"agg": "count", "measure": "count"}],
+      "metrics": [{ "agg": "count", "measure": "count" }],
       "filters": [],
       "chartType": "NUMBER",
-      "chartConfig": {"type": "NUMBER", "row_limit": 100},
+      "chartConfig": { "type": "NUMBER", "row_limit": 100 },
       "owner": "LANGFUSE"
     },
     {
@@ -283,10 +283,10 @@
       "description": "Shows the count of Traces",
       "view": "TRACES",
       "dimensions": [],
-      "metrics": [{"agg": "count", "measure": "count"}],
+      "metrics": [{ "agg": "count", "measure": "count" }],
       "filters": [],
       "chartType": "NUMBER",
-      "chartConfig": {"type": "NUMBER", "row_limit": 100},
+      "chartConfig": { "type": "NUMBER", "row_limit": 100 },
       "owner": "LANGFUSE"
     },
     {
@@ -300,10 +300,10 @@
       "description": "Shows the count of Observations",
       "view": "OBSERVATIONS",
       "dimensions": [],
-      "metrics": [{"agg": "count", "measure": "count"}],
+      "metrics": [{ "agg": "count", "measure": "count" }],
       "filters": [],
       "chartType": "NUMBER",
-      "chartConfig": {"type": "NUMBER", "row_limit": 100},
+      "chartConfig": { "type": "NUMBER", "row_limit": 100 },
       "owner": "LANGFUSE"
     },
     {
@@ -316,11 +316,11 @@
       "name": "Cost by Model Name",
       "description": "Total cost broken down by model name",
       "view": "OBSERVATIONS",
-      "dimensions": [{"field": "providedModelName"}],
-      "metrics": [{"agg": "sum", "measure": "totalCost"}],
+      "dimensions": [{ "field": "providedModelName" }],
+      "metrics": [{ "agg": "sum", "measure": "totalCost" }],
       "filters": [],
       "chartType": "VERTICAL_BAR",
-      "chartConfig": {"type": "VERTICAL_BAR", "row_limit": 100},
+      "chartConfig": { "type": "VERTICAL_BAR", "row_limit": 100 },
       "owner": "LANGFUSE"
     },
     {
@@ -334,10 +334,10 @@
       "description": "Total count of observations across all environments",
       "view": "OBSERVATIONS",
       "dimensions": [],
-      "metrics": [{"agg": "count", "measure": "count"}],
+      "metrics": [{ "agg": "count", "measure": "count" }],
       "filters": [],
       "chartType": "NUMBER",
-      "chartConfig": {"type": "NUMBER", "row_limit": 100},
+      "chartConfig": { "type": "NUMBER", "row_limit": 100 },
       "owner": "LANGFUSE"
     },
     {
@@ -351,10 +351,10 @@
       "description": "Total count of numeric scores across all environments",
       "view": "SCORES_NUMERIC",
       "dimensions": [],
-      "metrics": [{"agg": "count", "measure": "count"}],
+      "metrics": [{ "agg": "count", "measure": "count" }],
       "filters": [],
       "chartType": "NUMBER",
-      "chartConfig": {"type": "NUMBER", "row_limit": 100},
+      "chartConfig": { "type": "NUMBER", "row_limit": 100 },
       "owner": "LANGFUSE"
     },
     {
@@ -368,10 +368,10 @@
       "description": "Total count of categorical scores across all environments",
       "view": "SCORES_CATEGORICAL",
       "dimensions": [],
-      "metrics": [{"agg": "count", "measure": "count"}],
+      "metrics": [{ "agg": "count", "measure": "count" }],
       "filters": [],
       "chartType": "NUMBER",
-      "chartConfig": {"type": "NUMBER", "row_limit": 100},
+      "chartConfig": { "type": "NUMBER", "row_limit": 100 },
       "owner": "LANGFUSE"
     },
     {
@@ -385,10 +385,10 @@
       "description": "Trend of trace count over time",
       "view": "TRACES",
       "dimensions": [],
-      "metrics": [{"agg": "count", "measure": "count"}],
+      "metrics": [{ "agg": "count", "measure": "count" }],
       "filters": [],
       "chartType": "BAR_TIME_SERIES",
-      "chartConfig": {"type": "BAR_TIME_SERIES"},
+      "chartConfig": { "type": "BAR_TIME_SERIES" },
       "owner": "LANGFUSE"
     },
     {
@@ -402,10 +402,10 @@
       "description": "Trend of observation count over time",
       "view": "OBSERVATIONS",
       "dimensions": [],
-      "metrics": [{"agg": "count", "measure": "count"}],
+      "metrics": [{ "agg": "count", "measure": "count" }],
       "filters": [],
       "chartType": "BAR_TIME_SERIES",
-      "chartConfig": {"type": "BAR_TIME_SERIES"},
+      "chartConfig": { "type": "BAR_TIME_SERIES" },
       "owner": "LANGFUSE"
     },
     {
@@ -419,10 +419,10 @@
       "description": "Trend of numeric score count over time",
       "view": "SCORES_NUMERIC",
       "dimensions": [],
-      "metrics": [{"agg": "count", "measure": "count"}],
+      "metrics": [{ "agg": "count", "measure": "count" }],
       "filters": [],
       "chartType": "BAR_TIME_SERIES",
-      "chartConfig": {"type": "BAR_TIME_SERIES"},
+      "chartConfig": { "type": "BAR_TIME_SERIES" },
       "owner": "LANGFUSE"
     },
     {
@@ -436,10 +436,10 @@
       "description": "Trend of categorical score count over time",
       "view": "SCORES_CATEGORICAL",
       "dimensions": [],
-      "metrics": [{"agg": "count", "measure": "count"}],
+      "metrics": [{ "agg": "count", "measure": "count" }],
       "filters": [],
       "chartType": "BAR_TIME_SERIES",
-      "chartConfig": {"type": "BAR_TIME_SERIES"},
+      "chartConfig": { "type": "BAR_TIME_SERIES" },
       "owner": "LANGFUSE"
     },
     {
@@ -452,11 +452,11 @@
       "name": "Total Trace Count (by env)",
       "description": "Distribution of trace count across different environments",
       "view": "TRACES",
-      "dimensions": [{"field": "environment"}],
-      "metrics": [{"agg": "count", "measure": "count"}],
+      "dimensions": [{ "field": "environment" }],
+      "metrics": [{ "agg": "count", "measure": "count" }],
       "filters": [],
       "chartType": "BAR_TIME_SERIES",
-      "chartConfig": {"type": "BAR_TIME_SERIES"},
+      "chartConfig": { "type": "BAR_TIME_SERIES" },
       "owner": "LANGFUSE"
     },
     {
@@ -469,11 +469,11 @@
       "name": "Total Observation Count (by env)",
       "description": "Distribution of observation count across different environments",
       "view": "OBSERVATIONS",
-      "dimensions": [{"field": "environment"}],
-      "metrics": [{"agg": "count", "measure": "count"}],
+      "dimensions": [{ "field": "environment" }],
+      "metrics": [{ "agg": "count", "measure": "count" }],
       "filters": [],
       "chartType": "BAR_TIME_SERIES",
-      "chartConfig": {"type": "BAR_TIME_SERIES"},
+      "chartConfig": { "type": "BAR_TIME_SERIES" },
       "owner": "LANGFUSE"
     }
   ],
@@ -485,18 +485,74 @@
       "createdBy": null,
       "updatedBy": null,
       "projectId": null,
-      "name": "Langfuse Latency Dashboard",
+      "name": "ElasticDash Latency Dashboard",
       "description": "Monitor latency metrics across traces and generations for performance optimization.",
       "owner": "LANGFUSE",
       "definition": {
         "widgets": [
-          {"x": 0, "y": 0, "id": "87a95184-aea5-4418-9447-2fe381c69414", "type": "widget", "x_size": 6, "y_size": 5, "widgetId": "cmawk617300iiad07zaes6h3l"},
-          {"x": 6, "y": 0, "id": "62055994-0ae0-47c9-bef8-25dfbbe3dcb3", "type": "widget", "x_size": 6, "y_size": 5, "widgetId": "cmawk6isp00kbad07t66dohjn"},
-          {"x": 0, "y": 5, "id": "7eb6d831-3e11-49e1-9855-7f28ea16f865", "type": "widget", "x_size": 6, "y_size": 5, "widgetId": "cmawk94z800ldad07jjox8ugd"},
-          {"x": 6, "y": 5, "id": "b17fb429-41b5-4681-8271-cc8674608341", "type": "widget", "x_size": 6, "y_size": 5, "widgetId": "cmawka1fk00kdad07vdipgz04"},
-          {"x": 0, "y": 10, "id": "61bf13ae-2e63-482b-97d6-168ce2097d15", "type": "widget", "x_size": 4, "y_size": 5, "widgetId": "cmawksk8h00phad07s9c7v6d7"},
-          {"x": 4, "y": 10, "id": "b985686a-c509-4f25-9cc5-709efeecd80e", "type": "widget", "x_size": 4, "y_size": 5, "widgetId": "cmawktot400pkad07m8gy30vq"},
-          {"x": 8, "y": 10, "id": "1a7667fe-29e4-4a4b-918d-cba6fdd5c016", "type": "widget", "x_size": 4, "y_size": 5, "widgetId": "cmawl83ks001ead076pk2wcex"}
+          {
+            "x": 0,
+            "y": 0,
+            "id": "87a95184-aea5-4418-9447-2fe381c69414",
+            "type": "widget",
+            "x_size": 6,
+            "y_size": 5,
+            "widgetId": "cmawk617300iiad07zaes6h3l"
+          },
+          {
+            "x": 6,
+            "y": 0,
+            "id": "62055994-0ae0-47c9-bef8-25dfbbe3dcb3",
+            "type": "widget",
+            "x_size": 6,
+            "y_size": 5,
+            "widgetId": "cmawk6isp00kbad07t66dohjn"
+          },
+          {
+            "x": 0,
+            "y": 5,
+            "id": "7eb6d831-3e11-49e1-9855-7f28ea16f865",
+            "type": "widget",
+            "x_size": 6,
+            "y_size": 5,
+            "widgetId": "cmawk94z800ldad07jjox8ugd"
+          },
+          {
+            "x": 6,
+            "y": 5,
+            "id": "b17fb429-41b5-4681-8271-cc8674608341",
+            "type": "widget",
+            "x_size": 6,
+            "y_size": 5,
+            "widgetId": "cmawka1fk00kdad07vdipgz04"
+          },
+          {
+            "x": 0,
+            "y": 10,
+            "id": "61bf13ae-2e63-482b-97d6-168ce2097d15",
+            "type": "widget",
+            "x_size": 4,
+            "y_size": 5,
+            "widgetId": "cmawksk8h00phad07s9c7v6d7"
+          },
+          {
+            "x": 4,
+            "y": 10,
+            "id": "b985686a-c509-4f25-9cc5-709efeecd80e",
+            "type": "widget",
+            "x_size": 4,
+            "y_size": 5,
+            "widgetId": "cmawktot400pkad07m8gy30vq"
+          },
+          {
+            "x": 8,
+            "y": 10,
+            "id": "1a7667fe-29e4-4a4b-918d-cba6fdd5c016",
+            "type": "widget",
+            "x_size": 4,
+            "y_size": 5,
+            "widgetId": "cmawl83ks001ead076pk2wcex"
+          }
         ]
       }
     },
@@ -507,21 +563,101 @@
       "createdBy": null,
       "updatedBy": null,
       "projectId": null,
-      "name": "Langfuse Usage Management",
+      "name": "ElasticDash Usage Management",
       "description": "Track usage metrics across traces, observations, and scores to manage resource allocation.",
       "owner": "LANGFUSE",
       "definition": {
         "widgets": [
-          {"x": 0, "y": 0, "id": "9a71cb52-0abe-4d2b-a4b0-0ff06cce814e", "type": "widget", "x_size": 3, "y_size": 3, "widgetId": "cmawloc0k010uad06e4git5kz"},
-          {"x": 3, "y": 0, "id": "1e263686-8809-4917-b54e-818b81bd84cd", "type": "widget", "x_size": 3, "y_size": 3, "widgetId": "cmawlotp500zcad076b8u704s"},
-          {"x": 6, "y": 0, "id": "d874b19f-431d-4ec1-abe4-44b1c6b26959", "type": "widget", "x_size": 3, "y_size": 3, "widgetId": "cmawlpv4600y0ad0770qyrix9"},
-          {"x": 9, "y": 0, "id": "3616afbd-61a4-4f93-889e-b4a2132b7698", "type": "widget", "x_size": 3, "y_size": 3, "widgetId": "cmawlqkxk00xfad07r8zoc4ag"},
-          {"x": 0, "y": 3, "id": "aedaf41e-67b9-4801-8bf6-1f84285e80d4", "type": "widget", "x_size": 3, "y_size": 5, "widgetId": "cmawlrhom00xhad07phtqc81k"},
-          {"x": 3, "y": 3, "id": "f4946244-2568-460e-b13a-3109a4b7876d", "type": "widget", "x_size": 3, "y_size": 5, "widgetId": "cmawlt6wi00zmad07cvxeeepq"},
-          {"x": 6, "y": 3, "id": "bca6fb2d-94c6-4c32-9861-88828313eb3b", "type": "widget", "x_size": 3, "y_size": 5, "widgetId": "cmawltpsx00yaad07f51yvkwg"},
-          {"x": 9, "y": 3, "id": "67e0de43-032e-4ae2-99e0-264fcb4a47a9", "type": "widget", "x_size": 3, "y_size": 5, "widgetId": "cmawlu5bs00zsad07maibk7ef"},
-          {"x": 0, "y": 8, "id": "4ce5a8f2-aee2-418e-85a1-edee9e2b2915", "type": "widget", "x_size": 6, "y_size": 5, "widgetId": "cmawlw4s700zvad07qq4qi0gp"},
-          {"x": 6, "y": 8, "id": "b24681fc-0664-45a6-985f-6022e7c6eab7", "type": "widget", "x_size": 6, "y_size": 5, "widgetId": "cmawlxdo00106ad07crpey1if"}
+          {
+            "x": 0,
+            "y": 0,
+            "id": "9a71cb52-0abe-4d2b-a4b0-0ff06cce814e",
+            "type": "widget",
+            "x_size": 3,
+            "y_size": 3,
+            "widgetId": "cmawloc0k010uad06e4git5kz"
+          },
+          {
+            "x": 3,
+            "y": 0,
+            "id": "1e263686-8809-4917-b54e-818b81bd84cd",
+            "type": "widget",
+            "x_size": 3,
+            "y_size": 3,
+            "widgetId": "cmawlotp500zcad076b8u704s"
+          },
+          {
+            "x": 6,
+            "y": 0,
+            "id": "d874b19f-431d-4ec1-abe4-44b1c6b26959",
+            "type": "widget",
+            "x_size": 3,
+            "y_size": 3,
+            "widgetId": "cmawlpv4600y0ad0770qyrix9"
+          },
+          {
+            "x": 9,
+            "y": 0,
+            "id": "3616afbd-61a4-4f93-889e-b4a2132b7698",
+            "type": "widget",
+            "x_size": 3,
+            "y_size": 3,
+            "widgetId": "cmawlqkxk00xfad07r8zoc4ag"
+          },
+          {
+            "x": 0,
+            "y": 3,
+            "id": "aedaf41e-67b9-4801-8bf6-1f84285e80d4",
+            "type": "widget",
+            "x_size": 3,
+            "y_size": 5,
+            "widgetId": "cmawlrhom00xhad07phtqc81k"
+          },
+          {
+            "x": 3,
+            "y": 3,
+            "id": "f4946244-2568-460e-b13a-3109a4b7876d",
+            "type": "widget",
+            "x_size": 3,
+            "y_size": 5,
+            "widgetId": "cmawlt6wi00zmad07cvxeeepq"
+          },
+          {
+            "x": 6,
+            "y": 3,
+            "id": "bca6fb2d-94c6-4c32-9861-88828313eb3b",
+            "type": "widget",
+            "x_size": 3,
+            "y_size": 5,
+            "widgetId": "cmawltpsx00yaad07f51yvkwg"
+          },
+          {
+            "x": 9,
+            "y": 3,
+            "id": "67e0de43-032e-4ae2-99e0-264fcb4a47a9",
+            "type": "widget",
+            "x_size": 3,
+            "y_size": 5,
+            "widgetId": "cmawlu5bs00zsad07maibk7ef"
+          },
+          {
+            "x": 0,
+            "y": 8,
+            "id": "4ce5a8f2-aee2-418e-85a1-edee9e2b2915",
+            "type": "widget",
+            "x_size": 6,
+            "y_size": 5,
+            "widgetId": "cmawlw4s700zvad07qq4qi0gp"
+          },
+          {
+            "x": 6,
+            "y": 8,
+            "id": "b24681fc-0664-45a6-985f-6022e7c6eab7",
+            "type": "widget",
+            "x_size": 6,
+            "y_size": 5,
+            "widgetId": "cmawlxdo00106ad07crpey1if"
+          }
         ]
       }
     },
@@ -532,22 +668,110 @@
       "createdBy": null,
       "updatedBy": null,
       "projectId": null,
-      "name": "Langfuse Cost Dashboard",
+      "name": "ElasticDash Cost Dashboard",
       "description": "Review your LLM costs.",
       "owner": "LANGFUSE",
       "definition": {
         "widgets": [
-          {"x": 0, "y": 2, "id": "c1e456c3-9e4a-4693-99de-ea3996e15003", "type": "widget", "x_size": 4, "y_size": 3, "widgetId": "cma2f2ioc001had07f7810kg1"},
-          {"x": 0, "y": 5, "id": "6d03b598-7950-423b-8e22-25ab4ac98b75", "type": "widget", "x_size": 4, "y_size": 6, "widgetId": "cmawk9xbu00lfad07s9j1bxnx"},
-          {"x": 8, "y": 5, "id": "2f018002-f922-4d3f-8495-43cc3a951dc8", "type": "widget", "x_size": 4, "y_size": 6, "widgetId": "cmawkfg0m00kzad07jyofrnq2"},
-          {"x": 4, "y": 5, "id": "c630af4d-b2e8-48d2-bb03-5f20e6b16e8f", "type": "widget", "x_size": 4, "y_size": 6, "widgetId": "cmawk6nqs00jwad07hwpsj3z2"},
-          {"x": 8, "y": 0, "id": "1e322175-b1c6-467c-a743-28c47255874b", "type": "widget", "x_size": 4, "y_size": 5, "widgetId": "cmawk7btd00khad07g625cqmp"},
-          {"x": 0, "y": 11, "id": "3587b86a-1dcc-4f51-b686-65e155615e76", "type": "widget", "x_size": 4, "y_size": 5, "widgetId": "cmawle4zj0096ad0650rzeh0z"},
-          {"x": 8, "y": 11, "id": "0ec8d95a-cb7b-4cd1-99e0-223e26a67964", "type": "widget", "x_size": 4, "y_size": 5, "widgetId": "cmawljmu100v7ad07pd3apnwe"},
-          {"x": 4, "y": 11, "id": "4754f821-7099-450c-89bc-db5e6ab2189e", "type": "widget", "x_size": 4, "y_size": 5, "widgetId": "cmawlkgt300vsad06g69vqqej"},
-          {"x": 0, "y": 0, "id": "e91465b7-63fd-4e77-babc-8e64abdb5672", "type": "widget", "x_size": 2, "y_size": 2, "widgetId": "cmawlaqoa004kad07e2q0za6k"},
-          {"x": 2, "y": 0, "id": "2ad4931e-b91d-4ca1-9178-5ac8c3edd0a8", "type": "widget", "x_size": 2, "y_size": 2, "widgetId": "cmawlbdu2004nad07lks0j8lw"},
-          {"x": 4, "y": 0, "id": "f7d74d8d-09a5-4a5e-a8de-f48dc6ba6a4b", "type": "widget", "x_size": 4, "y_size": 5, "widgetId": "cmawk5sik00igad07kjetg17j"}
+          {
+            "x": 0,
+            "y": 2,
+            "id": "c1e456c3-9e4a-4693-99de-ea3996e15003",
+            "type": "widget",
+            "x_size": 4,
+            "y_size": 3,
+            "widgetId": "cma2f2ioc001had07f7810kg1"
+          },
+          {
+            "x": 0,
+            "y": 5,
+            "id": "6d03b598-7950-423b-8e22-25ab4ac98b75",
+            "type": "widget",
+            "x_size": 4,
+            "y_size": 6,
+            "widgetId": "cmawk9xbu00lfad07s9j1bxnx"
+          },
+          {
+            "x": 8,
+            "y": 5,
+            "id": "2f018002-f922-4d3f-8495-43cc3a951dc8",
+            "type": "widget",
+            "x_size": 4,
+            "y_size": 6,
+            "widgetId": "cmawkfg0m00kzad07jyofrnq2"
+          },
+          {
+            "x": 4,
+            "y": 5,
+            "id": "c630af4d-b2e8-48d2-bb03-5f20e6b16e8f",
+            "type": "widget",
+            "x_size": 4,
+            "y_size": 6,
+            "widgetId": "cmawk6nqs00jwad07hwpsj3z2"
+          },
+          {
+            "x": 8,
+            "y": 0,
+            "id": "1e322175-b1c6-467c-a743-28c47255874b",
+            "type": "widget",
+            "x_size": 4,
+            "y_size": 5,
+            "widgetId": "cmawk7btd00khad07g625cqmp"
+          },
+          {
+            "x": 0,
+            "y": 11,
+            "id": "3587b86a-1dcc-4f51-b686-65e155615e76",
+            "type": "widget",
+            "x_size": 4,
+            "y_size": 5,
+            "widgetId": "cmawle4zj0096ad0650rzeh0z"
+          },
+          {
+            "x": 8,
+            "y": 11,
+            "id": "0ec8d95a-cb7b-4cd1-99e0-223e26a67964",
+            "type": "widget",
+            "x_size": 4,
+            "y_size": 5,
+            "widgetId": "cmawljmu100v7ad07pd3apnwe"
+          },
+          {
+            "x": 4,
+            "y": 11,
+            "id": "4754f821-7099-450c-89bc-db5e6ab2189e",
+            "type": "widget",
+            "x_size": 4,
+            "y_size": 5,
+            "widgetId": "cmawlkgt300vsad06g69vqqej"
+          },
+          {
+            "x": 0,
+            "y": 0,
+            "id": "e91465b7-63fd-4e77-babc-8e64abdb5672",
+            "type": "widget",
+            "x_size": 2,
+            "y_size": 2,
+            "widgetId": "cmawlaqoa004kad07e2q0za6k"
+          },
+          {
+            "x": 2,
+            "y": 0,
+            "id": "2ad4931e-b91d-4ca1-9178-5ac8c3edd0a8",
+            "type": "widget",
+            "x_size": 2,
+            "y_size": 2,
+            "widgetId": "cmawlbdu2004nad07lks0j8lw"
+          },
+          {
+            "x": 4,
+            "y": 0,
+            "id": "f7d74d8d-09a5-4a5e-a8de-f48dc6ba6a4b",
+            "type": "widget",
+            "x_size": 4,
+            "y_size": 5,
+            "widgetId": "cmawk5sik00igad07kjetg17j"
+          }
         ]
       }
     }

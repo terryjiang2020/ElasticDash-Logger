@@ -93,10 +93,10 @@ export default function AIFeatureSwitch() {
             </h4>
             <p className="text-sm">
               This setting applies to all users and projects. Any data{" "}
-              <i>can</i> be sent to AWS Bedrock within the Langfuse data region.
-              Traces are sent to Langfuse Cloud in your data region. Your data
-              will not be used for training models. Applicable HIPAA, SOC2,
-              GDPR, and ISO 27001 compliance remains intact.{" "}
+              <i>can</i> be sent to AWS Bedrock within the ElasticDash data
+              region. Traces are sent to ElasticDash Cloud in your data region.
+              Your data will not be used for training models. Applicable HIPAA,
+              SOC2, GDPR, and ISO 27001 compliance remains intact.{" "}
               <a
                 href="https://langfuse.com/security/ai-features"
                 target="_blank"

@@ -97,7 +97,7 @@ export const handleEventPropagationJob = async (
     });
 
     recordGauge(
-      "langfuse.event_propagation.partition_backlog",
+      "elasticdash.event_propagation.partition_backlog",
       partitions.length,
     );
 

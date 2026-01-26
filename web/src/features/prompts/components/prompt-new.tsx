@@ -55,7 +55,7 @@ export const NewPrompt = () => {
           : "Create new prompt",
         help: {
           description:
-            "Manage and version your prompts in Langfuse. Edit and update them via the UI and SDK. Retrieve the production version via the SDKs. Learn more in the docs.",
+            "Manage and version your prompts in ElasticDash. Edit and update them via the UI and SDK. Retrieve the production version via the SDKs. Learn more in the docs.",
           href: "https://langfuse.com/docs/prompts",
         },
         breadcrumb: breadcrumb,
@@ -63,7 +63,7 @@ export const NewPrompt = () => {
     >
       {initialPrompt ? (
         <p className="text-sm text-muted-foreground">
-          Prompts are immutable in Langfuse. To update a prompt, create a new
+          Prompts are immutable in ElasticDash. To update a prompt, create a new
           version.
         </p>
       ) : null}

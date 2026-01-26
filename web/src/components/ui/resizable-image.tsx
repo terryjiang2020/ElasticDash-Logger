@@ -83,7 +83,7 @@ export const ResizableImage = ({
     );
   }
 
-  const displayError = `Cannot load image. ${src.includes("http") ? "Http images are not rendered in Langfuse for security reasons" : "Invalid image URL"}`;
+  const displayError = `Cannot load image. ${src.includes("http") ? "Http images are not rendered in ElasticDash for security reasons" : "Invalid image URL"}`;
 
   return (
     <div>

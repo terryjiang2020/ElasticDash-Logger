@@ -1,6 +1,6 @@
-# Architecture Overview - Langfuse Backend
+# Architecture Overview - ElasticDash Backend
 
-Complete guide to the layered architecture pattern used in Langfuse's Next.js 14/tRPC/Express monorepo.
+Complete guide to the layered architecture pattern used in ElasticDash's Next.js 14/tRPC/Express monorepo.
 
 ## Table of Contents
 
@@ -15,7 +15,7 @@ Complete guide to the layered architecture pattern used in Langfuse's Next.js 14
 
 ## Layered Architecture Pattern
 
-Langfuse uses a **three-layer architecture** with two primary entry points (tRPC and Public API) plus async processing via Worker.
+ElasticDash uses a **three-layer architecture** with two primary entry points (tRPC and Public API) plus async processing via Worker.
 
 ### The Three Layers
 
@@ -296,13 +296,13 @@ worker/src/
 
 The shared package provides types, utilities, and server code used by both web and worker packages. It has **5 export paths** that control frontend vs backend access:
 
-| Import Path                                | Usage                 | What's Included                                                                    |
-| ------------------------------------------ | --------------------- | ---------------------------------------------------------------------------------- |
+| Import Path                                | Usage                | What's Included                                                                    |
+|--------------------------------------------|----------------------|------------------------------------------------------------------------------------|
 | `@langfuse/shared`                         | ✅ Frontend + Backend | Prisma types, Zod schemas, constants, table definitions, domain models, utilities  |
-| `@langfuse/shared/src/db`                  | 🔒 Backend only       | Prisma client instance                                                             |
-| `@langfuse/shared/src/server`              | 🔒 Backend only       | Services, repositories, queues, auth, ClickHouse, LLM integration, instrumentation |
-| `@langfuse/shared/src/server/auth/apiKeys` | 🔒 Backend only       | API key management (separated to avoid circular deps)                              |
-| `@langfuse/shared/encryption`              | 🔒 Backend only       | Database field encryption/decryption                                               |
+| `@langfuse/shared/src/db`                  | 🔒 Backend only      | Prisma client instance                                                             |
+| `@langfuse/shared/src/server`              | 🔒 Backend only      | Services, repositories, queues, auth, ClickHouse, LLM integration, instrumentation |
+| `@langfuse/shared/src/server/auth/apiKeys` | 🔒 Backend only      | API key management (separated to avoid circular deps)                              |
+| `@langfuse/shared/encryption`              | 🔒 Backend only      | Database field encryption/decryption                                               |
 
 **Key Structure:**
 
@@ -640,7 +640,7 @@ export async function processDatasetExport(
 
 ### Dual Database System
 
-Langfuse uses two databases with different purposes:
+ElasticDash uses two databases with different purposes:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -710,7 +710,7 @@ await redis.set(`cache:${key}`, value, "EX", 3600);
 
 **Repository Pattern:**
 
-Langfuse uses repositories in `packages/shared/src/server/repositories/` for complex data access patterns. Repositories provide:
+ElasticDash uses repositories in `packages/shared/src/server/repositories/` for complex data access patterns. Repositories provide:
 
 - Abstraction over complex queries (traces, observations, scores, events)
 - Data converters for transforming database models to application models
@@ -771,7 +771,7 @@ export async function createDataset(ctx: TRPCContext) {
 
 ### 3. Observability with OpenTelemetry + DataDog
 
-**Langfuse uses OpenTelemetry for backend observability, with traces and logs sent to DataDog.**
+**ElasticDash uses OpenTelemetry for backend observability, with traces and logs sent to DataDog.**
 
 Use structured logging and instrumentation:
 

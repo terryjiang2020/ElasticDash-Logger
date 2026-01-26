@@ -89,7 +89,7 @@ export const ingestionQueueProcessorBuilder = (
         const key = `langfuse:ingestion:recently-processed:${job.data.payload.authCheck.scope.projectId}:${job.data.payload.data.type}:${job.data.payload.data.eventBodyId}:${job.data.payload.data.fileKey}`;
         const exists = await redis.exists(key);
         if (exists) {
-          recordIncrement("langfuse.ingestion.recently_processed_cache", 1, {
+          recordIncrement("elasticdash.ingestion.recently_processed_cache", 1, {
             type: job.data.payload.data.type,
             skipped: "true",
           });
@@ -98,7 +98,7 @@ export const ingestionQueueProcessorBuilder = (
           );
           return;
         } else {
-          recordIncrement("langfuse.ingestion.recently_processed_cache", 1, {
+          recordIncrement("elasticdash.ingestion.recently_processed_cache", 1, {
             type: job.data.payload.data.type,
             skipped: "false",
           });
@@ -167,7 +167,7 @@ export const ingestionQueueProcessorBuilder = (
         const file = await s3Client.download(filePath);
         const fileSize = file.length;
 
-        recordHistogram("langfuse.ingestion.s3_file_size_bytes", fileSize, {
+        recordHistogram("elasticdash.ingestion.s3_file_size_bytes", fileSize, {
           skippedS3List: "true",
         });
         totalS3DownloadSizeBytes += fileSize;
@@ -183,9 +183,13 @@ export const ingestionQueueProcessorBuilder = (
           const file = await s3Client.download(fileRef.file);
           const fileSize = file.length;
 
-          recordHistogram("langfuse.ingestion.s3_file_size_bytes", fileSize, {
-            skippedS3List: "false",
-          });
+          recordHistogram(
+            "elasticdash.ingestion.s3_file_size_bytes",
+            fileSize,
+            {
+              skippedS3List: "false",
+            },
+          );
           totalS3DownloadSizeBytes += fileSize;
 
           const parsedFile = JSON.parse(file);
@@ -203,19 +207,22 @@ export const ingestionQueueProcessorBuilder = (
       }
 
       recordDistribution(
-        "langfuse.ingestion.count_files_distribution",
+        "elasticdash.ingestion.count_files_distribution",
         eventFiles.length,
         {
           kind: clickhouseEntityType,
         },
       );
       span?.setAttribute(
-        "langfuse.ingestion.event.count_files",
+        "elasticdash.ingestion.event.count_files",
         eventFiles.length,
       );
-      span?.setAttribute("langfuse.ingestion.event.kind", clickhouseEntityType);
       span?.setAttribute(
-        "langfuse.ingestion.s3_all_files_size_bytes",
+        "elasticdash.ingestion.event.kind",
+        clickhouseEntityType,
+      );
+      span?.setAttribute(
+        "elasticdash.ingestion.s3_all_files_size_bytes",
         totalS3DownloadSizeBytes,
       );
 

@@ -631,7 +631,7 @@ export class IngestionService {
     ]);
 
     if (clickhouseScoreRecord) {
-      recordIncrement("langfuse.ingestion.lookup.hit", 1, {
+      recordIncrement("elasticdash.ingestion.lookup.hit", 1, {
         store: "clickhouse",
         object: "score",
       });
@@ -707,7 +707,7 @@ export class IngestionService {
     });
 
     if (clickhouseTraceRecord) {
-      recordIncrement("langfuse.ingestion.lookup.hit", 1, {
+      recordIncrement("elasticdash.ingestion.lookup.hit", 1, {
         store: "clickhouse",
         object: "trace",
       });
@@ -837,7 +837,7 @@ export class IngestionService {
     ]);
 
     if (clickhouseObservationRecord) {
-      recordIncrement("langfuse.ingestion.lookup.hit", 1, {
+      recordIncrement("elasticdash.ingestion.lookup.hit", 1, {
         store: "clickhouse",
         object: "observation",
       });
@@ -1270,27 +1270,27 @@ export class IngestionService {
             // Tracing
             newInputCount
               ? span.setAttribute(
-                  "langfuse.tokenization.input-count",
+                  "elasticdash.tokenization.input-count",
                   newInputCount,
                 )
               : undefined;
             newOutputCount
               ? span.setAttribute(
-                  "langfuse.tokenization.output-count",
+                  "elasticdash.tokenization.output-count",
                   newOutputCount,
                 )
               : undefined;
             newInputCount || newOutputCount
               ? span.setAttribute(
-                  "langfuse.tokenization.tokenizer",
+                  "elasticdash.tokenization.tokenizer",
                   model.tokenizerId || "unknown",
                 )
               : undefined;
             newInputCount
-              ? recordIncrement("langfuse.tokenisedTokens", newInputCount)
+              ? recordIncrement("elasticdash.tokenisedTokens", newInputCount)
               : undefined;
             newOutputCount
-              ? recordIncrement("langfuse.tokenisedTokens", newOutputCount)
+              ? recordIncrement("elasticdash.tokenisedTokens", newOutputCount)
               : undefined;
           },
         );
@@ -1457,13 +1457,13 @@ export class IngestionService {
         this.prisma,
       ).shouldSkipClickHouseRead(params.projectId)
     ) {
-      recordIncrement("langfuse.ingestion.clickhouse_read_for_update", 1, {
+      recordIncrement("elasticdash.ingestion.clickhouse_read_for_update", 1, {
         skipped: "true",
         table: params.table,
       });
       return null;
     }
-    recordIncrement("langfuse.ingestion.clickhouse_read_for_update", 1, {
+    recordIncrement("elasticdash.ingestion.clickhouse_read_for_update", 1, {
       skipped: "false",
       table: params.table,
     });

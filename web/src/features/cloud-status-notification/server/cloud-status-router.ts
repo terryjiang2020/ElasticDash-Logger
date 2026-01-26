@@ -32,7 +32,7 @@ export const cloudStatusRouter = createTRPCRouter({
       }),
     )
     .query(async () => {
-      // Skip status check if not running on Langfuse Cloud
+      // Skip status check if not running on ElasticDash Cloud
       if (!env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION) {
         return { status: null };
       }

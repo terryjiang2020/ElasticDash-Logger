@@ -605,8 +605,8 @@ export function CreateLLMApiKeyForm({
               <FormItem>
                 <FormLabel>Provider name</FormLabel>
                 <FormDescription>
-                  Key to identify the connection within Langfuse. Cannot contain
-                  colons.
+                  Key to identify the connection within ElasticDash. Cannot
+                  contain colons.
                 </FormDescription>
                 <FormControl>
                   <Input
@@ -1041,7 +1041,7 @@ export function CreateLLMApiKeyForm({
                         <FormLabel>Enable default models</FormLabel>
                         <FormDescription>
                           Default models for the selected adapter will be
-                          available in Langfuse features.
+                          available in ElasticDash features.
                         </FormDescription>
                       </span>
 

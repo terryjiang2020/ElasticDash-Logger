@@ -232,7 +232,7 @@ jobs:
         run: pnpm run build
         env:
           NODE_OPTIONS: --max_old_space_size=8192
-      - name: Start Langfuse
+      - name: Start ElasticDash
         run: (pnpm run start&)
         env:
           LANGFUSE_INIT_ORG_ID: "seed-org-id"
@@ -345,7 +345,7 @@ jobs:
         run: pnpm run build
         env:
           NODE_OPTIONS: --max_old_space_size=8192
-      - name: Start Langfuse
+      - name: Start ElasticDash
         run: (pnpm run start&)
         env:
           LANGFUSE_INIT_ORG_ID: "seed-org-id"

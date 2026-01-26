@@ -35,7 +35,7 @@ export const MembershipInvitationTemplate = ({
   emailFromAddress,
   langfuseCloudRegion,
 }: MembershipInvitationTemplateProps) => {
-  const previewText = `Join ${invitedByUsername} on Langfuse`;
+  const previewText = `Join ${invitedByUsername} on ElasticDash`;
 
   return (
     <Html>
@@ -49,12 +49,12 @@ export const MembershipInvitationTemplate = ({
                 src="https://static.langfuse.com/langfuse_logo_transactional_email.png"
                 width="40"
                 height="40"
-                alt="Langfuse"
+                alt="ElasticDash"
                 className="mx-auto my-0"
               />
             </Section>
             <Heading className="mx-0 my-[30px] p-0 text-center text-2xl font-normal text-black">
-              Join <strong>{orgName}</strong> on <strong>Langfuse</strong>
+              Join <strong>{orgName}</strong> on <strong>ElasticDash</strong>
             </Heading>
             <Text className="text-sm leading-6 text-black">Hello,</Text>
             <Text className="text-sm leading-6 text-black">
@@ -65,8 +65,8 @@ export const MembershipInvitationTemplate = ({
               ) has invited you to join the <strong>{orgName}</strong>{" "}
               organization on
               {langfuseCloudRegion
-                ? ` Langfuse (${langfuseCloudRegion} data region)`
-                : " Langfuse"}
+                ? ` ElasticDash (${langfuseCloudRegion} data region)`
+                : " ElasticDash"}
               .
             </Text>
             <Section className="mb-4 mt-8 text-center">

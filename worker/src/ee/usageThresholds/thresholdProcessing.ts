@@ -116,7 +116,7 @@ async function sendThresholdNotificationEmail(
     // Record metrics once per org (not per recipient)
     if (emailSent) {
       recordIncrement(
-        "langfuse.queue.usage_threshold_queue.warning_emails_sent",
+        "elasticdash.queue.usage_threshold_queue.warning_emails_sent",
         1,
         {
           unit: "emails",
@@ -125,7 +125,7 @@ async function sendThresholdNotificationEmail(
     }
     if (emailFailed) {
       recordIncrement(
-        "langfuse.queue.usage_threshold_queue.email_failures",
+        "elasticdash.queue.usage_threshold_queue.email_failures",
         1,
         {
           unit: "emails",
@@ -138,9 +138,13 @@ async function sendThresholdNotificationEmail(
       error,
     );
     emailFailed = true;
-    recordIncrement("langfuse.queue.usage_threshold_queue.email_failures", 1, {
-      unit: "emails",
-    });
+    recordIncrement(
+      "elasticdash.queue.usage_threshold_queue.email_failures",
+      1,
+      {
+        unit: "emails",
+      },
+    );
   }
 
   return { emailSent, emailFailed };
@@ -222,7 +226,7 @@ async function sendBlockingNotificationEmail(
     // Record metrics once per org (not per recipient)
     if (emailSent) {
       recordIncrement(
-        "langfuse.queue.usage_threshold_queue.blocking_emails_sent",
+        "elasticdash.queue.usage_threshold_queue.blocking_emails_sent",
         1,
         {
           unit: "emails",
@@ -231,7 +235,7 @@ async function sendBlockingNotificationEmail(
     }
     if (emailFailed) {
       recordIncrement(
-        "langfuse.queue.usage_threshold_queue.email_failures",
+        "elasticdash.queue.usage_threshold_queue.email_failures",
         1,
         {
           unit: "emails",
@@ -244,9 +248,13 @@ async function sendBlockingNotificationEmail(
       error,
     );
     emailFailed = true;
-    recordIncrement("langfuse.queue.usage_threshold_queue.email_failures", 1, {
-      unit: "emails",
-    });
+    recordIncrement(
+      "elasticdash.queue.usage_threshold_queue.email_failures",
+      1,
+      {
+        unit: "emails",
+      },
+    );
   }
 
   return { emailSent, emailFailed };
@@ -374,7 +382,7 @@ export async function processThresholds(
   if (stateTransitioned && currentState === "BLOCKED") {
     // Transitioning to BLOCKED state - send blocking email
     recordIncrement(
-      "langfuse.queue.usage_threshold_queue.blocked_orgs_total",
+      "elasticdash.queue.usage_threshold_queue.blocked_orgs_total",
       1,
       {
         unit: "organizations",
@@ -390,7 +398,7 @@ export async function processThresholds(
   } else if (stateTransitioned && currentState === "WARNING") {
     // Transitioning to WARNING state - send warning email
     recordIncrement(
-      "langfuse.queue.usage_threshold_queue.warning_orgs_total",
+      "elasticdash.queue.usage_threshold_queue.warning_orgs_total",
       1,
       {
         unit: "organizations",

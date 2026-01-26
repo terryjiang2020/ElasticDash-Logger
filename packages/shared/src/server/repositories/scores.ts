@@ -466,7 +466,7 @@ const getScoresForTracesInternal = async <
     );
 
     recordDistribution(
-      "langfuse.query_by_id_age",
+      "elasticdash.query_by_id_age",
       new Date().getTime() - score.timestamp.getTime(),
       {
         table: "scores",

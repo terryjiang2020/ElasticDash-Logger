@@ -20,17 +20,17 @@ import { TRPCError } from "@trpc/server";
  * Creates a Stripe client reference by combining cloud region and organization ID.
  * Used when creating new checkout sessions in stripeBillingService.ts.
  *
- * @throws {TRPCError} If not running in a Langfuse Cloud environment
+ * @throws {TRPCError} If not running in a ElasticDash Cloud environment
  */
 export const createStripeClientReference = (orgId: string) => {
   if (!env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION) {
     logger.error(
-      "Returning null stripeClientReference, you cannot run the checkout page outside of Langfuse Cloud",
+      "Returning null stripeClientReference, you cannot run the checkout page outside of ElasticDash Cloud",
     );
     throw new TRPCError({
       code: "INTERNAL_SERVER_ERROR",
       message:
-        "Cannot create stripe client reference outside of Langfuse Cloud",
+        "Cannot create stripe client reference outside of ElasticDash Cloud",
     });
   }
   return `${env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION}-${orgId}`;

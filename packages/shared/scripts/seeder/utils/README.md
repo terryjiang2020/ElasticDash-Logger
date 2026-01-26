@@ -1,6 +1,6 @@
-# Langfuse Seeder System
+# ElasticDash Seeder System
 
-System for generating test data in ClickHouse and PostgreSQL for Langfuse development and testing.
+System for generating test data in ClickHouse and PostgreSQL for ElasticDash development and testing.
 
 ## Architecture Overview
 

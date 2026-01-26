@@ -448,7 +448,7 @@ async function executeGitHubDispatchAction({
 
   const githubConfig = actionConfig.config;
 
-  // Validate and prepare Langfuse payload
+  // Validate and prepare ElasticDash payload
   const validatedPayload = PromptWebhookOutboundSchema.safeParse({
     id: input.executionId,
     timestamp: new Date(),
@@ -581,7 +581,7 @@ async function executeSlackAction({
       client,
       channelId: slackConfig.channelId,
       blocks,
-      text: "Langfuse Notification",
+      text: "ElasticDash Notification",
     });
 
     // Update execution status to completed

@@ -47,10 +47,10 @@ export const contextWithLangfuseProps = (
     });
   }
   if (props.userId) {
-    baggage = baggage.setEntry("langfuse.user.id", { value: props.userId });
+    baggage = baggage.setEntry("elasticdash.user.id", { value: props.userId });
   }
   if (props.projectId) {
-    baggage = baggage.setEntry("langfuse.project.id", {
+    baggage = baggage.setEntry("elasticdash.project.id", {
       value: props.projectId,
     });
   }

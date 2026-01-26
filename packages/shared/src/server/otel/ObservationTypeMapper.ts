@@ -221,7 +221,7 @@ export class ObservationTypeMapperRegistry {
 
     new SimpleAttributeMapper("OpenInference", 2, "openinference.span.kind", {
       // Format:
-      // OpenInference Value: Langfuse ObservationType
+      // OpenInference Value: ElasticDash ObservationType
       CHAIN: "CHAIN",
       RETRIEVER: "RETRIEVER",
       LLM: "GENERATION",
@@ -238,7 +238,7 @@ export class ObservationTypeMapperRegistry {
       "gen_ai.operation.name",
       {
         // Format:
-        // GenAI Value: Langfuse ObservationType
+        // GenAI Value: ElasticDash ObservationType
         chat: "GENERATION",
         // completion was used historically (keeping it for backward compatibility), text_completion is per spec as of 2025-12-04
         completion: "GENERATION",

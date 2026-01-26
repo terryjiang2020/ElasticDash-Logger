@@ -48,7 +48,7 @@ export async function markProjectS3Slowdown(projectId: string): Promise<void> {
       projectId,
       ttlSeconds,
     });
-    recordIncrement("langfuse.s3_slowdown.marked", 1);
+    recordIncrement("elasticdash.s3_slowdown.marked", 1);
   } catch (error) {
     logger.error("Failed to mark S3 slowdown", { projectId, error });
     traceException(error);

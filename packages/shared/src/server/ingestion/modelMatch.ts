@@ -110,11 +110,11 @@ const getModelWithPricesFromRedis = async (
     const key = getRedisModelKey(p);
     const redisValue = await redis?.get(key);
     if (!redisValue) {
-      recordIncrement("langfuse.model_match.cache_miss", 1);
+      recordIncrement("elasticdash.model_match.cache_miss", 1);
       return null;
     }
 
-    recordIncrement("langfuse.model_match.cache_hit", 1);
+    recordIncrement("elasticdash.model_match.cache_hit", 1);
 
     if (redisValue === NOT_FOUND_TOKEN) {
       return { model: null, pricingTiers: [] };

@@ -124,11 +124,11 @@ async function verifyAdminApiKeyAuth(req: NextApiRequest): Promise<
   // If not attempting admin auth, return null to proceed with regular auth
   if (!authHeader?.startsWith("Bearer ") || !adminApiKeyHeader) return null;
 
-  // Verify this is a self-hosted instance (not Langfuse Cloud)
+  // Verify this is a self-hosted instance (not ElasticDash Cloud)
   if (env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION) {
     throw {
       status: 403,
-      message: "Admin API key auth is not available on Langfuse Cloud",
+      message: "Admin API key auth is not available on ElasticDash Cloud",
     };
   }
 

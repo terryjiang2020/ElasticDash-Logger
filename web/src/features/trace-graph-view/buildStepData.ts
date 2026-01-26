@@ -243,7 +243,7 @@ export function buildStepData(
   // Assign step numbers based on global timing analysis
   const dataWithSteps = assignGlobalTimingSteps(filteredData);
 
-  // Add Langfuse system nodes to make it consistent with LangGraph path
+  // Add ElasticDash system nodes to make it consistent with LangGraph path
   const dataWithSystemNodes = addLangfuseSystemNodes(dataWithSteps);
 
   return dataWithSystemNodes;

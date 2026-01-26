@@ -280,7 +280,7 @@ const Integrations = (props: { projectId: string }) => {
           <PostHogLogo className="mb-4 w-40 text-foreground" />
           <p className="mb-4 text-sm text-primary">
             We have teamed up with PostHog (OSS product analytics) to make
-            Langfuse Events/Metrics available in your Posthog Dashboards.
+            ElasticDash Events/Metrics available in your Posthog Dashboards.
           </p>
           <div className="flex items-center gap-2">
             <ActionButton
@@ -304,8 +304,8 @@ const Integrations = (props: { projectId: string }) => {
         <Card className="p-3">
           <MixpanelLogo className="mb-4 w-20 text-foreground" />
           <p className="mb-4 text-sm text-primary">
-            Integrate with Mixpanel to sync your Langfuse traces, generations,
-            and scores for advanced product analytics and insights.
+            Integrate with Mixpanel to sync your ElasticDash traces,
+            generations, and scores for advanced product analytics and insights.
           </p>
           <div className="flex items-center gap-2">
             <ActionButton
@@ -360,7 +360,7 @@ const Integrations = (props: { projectId: string }) => {
           </div>
           <p className="mb-4 text-sm text-primary">
             Connect a Slack workspace and create channel automations to receive
-            Langfuse alerts natively in Slack.
+            ElasticDash alerts natively in Slack.
           </p>
           <div className="flex items-center gap-2">
             <ActionButton

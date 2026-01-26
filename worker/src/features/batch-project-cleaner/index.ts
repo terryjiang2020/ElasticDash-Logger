@@ -97,7 +97,7 @@ export class BatchProjectCleaner {
       traceException(deleteError);
 
       // Record DELETE failure metric
-      recordIncrement("langfuse.batch_project_cleaner.delete_failures", 1, {
+      recordIncrement("elasticdash.batch_project_cleaner.delete_failures", 1, {
         table: tableName,
       });
 
@@ -125,7 +125,7 @@ export class BatchProjectCleaner {
 
       if (incompleteProjects.length > 0) {
         recordIncrement(
-          "langfuse.batch_project_cleaner.incomplete_cleanups",
+          "elasticdash.batch_project_cleaner.incomplete_cleanups",
           incompleteProjects.length,
           { table: tableName },
         );

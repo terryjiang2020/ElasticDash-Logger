@@ -169,14 +169,14 @@ export const handleCloudUsageMeteringJob = async (job: Job) => {
         `[CLOUD USAGE METERING] Stripe customer id not found for org ${org.id}`,
       );
       recordIncrement(
-        "langfuse.queue.cloud_usage_metering_queue.skipped_orgs",
+        "elasticdash.queue.cloud_usage_metering_queue.skipped_orgs",
         1,
         {
           unit: "organizations",
         },
       );
       recordIncrement(
-        "langfuse.queue.cloud_usage_metering_queue.skipped_orgs_with_errors",
+        "elasticdash.queue.cloud_usage_metering_queue.skipped_orgs_with_errors",
         1,
         {
           unit: "organizations",
@@ -241,7 +241,7 @@ export const handleCloudUsageMeteringJob = async (job: Job) => {
 
     if (countEvents === 0 && countObservations === 0) {
       recordIncrement(
-        "langfuse.queue.cloud_usage_metering_queue.skipped_orgs",
+        "elasticdash.queue.cloud_usage_metering_queue.skipped_orgs",
         1,
         {
           unit: "organizations",
@@ -250,21 +250,21 @@ export const handleCloudUsageMeteringJob = async (job: Job) => {
     }
 
     recordIncrement(
-      "langfuse.queue.cloud_usage_metering_queue.processed_orgs",
+      "elasticdash.queue.cloud_usage_metering_queue.processed_orgs",
       1,
       {
         unit: "organizations",
       },
     );
     recordIncrement(
-      "langfuse.queue.cloud_usage_metering_queue.processed_observations",
+      "elasticdash.queue.cloud_usage_metering_queue.processed_observations",
       countObservations,
       {
         unit: "observations",
       },
     );
     recordIncrement(
-      "langfuse.queue.cloud_usage_metering_queue.processed_events",
+      "elasticdash.queue.cloud_usage_metering_queue.processed_events",
       countEvents,
       {
         unit: "events",
@@ -321,7 +321,7 @@ export const handleCloudUsageMeteringJob = async (job: Job) => {
       `[CLOUD USAGE METERING] Enqueueing next Cloud Usage Metering Job to catch up `,
     );
     recordIncrement(
-      "langfuse.queue.cloud_usage_metering_queue.scheduled_catchup_jobs",
+      "elasticdash.queue.cloud_usage_metering_queue.scheduled_catchup_jobs",
       1,
       {
         unit: "jobs",

@@ -81,8 +81,8 @@ export const [updatePromptLabelsTool, handleUpdatePromptLabels] = defineTool({
 
         // Set span attributes for observability
         span.setAttributes({
-          "langfuse.project.id": context.projectId,
-          "langfuse.org.id": context.orgId,
+          "elasticdash.project.id": context.projectId,
+          "elasticdash.org.id": context.orgId,
           "mcp.api_key_id": context.apiKeyId,
           "mcp.prompt_name": name,
           "mcp.prompt_version": version,

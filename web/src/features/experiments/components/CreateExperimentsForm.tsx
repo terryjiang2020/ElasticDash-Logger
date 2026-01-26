@@ -121,7 +121,8 @@ export const CreateExperimentsForm = ({
                   via User Interface
                 </CardTitle>
                 <CardDescription>
-                  Test single prompts and model configurations via Langfuse UI
+                  Test single prompts and model configurations via ElasticDash
+                  UI
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -160,7 +161,7 @@ export const CreateExperimentsForm = ({
                   via SDK / API
                 </CardTitle>
                 <CardDescription>
-                  Start any dataset run via the Langfuse SDKs
+                  Start any dataset run via the ElasticDash SDKs
                 </CardDescription>
               </CardHeader>
               <CardContent>

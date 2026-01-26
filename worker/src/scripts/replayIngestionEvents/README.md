@@ -1,6 +1,6 @@
 # Replay failed ingestion events from S3
 
-In case the Langfuse or ClickHouse processing fails in any way, we can replay messages from S3 using the access logs or similar.
+In case the ElasticDash or ClickHouse processing fails in any way, we can replay messages from S3 using the access logs or similar.
 
 ## 1. Retrieve events to be replayed
 

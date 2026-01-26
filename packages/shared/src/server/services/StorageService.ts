@@ -554,7 +554,10 @@ class S3StorageService implements StorageService {
     try {
       await this.client.send(putCommand);
     } catch (err) {
-      logger.error(`Failed to upload JSON to S3 ${path}`, err);
+      logger.error(
+        `Failed to upload JSON to S3? ${this.bucketName} ${path}`,
+        err,
+      );
       handleStorageError(err, "upload JSON to S3");
     }
   }

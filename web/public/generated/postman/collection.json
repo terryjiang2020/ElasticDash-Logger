@@ -1,8 +1,8 @@
 {
   "info": {
-    "name": "Langfuse",
+    "name": "ElasticDash",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": "## Authentication\n\nAuthenticate with the API using [Basic Auth](https://en.wikipedia.org/wiki/Basic_access_authentication), get API keys in the project settings:\n\n- username: Langfuse Public Key\n- password: Langfuse Secret Key\n\n## Exports\n\n- OpenAPI spec: https://cloud.langfuse.com/generated/api/openapi.yml\n- Postman collection: https://cloud.langfuse.com/generated/postman/collection.json"
+    "description": "## Authentication\n\nAuthenticate with the API using [Basic Auth](https://en.wikipedia.org/wiki/Basic_access_authentication), get API keys in the project settings:\n\n- username: ElasticDash Public Key\n- password: ElasticDash Secret Key\n\n## Exports\n\n- OpenAPI spec: https://cloud.langfuse.com/generated/api/openapi.yml\n- Postman collection: https://cloud.langfuse.com/generated/postman/collection.json"
   },
   "variable": [
     {
@@ -49,14 +49,8 @@
             "description": "Get all annotation queues",
             "url": {
               "raw": "{{baseUrl}}/api/public/annotation-queues?page=&limit=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "annotation-queues"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "annotation-queues"],
               "query": [
                 {
                   "key": "page",
@@ -85,14 +79,8 @@
             "description": "Create an annotation queue",
             "url": {
               "raw": "{{baseUrl}}/api/public/annotation-queues",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "annotation-queues"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "annotation-queues"],
               "query": [],
               "variable": []
             },
@@ -118,15 +106,8 @@
             "description": "Get an annotation queue by ID",
             "url": {
               "raw": "{{baseUrl}}/api/public/annotation-queues/:queueId",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "annotation-queues",
-                ":queueId"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "annotation-queues", ":queueId"],
               "query": [],
               "variable": [
                 {
@@ -150,9 +131,7 @@
             "description": "Get items for a specific annotation queue",
             "url": {
               "raw": "{{baseUrl}}/api/public/annotation-queues/:queueId/items?status=&page=&limit=",
-              "host": [
-                "{{baseUrl}}"
-              ],
+              "host": ["{{baseUrl}}"],
               "path": [
                 "api",
                 "public",
@@ -199,9 +178,7 @@
             "description": "Get a specific item from an annotation queue",
             "url": {
               "raw": "{{baseUrl}}/api/public/annotation-queues/:queueId/items/:itemId",
-              "host": [
-                "{{baseUrl}}"
-              ],
+              "host": ["{{baseUrl}}"],
               "path": [
                 "api",
                 "public",
@@ -238,9 +215,7 @@
             "description": "Add an item to an annotation queue",
             "url": {
               "raw": "{{baseUrl}}/api/public/annotation-queues/:queueId/items",
-              "host": [
-                "{{baseUrl}}"
-              ],
+              "host": ["{{baseUrl}}"],
               "path": [
                 "api",
                 "public",
@@ -279,9 +254,7 @@
             "description": "Update an annotation queue item",
             "url": {
               "raw": "{{baseUrl}}/api/public/annotation-queues/:queueId/items/:itemId",
-              "host": [
-                "{{baseUrl}}"
-              ],
+              "host": ["{{baseUrl}}"],
               "path": [
                 "api",
                 "public",
@@ -326,9 +299,7 @@
             "description": "Remove an item from an annotation queue",
             "url": {
               "raw": "{{baseUrl}}/api/public/annotation-queues/:queueId/items/:itemId",
-              "host": [
-                "{{baseUrl}}"
-              ],
+              "host": ["{{baseUrl}}"],
               "path": [
                 "api",
                 "public",
@@ -365,9 +336,7 @@
             "description": "Create an assignment for a user to an annotation queue",
             "url": {
               "raw": "{{baseUrl}}/api/public/annotation-queues/:queueId/assignments",
-              "host": [
-                "{{baseUrl}}"
-              ],
+              "host": ["{{baseUrl}}"],
               "path": [
                 "api",
                 "public",
@@ -406,9 +375,7 @@
             "description": "Delete an assignment for a user to an annotation queue",
             "url": {
               "raw": "{{baseUrl}}/api/public/annotation-queues/:queueId/assignments",
-              "host": [
-                "{{baseUrl}}"
-              ],
+              "host": ["{{baseUrl}}"],
               "path": [
                 "api",
                 "public",
@@ -454,15 +421,8 @@
             "description": "Get all blob storage integrations for the organization (requires organization-scoped API key)",
             "url": {
               "raw": "{{baseUrl}}/api/public/integrations/blob-storage",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "integrations",
-                "blob-storage"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "integrations", "blob-storage"],
               "query": [],
               "variable": []
             },
@@ -480,15 +440,8 @@
             "description": "Create or update a blob storage integration for a specific project (requires organization-scoped API key). The configuration is validated by performing a test upload to the bucket.",
             "url": {
               "raw": "{{baseUrl}}/api/public/integrations/blob-storage",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "integrations",
-                "blob-storage"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "integrations", "blob-storage"],
               "query": [],
               "variable": []
             },
@@ -514,16 +467,8 @@
             "description": "Delete a blob storage integration by ID (requires organization-scoped API key)",
             "url": {
               "raw": "{{baseUrl}}/api/public/integrations/blob-storage/:id",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "integrations",
-                "blob-storage",
-                ":id"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "integrations", "blob-storage", ":id"],
               "query": [],
               "variable": [
                 {
@@ -554,14 +499,8 @@
             "description": "Create a comment. Comments may be attached to different object types (trace, observation, session, prompt).",
             "url": {
               "raw": "{{baseUrl}}/api/public/comments",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "comments"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "comments"],
               "query": [],
               "variable": []
             },
@@ -587,14 +526,8 @@
             "description": "Get all comments",
             "url": {
               "raw": "{{baseUrl}}/api/public/comments?page=&limit=&objectType=&objectId=&authorUserId=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "comments"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "comments"],
               "query": [
                 {
                   "key": "page",
@@ -638,15 +571,8 @@
             "description": "Get a comment by id",
             "url": {
               "raw": "{{baseUrl}}/api/public/comments/:commentId",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "comments",
-                ":commentId"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "comments", ":commentId"],
               "query": [],
               "variable": [
                 {
@@ -677,14 +603,8 @@
             "description": "Create a dataset item",
             "url": {
               "raw": "{{baseUrl}}/api/public/dataset-items",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "dataset-items"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "dataset-items"],
               "query": [],
               "variable": []
             },
@@ -710,15 +630,8 @@
             "description": "Get a dataset item",
             "url": {
               "raw": "{{baseUrl}}/api/public/dataset-items/:id",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "dataset-items",
-                ":id"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "dataset-items", ":id"],
               "query": [],
               "variable": [
                 {
@@ -742,14 +655,8 @@
             "description": "Get dataset items",
             "url": {
               "raw": "{{baseUrl}}/api/public/dataset-items?datasetName=&sourceTraceId=&sourceObservationId=&page=&limit=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "dataset-items"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "dataset-items"],
               "query": [
                 {
                   "key": "datasetName",
@@ -793,15 +700,8 @@
             "description": "Delete a dataset item and all its run items. This action is irreversible.",
             "url": {
               "raw": "{{baseUrl}}/api/public/dataset-items/:id",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "dataset-items",
-                ":id"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "dataset-items", ":id"],
               "query": [],
               "variable": [
                 {
@@ -832,14 +732,8 @@
             "description": "Create a dataset run item",
             "url": {
               "raw": "{{baseUrl}}/api/public/dataset-run-items",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "dataset-run-items"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "dataset-run-items"],
               "query": [],
               "variable": []
             },
@@ -865,14 +759,8 @@
             "description": "List dataset run items",
             "url": {
               "raw": "{{baseUrl}}/api/public/dataset-run-items?datasetId=&runName=&page=&limit=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "dataset-run-items"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "dataset-run-items"],
               "query": [
                 {
                   "key": "datasetId",
@@ -918,15 +806,8 @@
             "description": "Get all datasets",
             "url": {
               "raw": "{{baseUrl}}/api/public/v2/datasets?page=&limit=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "v2",
-                "datasets"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "v2", "datasets"],
               "query": [
                 {
                   "key": "page",
@@ -955,16 +836,8 @@
             "description": "Get a dataset",
             "url": {
               "raw": "{{baseUrl}}/api/public/v2/datasets/:datasetName",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "v2",
-                "datasets",
-                ":datasetName"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "v2", "datasets", ":datasetName"],
               "query": [],
               "variable": [
                 {
@@ -988,15 +861,8 @@
             "description": "Create a dataset",
             "url": {
               "raw": "{{baseUrl}}/api/public/v2/datasets",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "v2",
-                "datasets"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "v2", "datasets"],
               "query": [],
               "variable": []
             },
@@ -1022,9 +888,7 @@
             "description": "Get a dataset run and its items",
             "url": {
               "raw": "{{baseUrl}}/api/public/datasets/:datasetName/runs/:runName",
-              "host": [
-                "{{baseUrl}}"
-              ],
+              "host": ["{{baseUrl}}"],
               "path": [
                 "api",
                 "public",
@@ -1061,9 +925,7 @@
             "description": "Delete a dataset run and all its run items. This action is irreversible.",
             "url": {
               "raw": "{{baseUrl}}/api/public/datasets/:datasetName/runs/:runName",
-              "host": [
-                "{{baseUrl}}"
-              ],
+              "host": ["{{baseUrl}}"],
               "path": [
                 "api",
                 "public",
@@ -1100,16 +962,8 @@
             "description": "Get dataset runs",
             "url": {
               "raw": "{{baseUrl}}/api/public/datasets/:datasetName/runs?page=&limit=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "datasets",
-                ":datasetName",
-                "runs"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "datasets", ":datasetName", "runs"],
               "query": [
                 {
                   "key": "page",
@@ -1151,14 +1005,8 @@
             "description": "Check health of API and database",
             "url": {
               "raw": "{{baseUrl}}/api/public/health",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "health"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "health"],
               "query": [],
               "variable": []
             },
@@ -1180,17 +1028,11 @@
           "_type": "endpoint",
           "name": "Batch",
           "request": {
-            "description": "**Legacy endpoint for batch ingestion for Langfuse Observability.**\n\n-> Please use the OpenTelemetry endpoint (`/api/public/otel/v1/traces`). Learn more: https://langfuse.com/integrations/native/opentelemetry\n\nWithin each batch, there can be multiple events.\nEach event has a type, an id, a timestamp, metadata and a body.\nInternally, we refer to this as the \"event envelope\" as it tells us something about the event but not the trace.\nWe use the event id within this envelope to deduplicate messages to avoid processing the same event twice, i.e. the event id should be unique per request.\nThe event.body.id is the ID of the actual trace and will be used for updates and will be visible within the Langfuse App.\nI.e. if you want to update a trace, you'd use the same body id, but separate event IDs.\n\nNotes:\n- Introduction to data model: https://langfuse.com/docs/observability/data-model\n- Batch sizes are limited to 3.5 MB in total. You need to adjust the number of events per batch accordingly.\n- The API does not return a 4xx status code for input errors. Instead, it responds with a 207 status code, which includes a list of the encountered errors.",
+            "description": "**Legacy endpoint for batch ingestion for ElasticDash Observability.**\n\n-> Please use the OpenTelemetry endpoint (`/api/public/otel/v1/traces`). Learn more: https://langfuse.com/integrations/native/opentelemetry\n\nWithin each batch, there can be multiple events.\nEach event has a type, an id, a timestamp, metadata and a body.\nInternally, we refer to this as the \"event envelope\" as it tells us something about the event but not the trace.\nWe use the event id within this envelope to deduplicate messages to avoid processing the same event twice, i.e. the event id should be unique per request.\nThe event.body.id is the ID of the actual trace and will be used for updates and will be visible within the ElasticDash App.\nI.e. if you want to update a trace, you'd use the same body id, but separate event IDs.\n\nNotes:\n- Introduction to data model: https://langfuse.com/docs/observability/data-model\n- Batch sizes are limited to 3.5 MB in total. You need to adjust the number of events per batch accordingly.\n- The API does not return a 4xx status code for input errors. Instead, it responds with a 207 status code, which includes a list of the encountered errors.",
             "url": {
               "raw": "{{baseUrl}}/api/public/ingestion",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "ingestion"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "ingestion"],
               "query": [],
               "variable": []
             },
@@ -1219,17 +1061,11 @@
               "status": "OK",
               "code": 200,
               "originalRequest": {
-                "description": "**Legacy endpoint for batch ingestion for Langfuse Observability.**\n\n-> Please use the OpenTelemetry endpoint (`/api/public/otel/v1/traces`). Learn more: https://langfuse.com/integrations/native/opentelemetry\n\nWithin each batch, there can be multiple events.\nEach event has a type, an id, a timestamp, metadata and a body.\nInternally, we refer to this as the \"event envelope\" as it tells us something about the event but not the trace.\nWe use the event id within this envelope to deduplicate messages to avoid processing the same event twice, i.e. the event id should be unique per request.\nThe event.body.id is the ID of the actual trace and will be used for updates and will be visible within the Langfuse App.\nI.e. if you want to update a trace, you'd use the same body id, but separate event IDs.\n\nNotes:\n- Introduction to data model: https://langfuse.com/docs/observability/data-model\n- Batch sizes are limited to 3.5 MB in total. You need to adjust the number of events per batch accordingly.\n- The API does not return a 4xx status code for input errors. Instead, it responds with a 207 status code, which includes a list of the encountered errors.",
+                "description": "**Legacy endpoint for batch ingestion for ElasticDash Observability.**\n\n-> Please use the OpenTelemetry endpoint (`/api/public/otel/v1/traces`). Learn more: https://langfuse.com/integrations/native/opentelemetry\n\nWithin each batch, there can be multiple events.\nEach event has a type, an id, a timestamp, metadata and a body.\nInternally, we refer to this as the \"event envelope\" as it tells us something about the event but not the trace.\nWe use the event id within this envelope to deduplicate messages to avoid processing the same event twice, i.e. the event id should be unique per request.\nThe event.body.id is the ID of the actual trace and will be used for updates and will be visible within the ElasticDash App.\nI.e. if you want to update a trace, you'd use the same body id, but separate event IDs.\n\nNotes:\n- Introduction to data model: https://langfuse.com/docs/observability/data-model\n- Batch sizes are limited to 3.5 MB in total. You need to adjust the number of events per batch accordingly.\n- The API does not return a 4xx status code for input errors. Instead, it responds with a 207 status code, which includes a list of the encountered errors.",
                 "url": {
                   "raw": "{{baseUrl}}/api/public/ingestion",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "api",
-                    "public",
-                    "ingestion"
-                  ],
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "public", "ingestion"],
                   "query": [],
                   "variable": []
                 },
@@ -1261,17 +1097,11 @@
               "status": "OK",
               "code": 200,
               "originalRequest": {
-                "description": "**Legacy endpoint for batch ingestion for Langfuse Observability.**\n\n-> Please use the OpenTelemetry endpoint (`/api/public/otel/v1/traces`). Learn more: https://langfuse.com/integrations/native/opentelemetry\n\nWithin each batch, there can be multiple events.\nEach event has a type, an id, a timestamp, metadata and a body.\nInternally, we refer to this as the \"event envelope\" as it tells us something about the event but not the trace.\nWe use the event id within this envelope to deduplicate messages to avoid processing the same event twice, i.e. the event id should be unique per request.\nThe event.body.id is the ID of the actual trace and will be used for updates and will be visible within the Langfuse App.\nI.e. if you want to update a trace, you'd use the same body id, but separate event IDs.\n\nNotes:\n- Introduction to data model: https://langfuse.com/docs/observability/data-model\n- Batch sizes are limited to 3.5 MB in total. You need to adjust the number of events per batch accordingly.\n- The API does not return a 4xx status code for input errors. Instead, it responds with a 207 status code, which includes a list of the encountered errors.",
+                "description": "**Legacy endpoint for batch ingestion for ElasticDash Observability.**\n\n-> Please use the OpenTelemetry endpoint (`/api/public/otel/v1/traces`). Learn more: https://langfuse.com/integrations/native/opentelemetry\n\nWithin each batch, there can be multiple events.\nEach event has a type, an id, a timestamp, metadata and a body.\nInternally, we refer to this as the \"event envelope\" as it tells us something about the event but not the trace.\nWe use the event id within this envelope to deduplicate messages to avoid processing the same event twice, i.e. the event id should be unique per request.\nThe event.body.id is the ID of the actual trace and will be used for updates and will be visible within the ElasticDash App.\nI.e. if you want to update a trace, you'd use the same body id, but separate event IDs.\n\nNotes:\n- Introduction to data model: https://langfuse.com/docs/observability/data-model\n- Batch sizes are limited to 3.5 MB in total. You need to adjust the number of events per batch accordingly.\n- The API does not return a 4xx status code for input errors. Instead, it responds with a 207 status code, which includes a list of the encountered errors.",
                 "url": {
                   "raw": "{{baseUrl}}/api/public/ingestion",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "api",
-                    "public",
-                    "ingestion"
-                  ],
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "public", "ingestion"],
                   "query": [],
                   "variable": []
                 },
@@ -1303,17 +1133,11 @@
               "status": "OK",
               "code": 200,
               "originalRequest": {
-                "description": "**Legacy endpoint for batch ingestion for Langfuse Observability.**\n\n-> Please use the OpenTelemetry endpoint (`/api/public/otel/v1/traces`). Learn more: https://langfuse.com/integrations/native/opentelemetry\n\nWithin each batch, there can be multiple events.\nEach event has a type, an id, a timestamp, metadata and a body.\nInternally, we refer to this as the \"event envelope\" as it tells us something about the event but not the trace.\nWe use the event id within this envelope to deduplicate messages to avoid processing the same event twice, i.e. the event id should be unique per request.\nThe event.body.id is the ID of the actual trace and will be used for updates and will be visible within the Langfuse App.\nI.e. if you want to update a trace, you'd use the same body id, but separate event IDs.\n\nNotes:\n- Introduction to data model: https://langfuse.com/docs/observability/data-model\n- Batch sizes are limited to 3.5 MB in total. You need to adjust the number of events per batch accordingly.\n- The API does not return a 4xx status code for input errors. Instead, it responds with a 207 status code, which includes a list of the encountered errors.",
+                "description": "**Legacy endpoint for batch ingestion for ElasticDash Observability.**\n\n-> Please use the OpenTelemetry endpoint (`/api/public/otel/v1/traces`). Learn more: https://langfuse.com/integrations/native/opentelemetry\n\nWithin each batch, there can be multiple events.\nEach event has a type, an id, a timestamp, metadata and a body.\nInternally, we refer to this as the \"event envelope\" as it tells us something about the event but not the trace.\nWe use the event id within this envelope to deduplicate messages to avoid processing the same event twice, i.e. the event id should be unique per request.\nThe event.body.id is the ID of the actual trace and will be used for updates and will be visible within the ElasticDash App.\nI.e. if you want to update a trace, you'd use the same body id, but separate event IDs.\n\nNotes:\n- Introduction to data model: https://langfuse.com/docs/observability/data-model\n- Batch sizes are limited to 3.5 MB in total. You need to adjust the number of events per batch accordingly.\n- The API does not return a 4xx status code for input errors. Instead, it responds with a 207 status code, which includes a list of the encountered errors.",
                 "url": {
                   "raw": "{{baseUrl}}/api/public/ingestion",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "api",
-                    "public",
-                    "ingestion"
-                  ],
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "public", "ingestion"],
                   "query": [],
                   "variable": []
                 },
@@ -1356,14 +1180,8 @@
             "description": "Get all LLM connections in a project",
             "url": {
               "raw": "{{baseUrl}}/api/public/llm-connections?page=&limit=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "llm-connections"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "llm-connections"],
               "query": [
                 {
                   "key": "page",
@@ -1392,14 +1210,8 @@
             "description": "Create or update an LLM connection. The connection is upserted on provider.",
             "url": {
               "raw": "{{baseUrl}}/api/public/llm-connections",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "llm-connections"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "llm-connections"],
               "query": [],
               "variable": []
             },
@@ -1432,15 +1244,8 @@
             "description": "Get a media record",
             "url": {
               "raw": "{{baseUrl}}/api/public/media/:mediaId",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "media",
-                ":mediaId"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "media", ":mediaId"],
               "query": [],
               "variable": [
                 {
@@ -1464,15 +1269,8 @@
             "description": "Patch a media record",
             "url": {
               "raw": "{{baseUrl}}/api/public/media/:mediaId",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "media",
-                ":mediaId"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "media", ":mediaId"],
               "query": [],
               "variable": [
                 {
@@ -1504,14 +1302,8 @@
             "description": "Get a presigned upload URL for a media record",
             "url": {
               "raw": "{{baseUrl}}/api/public/media",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "media"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "media"],
               "query": [],
               "variable": []
             },
@@ -1541,18 +1333,11 @@
           "_type": "endpoint",
           "name": "Metrics",
           "request": {
-            "description": "Get metrics from the Langfuse project using a query object. V2 endpoint with optimized performance.\n\n## V2 Differences\n- Supports `observations`, `scores-numeric`, and `scores-categorical` views only (traces view not supported)\n- Direct access to tags and release fields on observations\n- Backwards-compatible: traceName, traceRelease, traceVersion dimensions are still available on observations view\n- High cardinality dimensions are not supported and will return a 400 error (see below)\n\nFor more details, see the [Metrics API documentation](https://langfuse.com/docs/metrics/features/metrics-api).\n\n## Available Views\n\n### observations\nQuery observation-level data (spans, generations, events).\n\n**Dimensions:**\n- `environment` - Deployment environment (e.g., production, staging)\n- `type` - Type of observation (SPAN, GENERATION, EVENT)\n- `name` - Name of the observation\n- `level` - Logging level of the observation\n- `version` - Version of the observation\n- `tags` - User-defined tags\n- `release` - Release version\n- `traceName` - Name of the parent trace (backwards-compatible)\n- `traceRelease` - Release version of the parent trace (backwards-compatible, maps to release)\n- `traceVersion` - Version of the parent trace (backwards-compatible, maps to version)\n- `providedModelName` - Name of the model used\n- `promptName` - Name of the prompt used\n- `promptVersion` - Version of the prompt used\n- `startTimeMonth` - Month of start_time in YYYY-MM format\n\n**Measures:**\n- `count` - Total number of observations\n- `latency` - Observation latency (milliseconds)\n- `streamingLatency` - Generation latency from completion start to end (milliseconds)\n- `inputTokens` - Sum of input tokens consumed\n- `outputTokens` - Sum of output tokens produced\n- `totalTokens` - Sum of all tokens consumed\n- `outputTokensPerSecond` - Output tokens per second\n- `tokensPerSecond` - Total tokens per second\n- `inputCost` - Input cost (USD)\n- `outputCost` - Output cost (USD)\n- `totalCost` - Total cost (USD)\n- `timeToFirstToken` - Time to first token (milliseconds)\n- `countScores` - Number of scores attached to the observation\n\n### scores-numeric\nQuery numeric and boolean score data.\n\n**Dimensions:**\n- `environment` - Deployment environment\n- `name` - Name of the score (e.g., accuracy, toxicity)\n- `source` - Origin of the score (API, ANNOTATION, EVAL)\n- `dataType` - Data type (NUMERIC, BOOLEAN)\n- `configId` - Identifier of the score config\n- `timestampMonth` - Month in YYYY-MM format\n- `timestampDay` - Day in YYYY-MM-DD format\n- `value` - Numeric value of the score\n- `traceName` - Name of the parent trace\n- `tags` - Tags\n- `traceRelease` - Release version\n- `traceVersion` - Version\n- `observationName` - Name of the associated observation\n- `observationModelName` - Model name of the associated observation\n- `observationPromptName` - Prompt name of the associated observation\n- `observationPromptVersion` - Prompt version of the associated observation\n\n**Measures:**\n- `count` - Total number of scores\n- `value` - Score value (for aggregations)\n\n### scores-categorical\nQuery categorical score data. Same dimensions as scores-numeric except uses `stringValue` instead of `value`.\n\n**Measures:**\n- `count` - Total number of scores\n\n## High Cardinality Dimensions\nThe following dimensions cannot be used as grouping dimensions in v2 metrics API as they can cause performance issues.\nUse them in filters instead.\n\n**observations view:**\n- `id` - Use traceId filter to narrow down results\n- `traceId` - Use traceId filter instead\n- `userId` - Use userId filter instead\n- `sessionId` - Use sessionId filter instead\n- `parentObservationId` - Use parentObservationId filter instead\n\n**scores-numeric / scores-categorical views:**\n- `id` - Use specific filters to narrow down results\n- `traceId` - Use traceId filter instead\n- `userId` - Use userId filter instead\n- `sessionId` - Use sessionId filter instead\n- `observationId` - Use observationId filter instead\n\n## Aggregations\nAvailable aggregation functions: `sum`, `avg`, `count`, `max`, `min`, `p50`, `p75`, `p90`, `p95`, `p99`, `histogram`\n\n## Time Granularities\nAvailable granularities for timeDimension: `auto`, `minute`, `hour`, `day`, `week`, `month`\n- `auto` bins the data into approximately 50 buckets based on the time range",
+            "description": "Get metrics from the ElasticDash project using a query object. V2 endpoint with optimized performance.\n\n## V2 Differences\n- Supports `observations`, `scores-numeric`, and `scores-categorical` views only (traces view not supported)\n- Direct access to tags and release fields on observations\n- Backwards-compatible: traceName, traceRelease, traceVersion dimensions are still available on observations view\n- High cardinality dimensions are not supported and will return a 400 error (see below)\n\nFor more details, see the [Metrics API documentation](https://langfuse.com/docs/metrics/features/metrics-api).\n\n## Available Views\n\n### observations\nQuery observation-level data (spans, generations, events).\n\n**Dimensions:**\n- `environment` - Deployment environment (e.g., production, staging)\n- `type` - Type of observation (SPAN, GENERATION, EVENT)\n- `name` - Name of the observation\n- `level` - Logging level of the observation\n- `version` - Version of the observation\n- `tags` - User-defined tags\n- `release` - Release version\n- `traceName` - Name of the parent trace (backwards-compatible)\n- `traceRelease` - Release version of the parent trace (backwards-compatible, maps to release)\n- `traceVersion` - Version of the parent trace (backwards-compatible, maps to version)\n- `providedModelName` - Name of the model used\n- `promptName` - Name of the prompt used\n- `promptVersion` - Version of the prompt used\n- `startTimeMonth` - Month of start_time in YYYY-MM format\n\n**Measures:**\n- `count` - Total number of observations\n- `latency` - Observation latency (milliseconds)\n- `streamingLatency` - Generation latency from completion start to end (milliseconds)\n- `inputTokens` - Sum of input tokens consumed\n- `outputTokens` - Sum of output tokens produced\n- `totalTokens` - Sum of all tokens consumed\n- `outputTokensPerSecond` - Output tokens per second\n- `tokensPerSecond` - Total tokens per second\n- `inputCost` - Input cost (USD)\n- `outputCost` - Output cost (USD)\n- `totalCost` - Total cost (USD)\n- `timeToFirstToken` - Time to first token (milliseconds)\n- `countScores` - Number of scores attached to the observation\n\n### scores-numeric\nQuery numeric and boolean score data.\n\n**Dimensions:**\n- `environment` - Deployment environment\n- `name` - Name of the score (e.g., accuracy, toxicity)\n- `source` - Origin of the score (API, ANNOTATION, EVAL)\n- `dataType` - Data type (NUMERIC, BOOLEAN)\n- `configId` - Identifier of the score config\n- `timestampMonth` - Month in YYYY-MM format\n- `timestampDay` - Day in YYYY-MM-DD format\n- `value` - Numeric value of the score\n- `traceName` - Name of the parent trace\n- `tags` - Tags\n- `traceRelease` - Release version\n- `traceVersion` - Version\n- `observationName` - Name of the associated observation\n- `observationModelName` - Model name of the associated observation\n- `observationPromptName` - Prompt name of the associated observation\n- `observationPromptVersion` - Prompt version of the associated observation\n\n**Measures:**\n- `count` - Total number of scores\n- `value` - Score value (for aggregations)\n\n### scores-categorical\nQuery categorical score data. Same dimensions as scores-numeric except uses `stringValue` instead of `value`.\n\n**Measures:**\n- `count` - Total number of scores\n\n## High Cardinality Dimensions\nThe following dimensions cannot be used as grouping dimensions in v2 metrics API as they can cause performance issues.\nUse them in filters instead.\n\n**observations view:**\n- `id` - Use traceId filter to narrow down results\n- `traceId` - Use traceId filter instead\n- `userId` - Use userId filter instead\n- `sessionId` - Use sessionId filter instead\n- `parentObservationId` - Use parentObservationId filter instead\n\n**scores-numeric / scores-categorical views:**\n- `id` - Use specific filters to narrow down results\n- `traceId` - Use traceId filter instead\n- `userId` - Use userId filter instead\n- `sessionId` - Use sessionId filter instead\n- `observationId` - Use observationId filter instead\n\n## Aggregations\nAvailable aggregation functions: `sum`, `avg`, `count`, `max`, `min`, `p50`, `p75`, `p90`, `p95`, `p99`, `histogram`\n\n## Time Granularities\nAvailable granularities for timeDimension: `auto`, `minute`, `hour`, `day`, `week`, `month`\n- `auto` bins the data into approximately 50 buckets based on the time range",
             "url": {
               "raw": "{{baseUrl}}/api/public/v2/metrics?query=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "v2",
-                "metrics"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "v2", "metrics"],
               "query": [
                 {
                   "key": "query",
@@ -1580,17 +1365,11 @@
           "_type": "endpoint",
           "name": "Metrics",
           "request": {
-            "description": "Get metrics from the Langfuse project using a query object.\n\nConsider using the [v2 metrics endpoint](/api-reference#tag/metricsv2/GET/api/public/v2/metrics) for better performance.\n\nFor more details, see the [Metrics API documentation](https://langfuse.com/docs/metrics/features/metrics-api).",
+            "description": "Get metrics from the ElasticDash project using a query object.\n\nConsider using the [v2 metrics endpoint](/api-reference#tag/metricsv2/GET/api/public/v2/metrics) for better performance.\n\nFor more details, see the [Metrics API documentation](https://langfuse.com/docs/metrics/features/metrics-api).",
             "url": {
               "raw": "{{baseUrl}}/api/public/metrics?query=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "metrics"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "metrics"],
               "query": [
                 {
                   "key": "query",
@@ -1621,14 +1400,8 @@
             "description": "Create a model",
             "url": {
               "raw": "{{baseUrl}}/api/public/models",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "models"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "models"],
               "query": [],
               "variable": []
             },
@@ -1654,14 +1427,8 @@
             "description": "Get all models",
             "url": {
               "raw": "{{baseUrl}}/api/public/models?page=&limit=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "models"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "models"],
               "query": [
                 {
                   "key": "page",
@@ -1690,15 +1457,8 @@
             "description": "Get a model",
             "url": {
               "raw": "{{baseUrl}}/api/public/models/:id",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "models",
-                ":id"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "models", ":id"],
               "query": [],
               "variable": [
                 {
@@ -1719,18 +1479,11 @@
           "_type": "endpoint",
           "name": "Delete",
           "request": {
-            "description": "Delete a model. Cannot delete models managed by Langfuse. You can create your own definition with the same modelName to override the definition though.",
+            "description": "Delete a model. Cannot delete models managed by ElasticDash. You can create your own definition with the same modelName to override the definition though.",
             "url": {
               "raw": "{{baseUrl}}/api/public/models/:id",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "models",
-                ":id"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "models", ":id"],
               "query": [],
               "variable": [
                 {
@@ -1761,15 +1514,8 @@
             "description": "Get a list of observations with cursor-based pagination and flexible field selection.\n\n## Cursor-based Pagination\nThis endpoint uses cursor-based pagination for efficient traversal of large datasets.\nThe cursor is returned in the response metadata and should be passed in subsequent requests\nto retrieve the next page of results.\n\n## Field Selection\nUse the `fields` parameter to control which observation fields are returned:\n- `core` - Always included: id, traceId, startTime, endTime, projectId, parentObservationId, type\n- `basic` - name, level, statusMessage, version, environment, bookmarked, public, userId, sessionId\n- `time` - completionStartTime, createdAt, updatedAt\n- `io` - input, output\n- `metadata` - metadata (truncated to 200 chars by default, use `expandMetadata` to get full values)\n- `model` - providedModelName, internalModelId, modelParameters\n- `usage` - usageDetails, costDetails, totalCost\n- `prompt` - promptId, promptName, promptVersion\n- `metrics` - latency, timeToFirstToken\n\nIf not specified, `core` and `basic` field groups are returned.\n\n## Filters\nMultiple filtering options are available via query parameters or the structured `filter` parameter.\nWhen using the `filter` parameter, it takes precedence over individual query parameter filters.",
             "url": {
               "raw": "{{baseUrl}}/api/public/v2/observations?fields=&expandMetadata=&limit=&cursor=&parseIoAsJson=&name=&userId=&type=&traceId=&level=&parentObservationId=&environment=&fromStartTime=&toStartTime=&version=&filter=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "v2",
-                "observations"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "v2", "observations"],
               "query": [
                 {
                   "key": "fields",
@@ -1875,15 +1621,8 @@
             "description": "Get a observation",
             "url": {
               "raw": "{{baseUrl}}/api/public/observations/:observationId",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "observations",
-                ":observationId"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "observations", ":observationId"],
               "query": [],
               "variable": [
                 {
@@ -1907,14 +1646,8 @@
             "description": "Get a list of observations.\n\nConsider using the [v2 observations endpoint](/api-reference#tag/observationsv2/GET/api/public/v2/observations) for cursor-based pagination and field selection.",
             "url": {
               "raw": "{{baseUrl}}/api/public/observations?page=&limit=&name=&userId=&type=&traceId=&level=&parentObservationId=&environment=&fromStartTime=&toStartTime=&version=&filter=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "observations"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "observations"],
               "query": [
                 {
                   "key": "page",
@@ -2002,19 +1735,11 @@
           "_type": "endpoint",
           "name": "Export Traces",
           "request": {
-            "description": "**OpenTelemetry Traces Ingestion Endpoint**\n\nThis endpoint implements the OTLP/HTTP specification for trace ingestion, providing native OpenTelemetry integration for Langfuse Observability.\n\n**Supported Formats:**\n- Binary Protobuf: `Content-Type: application/x-protobuf`\n- JSON Protobuf: `Content-Type: application/json`\n- Supports gzip compression via `Content-Encoding: gzip` header\n\n**Specification Compliance:**\n- Conforms to [OTLP/HTTP Trace Export](https://opentelemetry.io/docs/specs/otlp/#otlphttp)\n- Implements `ExportTraceServiceRequest` message format\n\n**Documentation:**\n- Integration guide: https://langfuse.com/integrations/native/opentelemetry\n- Data model: https://langfuse.com/docs/observability/data-model",
+            "description": "**OpenTelemetry Traces Ingestion Endpoint**\n\nThis endpoint implements the OTLP/HTTP specification for trace ingestion, providing native OpenTelemetry integration for ElasticDash Observability.\n\n**Supported Formats:**\n- Binary Protobuf: `Content-Type: application/x-protobuf`\n- JSON Protobuf: `Content-Type: application/json`\n- Supports gzip compression via `Content-Encoding: gzip` header\n\n**Specification Compliance:**\n- Conforms to [OTLP/HTTP Trace Export](https://opentelemetry.io/docs/specs/otlp/#otlphttp)\n- Implements `ExportTraceServiceRequest` message format\n\n**Documentation:**\n- Integration guide: https://langfuse.com/integrations/native/opentelemetry\n- Data model: https://langfuse.com/docs/observability/data-model",
             "url": {
               "raw": "{{baseUrl}}/api/public/otel/v1/traces",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "otel",
-                "v1",
-                "traces"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "otel", "v1", "traces"],
               "query": [],
               "variable": []
             },
@@ -2029,7 +1754,7 @@
             "auth": null,
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"resourceSpans\": [\n        {\n            \"resource\": {\n                \"attributes\": [\n                    {\n                        \"key\": \"service.name\",\n                        \"value\": {\n                            \"stringValue\": \"my-service\"\n                        }\n                    },\n                    {\n                        \"key\": \"service.version\",\n                        \"value\": {\n                            \"stringValue\": \"1.0.0\"\n                        }\n                    }\n                ]\n            },\n            \"scopeSpans\": [\n                {\n                    \"scope\": {\n                        \"name\": \"langfuse-sdk\",\n                        \"version\": \"2.60.3\"\n                    },\n                    \"spans\": [\n                        {\n                            \"traceId\": \"0123456789abcdef0123456789abcdef\",\n                            \"spanId\": \"0123456789abcdef\",\n                            \"name\": \"my-operation\",\n                            \"kind\": 1,\n                            \"startTimeUnixNano\": \"1747872000000000000\",\n                            \"endTimeUnixNano\": \"1747872001000000000\",\n                            \"attributes\": [\n                                {\n                                    \"key\": \"langfuse.observation.type\",\n                                    \"value\": {\n                                        \"stringValue\": \"generation\"\n                                    }\n                                }\n                            ],\n                            \"status\": {}\n                        }\n                    ]\n                }\n            ]\n        }\n    ]\n}",
+              "raw": "{\n    \"resourceSpans\": [\n        {\n            \"resource\": {\n                \"attributes\": [\n                    {\n                        \"key\": \"service.name\",\n                        \"value\": {\n                            \"stringValue\": \"my-service\"\n                        }\n                    },\n                    {\n                        \"key\": \"service.version\",\n                        \"value\": {\n                            \"stringValue\": \"1.0.0\"\n                        }\n                    }\n                ]\n            },\n            \"scopeSpans\": [\n                {\n                    \"scope\": {\n                        \"name\": \"langfuse-sdk\",\n                        \"version\": \"2.60.3\"\n                    },\n                    \"spans\": [\n                        {\n                            \"traceId\": \"0123456789abcdef0123456789abcdef\",\n                            \"spanId\": \"0123456789abcdef\",\n                            \"name\": \"my-operation\",\n                            \"kind\": 1,\n                            \"startTimeUnixNano\": \"1747872000000000000\",\n                            \"endTimeUnixNano\": \"1747872001000000000\",\n                            \"attributes\": [\n                                {\n                                    \"key\": \"elasticdash.observation.type\",\n                                    \"value\": {\n                                        \"stringValue\": \"generation\"\n                                    }\n                                }\n                            ],\n                            \"status\": {}\n                        }\n                    ]\n                }\n            ]\n        }\n    ]\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -2043,19 +1768,11 @@
               "status": "OK",
               "code": 200,
               "originalRequest": {
-                "description": "**OpenTelemetry Traces Ingestion Endpoint**\n\nThis endpoint implements the OTLP/HTTP specification for trace ingestion, providing native OpenTelemetry integration for Langfuse Observability.\n\n**Supported Formats:**\n- Binary Protobuf: `Content-Type: application/x-protobuf`\n- JSON Protobuf: `Content-Type: application/json`\n- Supports gzip compression via `Content-Encoding: gzip` header\n\n**Specification Compliance:**\n- Conforms to [OTLP/HTTP Trace Export](https://opentelemetry.io/docs/specs/otlp/#otlphttp)\n- Implements `ExportTraceServiceRequest` message format\n\n**Documentation:**\n- Integration guide: https://langfuse.com/integrations/native/opentelemetry\n- Data model: https://langfuse.com/docs/observability/data-model",
+                "description": "**OpenTelemetry Traces Ingestion Endpoint**\n\nThis endpoint implements the OTLP/HTTP specification for trace ingestion, providing native OpenTelemetry integration for ElasticDash Observability.\n\n**Supported Formats:**\n- Binary Protobuf: `Content-Type: application/x-protobuf`\n- JSON Protobuf: `Content-Type: application/json`\n- Supports gzip compression via `Content-Encoding: gzip` header\n\n**Specification Compliance:**\n- Conforms to [OTLP/HTTP Trace Export](https://opentelemetry.io/docs/specs/otlp/#otlphttp)\n- Implements `ExportTraceServiceRequest` message format\n\n**Documentation:**\n- Integration guide: https://langfuse.com/integrations/native/opentelemetry\n- Data model: https://langfuse.com/docs/observability/data-model",
                 "url": {
                   "raw": "{{baseUrl}}/api/public/otel/v1/traces",
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "path": [
-                    "api",
-                    "public",
-                    "otel",
-                    "v1",
-                    "traces"
-                  ],
+                  "host": ["{{baseUrl}}"],
+                  "path": ["api", "public", "otel", "v1", "traces"],
                   "query": [],
                   "variable": []
                 },
@@ -2070,7 +1787,7 @@
                 "auth": null,
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n    \"resourceSpans\": [\n        {\n            \"resource\": {\n                \"attributes\": [\n                    {\n                        \"key\": \"service.name\",\n                        \"value\": {\n                            \"stringValue\": \"my-service\"\n                        }\n                    },\n                    {\n                        \"key\": \"service.version\",\n                        \"value\": {\n                            \"stringValue\": \"1.0.0\"\n                        }\n                    }\n                ]\n            },\n            \"scopeSpans\": [\n                {\n                    \"scope\": {\n                        \"name\": \"langfuse-sdk\",\n                        \"version\": \"2.60.3\"\n                    },\n                    \"spans\": [\n                        {\n                            \"traceId\": \"0123456789abcdef0123456789abcdef\",\n                            \"spanId\": \"0123456789abcdef\",\n                            \"name\": \"my-operation\",\n                            \"kind\": 1,\n                            \"startTimeUnixNano\": \"1747872000000000000\",\n                            \"endTimeUnixNano\": \"1747872001000000000\",\n                            \"attributes\": [\n                                {\n                                    \"key\": \"langfuse.observation.type\",\n                                    \"value\": {\n                                        \"stringValue\": \"generation\"\n                                    }\n                                }\n                            ],\n                            \"status\": {}\n                        }\n                    ]\n                }\n            ]\n        }\n    ]\n}",
+                  "raw": "{\n    \"resourceSpans\": [\n        {\n            \"resource\": {\n                \"attributes\": [\n                    {\n                        \"key\": \"service.name\",\n                        \"value\": {\n                            \"stringValue\": \"my-service\"\n                        }\n                    },\n                    {\n                        \"key\": \"service.version\",\n                        \"value\": {\n                            \"stringValue\": \"1.0.0\"\n                        }\n                    }\n                ]\n            },\n            \"scopeSpans\": [\n                {\n                    \"scope\": {\n                        \"name\": \"langfuse-sdk\",\n                        \"version\": \"2.60.3\"\n                    },\n                    \"spans\": [\n                        {\n                            \"traceId\": \"0123456789abcdef0123456789abcdef\",\n                            \"spanId\": \"0123456789abcdef\",\n                            \"name\": \"my-operation\",\n                            \"kind\": 1,\n                            \"startTimeUnixNano\": \"1747872000000000000\",\n                            \"endTimeUnixNano\": \"1747872001000000000\",\n                            \"attributes\": [\n                                {\n                                    \"key\": \"elasticdash.observation.type\",\n                                    \"value\": {\n                                        \"stringValue\": \"generation\"\n                                    }\n                                }\n                            ],\n                            \"status\": {}\n                        }\n                    ]\n                }\n            ]\n        }\n    ]\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -2098,15 +1815,8 @@
             "description": "Get all memberships for the organization associated with the API key (requires organization-scoped API key)",
             "url": {
               "raw": "{{baseUrl}}/api/public/organizations/memberships",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "organizations",
-                "memberships"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "organizations", "memberships"],
               "query": [],
               "variable": []
             },
@@ -2124,15 +1834,8 @@
             "description": "Create or update a membership for the organization associated with the API key (requires organization-scoped API key)",
             "url": {
               "raw": "{{baseUrl}}/api/public/organizations/memberships",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "organizations",
-                "memberships"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "organizations", "memberships"],
               "query": [],
               "variable": []
             },
@@ -2158,15 +1861,8 @@
             "description": "Delete a membership from the organization associated with the API key (requires organization-scoped API key)",
             "url": {
               "raw": "{{baseUrl}}/api/public/organizations/memberships",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "organizations",
-                "memberships"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "organizations", "memberships"],
               "query": [],
               "variable": []
             },
@@ -2192,9 +1888,7 @@
             "description": "Get all memberships for a specific project (requires organization-scoped API key)",
             "url": {
               "raw": "{{baseUrl}}/api/public/projects/:projectId/memberships",
-              "host": [
-                "{{baseUrl}}"
-              ],
+              "host": ["{{baseUrl}}"],
               "path": [
                 "api",
                 "public",
@@ -2225,9 +1919,7 @@
             "description": "Create or update a membership for a specific project (requires organization-scoped API key). The user must already be a member of the organization.",
             "url": {
               "raw": "{{baseUrl}}/api/public/projects/:projectId/memberships",
-              "host": [
-                "{{baseUrl}}"
-              ],
+              "host": ["{{baseUrl}}"],
               "path": [
                 "api",
                 "public",
@@ -2266,9 +1958,7 @@
             "description": "Delete a membership from a specific project (requires organization-scoped API key). The user must be a member of the organization.",
             "url": {
               "raw": "{{baseUrl}}/api/public/projects/:projectId/memberships",
-              "host": [
-                "{{baseUrl}}"
-              ],
+              "host": ["{{baseUrl}}"],
               "path": [
                 "api",
                 "public",
@@ -2307,15 +1997,8 @@
             "description": "Get all projects for the organization associated with the API key (requires organization-scoped API key)",
             "url": {
               "raw": "{{baseUrl}}/api/public/organizations/projects",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "organizations",
-                "projects"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "organizations", "projects"],
               "query": [],
               "variable": []
             },
@@ -2333,15 +2016,8 @@
             "description": "Get all API keys for the organization associated with the API key (requires organization-scoped API key)",
             "url": {
               "raw": "{{baseUrl}}/api/public/organizations/apiKeys",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "organizations",
-                "apiKeys"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "organizations", "apiKeys"],
               "query": [],
               "variable": []
             },
@@ -2366,14 +2042,8 @@
             "description": "Get Project associated with API key (requires project-scoped API key). You can use GET /api/public/organizations/projects to get all projects with an organization-scoped key.",
             "url": {
               "raw": "{{baseUrl}}/api/public/projects",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "projects"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "projects"],
               "query": [],
               "variable": []
             },
@@ -2391,14 +2061,8 @@
             "description": "Create a new project (requires organization-scoped API key)",
             "url": {
               "raw": "{{baseUrl}}/api/public/projects",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "projects"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "projects"],
               "query": [],
               "variable": []
             },
@@ -2424,15 +2088,8 @@
             "description": "Update a project by ID (requires organization-scoped API key).",
             "url": {
               "raw": "{{baseUrl}}/api/public/projects/:projectId",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "projects",
-                ":projectId"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "projects", ":projectId"],
               "query": [],
               "variable": [
                 {
@@ -2464,15 +2121,8 @@
             "description": "Delete a project by ID (requires organization-scoped API key). Project deletion is processed asynchronously.",
             "url": {
               "raw": "{{baseUrl}}/api/public/projects/:projectId",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "projects",
-                ":projectId"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "projects", ":projectId"],
               "query": [],
               "variable": [
                 {
@@ -2496,16 +2146,8 @@
             "description": "Get all API keys for a project (requires organization-scoped API key)",
             "url": {
               "raw": "{{baseUrl}}/api/public/projects/:projectId/apiKeys",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "projects",
-                ":projectId",
-                "apiKeys"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "projects", ":projectId", "apiKeys"],
               "query": [],
               "variable": [
                 {
@@ -2529,16 +2171,8 @@
             "description": "Create a new API key for a project (requires organization-scoped API key)",
             "url": {
               "raw": "{{baseUrl}}/api/public/projects/:projectId/apiKeys",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "projects",
-                ":projectId",
-                "apiKeys"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "projects", ":projectId", "apiKeys"],
               "query": [],
               "variable": [
                 {
@@ -2570,9 +2204,7 @@
             "description": "Delete an API key for a project (requires organization-scoped API key)",
             "url": {
               "raw": "{{baseUrl}}/api/public/projects/:projectId/apiKeys/:apiKeyId",
-              "host": [
-                "{{baseUrl}}"
-              ],
+              "host": ["{{baseUrl}}"],
               "path": [
                 "api",
                 "public",
@@ -2616,9 +2248,7 @@
             "description": "Update labels for a specific prompt version",
             "url": {
               "raw": "{{baseUrl}}/api/public/v2/prompts/:name/versions/:version",
-              "host": [
-                "{{baseUrl}}"
-              ],
+              "host": ["{{baseUrl}}"],
               "path": [
                 "api",
                 "public",
@@ -2671,16 +2301,8 @@
             "description": "Get a prompt",
             "url": {
               "raw": "{{baseUrl}}/api/public/v2/prompts/:promptName?version=&label=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "v2",
-                "prompts",
-                ":promptName"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "v2", "prompts", ":promptName"],
               "query": [
                 {
                   "key": "version",
@@ -2715,15 +2337,8 @@
             "description": "Get a list of prompt names with versions and labels",
             "url": {
               "raw": "{{baseUrl}}/api/public/v2/prompts?name=&label=&tag=&page=&limit=&fromUpdatedAt=&toUpdatedAt=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "v2",
-                "prompts"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "v2", "prompts"],
               "query": [
                 {
                   "key": "name",
@@ -2777,15 +2392,8 @@
             "description": "Create a new version for the prompt with the given `name`",
             "url": {
               "raw": "{{baseUrl}}/api/public/v2/prompts",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "v2",
-                "prompts"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "v2", "prompts"],
               "query": [],
               "variable": []
             },
@@ -2811,16 +2419,8 @@
             "description": "Delete prompt versions. If neither version nor label is specified, all versions of the prompt are deleted.",
             "url": {
               "raw": "{{baseUrl}}/api/public/v2/prompts/:promptName?label=&version=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "v2",
-                "prompts",
-                ":promptName"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "v2", "prompts", ":promptName"],
               "query": [
                 {
                   "key": "label",
@@ -2862,15 +2462,8 @@
             "description": "Get SCIM Service Provider Configuration (requires organization-scoped API key)",
             "url": {
               "raw": "{{baseUrl}}/api/public/scim/ServiceProviderConfig",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "scim",
-                "ServiceProviderConfig"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "scim", "ServiceProviderConfig"],
               "query": [],
               "variable": []
             },
@@ -2888,15 +2481,8 @@
             "description": "Get SCIM Resource Types (requires organization-scoped API key)",
             "url": {
               "raw": "{{baseUrl}}/api/public/scim/ResourceTypes",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "scim",
-                "ResourceTypes"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "scim", "ResourceTypes"],
               "query": [],
               "variable": []
             },
@@ -2914,15 +2500,8 @@
             "description": "Get SCIM Schemas (requires organization-scoped API key)",
             "url": {
               "raw": "{{baseUrl}}/api/public/scim/Schemas",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "scim",
-                "Schemas"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "scim", "Schemas"],
               "query": [],
               "variable": []
             },
@@ -2940,15 +2519,8 @@
             "description": "List users in the organization (requires organization-scoped API key)",
             "url": {
               "raw": "{{baseUrl}}/api/public/scim/Users?filter=&startIndex=&count=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "scim",
-                "Users"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "scim", "Users"],
               "query": [
                 {
                   "key": "filter",
@@ -2982,15 +2554,8 @@
             "description": "Create a new user in the organization (requires organization-scoped API key)",
             "url": {
               "raw": "{{baseUrl}}/api/public/scim/Users",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "scim",
-                "Users"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "scim", "Users"],
               "query": [],
               "variable": []
             },
@@ -3016,16 +2581,8 @@
             "description": "Get a specific user by ID (requires organization-scoped API key)",
             "url": {
               "raw": "{{baseUrl}}/api/public/scim/Users/:userId",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "scim",
-                "Users",
-                ":userId"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "scim", "Users", ":userId"],
               "query": [],
               "variable": [
                 {
@@ -3049,16 +2606,8 @@
             "description": "Remove a user from the organization (requires organization-scoped API key). Note that this only removes the user from the organization but does not delete the user entity itself.",
             "url": {
               "raw": "{{baseUrl}}/api/public/scim/Users/:userId",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "scim",
-                "Users",
-                ":userId"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "scim", "Users", ":userId"],
               "query": [],
               "variable": [
                 {
@@ -3089,14 +2638,8 @@
             "description": "Create a score configuration (config). Score configs are used to define the structure of scores",
             "url": {
               "raw": "{{baseUrl}}/api/public/score-configs",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "score-configs"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "score-configs"],
               "query": [],
               "variable": []
             },
@@ -3122,14 +2665,8 @@
             "description": "Get all score configs",
             "url": {
               "raw": "{{baseUrl}}/api/public/score-configs?page=&limit=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "score-configs"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "score-configs"],
               "query": [
                 {
                   "key": "page",
@@ -3158,15 +2695,8 @@
             "description": "Get a score config",
             "url": {
               "raw": "{{baseUrl}}/api/public/score-configs/:configId",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "score-configs",
-                ":configId"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "score-configs", ":configId"],
               "query": [],
               "variable": [
                 {
@@ -3190,15 +2720,8 @@
             "description": "Update a score config",
             "url": {
               "raw": "{{baseUrl}}/api/public/score-configs/:configId",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "score-configs",
-                ":configId"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "score-configs", ":configId"],
               "query": [],
               "variable": [
                 {
@@ -3237,15 +2760,8 @@
             "description": "Get a list of scores (supports both trace and session scores)",
             "url": {
               "raw": "{{baseUrl}}/api/public/v2/scores?page=&limit=&userId=&name=&fromTimestamp=&toTimestamp=&environment=&source=&operator=&value=&scoreIds=&configId=&sessionId=&datasetRunId=&traceId=&queueId=&dataType=&traceTags=&fields=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "v2",
-                "scores"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "v2", "scores"],
               "query": [
                 {
                   "key": "page",
@@ -3359,16 +2875,8 @@
             "description": "Get a score (supports both trace and session scores)",
             "url": {
               "raw": "{{baseUrl}}/api/public/v2/scores/:scoreId",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "v2",
-                "scores",
-                ":scoreId"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "v2", "scores", ":scoreId"],
               "query": [],
               "variable": [
                 {
@@ -3399,14 +2907,8 @@
             "description": "Create a score (supports both trace and session scores)",
             "url": {
               "raw": "{{baseUrl}}/api/public/scores",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "scores"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "scores"],
               "query": [],
               "variable": []
             },
@@ -3432,15 +2934,8 @@
             "description": "Delete a score (supports both trace and session scores)",
             "url": {
               "raw": "{{baseUrl}}/api/public/scores/:scoreId",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "scores",
-                ":scoreId"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "scores", ":scoreId"],
               "query": [],
               "variable": [
                 {
@@ -3471,14 +2966,8 @@
             "description": "Get sessions",
             "url": {
               "raw": "{{baseUrl}}/api/public/sessions?page=&limit=&fromTimestamp=&toTimestamp=&environment=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "sessions"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "sessions"],
               "query": [
                 {
                   "key": "page",
@@ -3522,15 +3011,8 @@
             "description": "Get a session. Please note that `traces` on this endpoint are not paginated, if you plan to fetch large sessions, consider `GET /api/public/traces?sessionId=<sessionId>`",
             "url": {
               "raw": "{{baseUrl}}/api/public/sessions/:sessionId",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "sessions",
-                ":sessionId"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "sessions", ":sessionId"],
               "query": [],
               "variable": [
                 {
@@ -3561,15 +3043,8 @@
             "description": "Get a specific trace",
             "url": {
               "raw": "{{baseUrl}}/api/public/traces/:traceId",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "traces",
-                ":traceId"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "traces", ":traceId"],
               "query": [],
               "variable": [
                 {
@@ -3593,15 +3068,8 @@
             "description": "Delete a specific trace",
             "url": {
               "raw": "{{baseUrl}}/api/public/traces/:traceId",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "traces",
-                ":traceId"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "traces", ":traceId"],
               "query": [],
               "variable": [
                 {
@@ -3625,14 +3093,8 @@
             "description": "Get list of traces",
             "url": {
               "raw": "{{baseUrl}}/api/public/traces?page=&limit=&userId=&name=&sessionId=&fromTimestamp=&toTimestamp=&orderBy=&tags=&version=&release=&environment=&fields=&filter=",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "traces"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "traces"],
               "query": [
                 {
                   "key": "page",
@@ -3721,14 +3183,8 @@
             "description": "Delete multiple traces",
             "url": {
               "raw": "{{baseUrl}}/api/public/traces",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "public",
-                "traces"
-              ],
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "public", "traces"],
               "query": [],
               "variable": []
             },

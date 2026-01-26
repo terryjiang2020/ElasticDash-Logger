@@ -136,7 +136,7 @@ export class RateLimitService {
     }
 
     if (res.remainingPoints < 1) {
-      recordIncrement("langfuse.rate_limit.exceeded", 1, {
+      recordIncrement("elasticdash.rate_limit.exceeded", 1, {
         orgId: scope.orgId,
         plan: scope.plan,
         resource: resource,

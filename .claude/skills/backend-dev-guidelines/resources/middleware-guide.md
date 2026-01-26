@@ -1,6 +1,6 @@
 # Middleware Guide - tRPC & Public API Patterns
 
-Complete guide to middleware patterns in Langfuse's Next.js + tRPC architecture.
+Complete guide to middleware patterns in ElasticDash's Next.js + tRPC architecture.
 
 ## Table of Contents
 
@@ -17,7 +17,7 @@ Complete guide to middleware patterns in Langfuse's Next.js + tRPC architecture.
 
 **File:** `web/src/server/api/trpc.ts`
 
-tRPC middleware in Langfuse is composable and type-safe. Each middleware enriches the context and provides guarantees to subsequent middleware.
+tRPC middleware in ElasticDash is composable and type-safe. Each middleware enriches the context and provides guarantees to subsequent middleware.
 
 ### Core tRPC Middlewares
 
@@ -57,7 +57,7 @@ const withErrorHandling = t.middleware(async ({ ctx, next }) => {
 
 **2. OpenTelemetry Instrumentation (`withOtelInstrumentation`)**
 
-Propagates OpenTelemetry context with Langfuse-specific baggage:
+Propagates OpenTelemetry context with ElasticDash-specific baggage:
 
 ```typescript
 const withOtelInstrumentation = t.middleware(async (opts) => {
@@ -236,7 +236,7 @@ const enforceTraceAccess = t.middleware(async (opts) => {
 
 ### tRPC Procedure Types
 
-Langfuse exports composed procedures with middleware chains:
+ElasticDash exports composed procedures with middleware chains:
 
 ```typescript
 // 1. Public procedure (no auth required)
@@ -499,7 +499,7 @@ async function verifyAdminApiKeyAuth(req: NextApiRequest) {
   // 3. x-langfuse-project-id: <project-id>
 
   if (env.NEXT_PUBLIC_LANGFUSE_CLOUD_REGION) {
-    throw { status: 403, message: "Admin API key auth not available on Langfuse Cloud" };
+    throw { status: 403, message: "Admin API key auth not available on ElasticDash Cloud" };
   }
 
   const adminApiKey = env.ADMIN_API_KEY;
@@ -612,7 +612,7 @@ catch (error) {
 
 ## OpenTelemetry Instrumentation
 
-All requests (tRPC and public API) propagate OpenTelemetry context with Langfuse-specific baggage.
+All requests (tRPC and public API) propagate OpenTelemetry context with ElasticDash-specific baggage.
 
 ### Context Propagation Pattern
 
@@ -620,7 +620,7 @@ All requests (tRPC and public API) propagate OpenTelemetry context with Langfuse
 import { contextWithLangfuseProps } from "@langfuse/shared/src/server";
 import * as opentelemetry from "@opentelemetry/api";
 
-// Create context with Langfuse baggage
+// Create context with ElasticDash baggage
 const ctx = contextWithLangfuseProps({
   headers: req.headers,
   userId: session?.user?.id,

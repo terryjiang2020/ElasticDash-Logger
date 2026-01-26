@@ -109,7 +109,7 @@ const EnvSchema = z.object({
     .enum(["true", "false"])
     .default("false"),
   LANGFUSE_S3_CONCURRENT_WRITES: z.coerce.number().positive().default(50),
-  LANGFUSE_S3_EVENT_UPLOAD_BUCKET: z.string(), // Langfuse requires a bucket name for S3 Event Uploads.
+  LANGFUSE_S3_EVENT_UPLOAD_BUCKET: z.string(), // ElasticDash requires a bucket name for S3 Event Uploads.
   LANGFUSE_S3_EVENT_UPLOAD_PREFIX: z.string().default(""),
   LANGFUSE_S3_EVENT_UPLOAD_REGION: z.string().optional(),
   LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT: z.string().optional(),
@@ -269,7 +269,7 @@ const EnvSchema = z.object({
     .enum(["true", "false"])
     .default("false"),
 
-  // Langfuse AI Features
+  // ElasticDash AI Features
   LANGFUSE_AI_FEATURES_PUBLIC_KEY: z.string().optional(),
   LANGFUSE_AI_FEATURES_SECRET_KEY: z.string().optional(),
   LANGFUSE_AI_FEATURES_HOST: z.string().optional(),

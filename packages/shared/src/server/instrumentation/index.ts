@@ -196,22 +196,22 @@ export const addUserToSpan = (
     activeSpan.setAttribute("user.email", attributes.email);
   }
   if (attributes.projectId) {
-    baggage = baggage.setEntry("langfuse.project.id", {
+    baggage = baggage.setEntry("elasticdash.project.id", {
       value: attributes.projectId,
     });
-    activeSpan.setAttribute("langfuse.project.id", attributes.projectId);
+    activeSpan.setAttribute("elasticdash.project.id", attributes.projectId);
   }
   if (attributes.orgId) {
-    baggage = baggage.setEntry("langfuse.org.id", {
+    baggage = baggage.setEntry("elasticdash.org.id", {
       value: attributes.orgId,
     });
-    activeSpan.setAttribute("langfuse.org.id", attributes.orgId);
+    activeSpan.setAttribute("elasticdash.org.id", attributes.orgId);
   }
   if (attributes.plan) {
-    baggage = baggage.setEntry("langfuse.org.plan", {
+    baggage = baggage.setEntry("elasticdash.org.plan", {
       value: attributes.plan,
     });
-    activeSpan.setAttribute("langfuse.org.plan", attributes.plan);
+    activeSpan.setAttribute("elasticdash.org.plan", attributes.plan);
   }
 
   return opentelemetry.propagation.setBaggage(ctx, baggage);
@@ -254,7 +254,7 @@ const flushMetricsToCloudWatch = () => {
   cloudWatchClient
     .send(
       new PutMetricDataCommand({
-        Namespace: "Langfuse",
+        Namespace: "ElasticDash",
         MetricData: metricData,
       }),
     )
@@ -313,6 +313,6 @@ export const recordDistribution = (
  */
 export const convertQueueNameToMetricName = (queueName: string): string => {
   return (
-    "langfuse.queue." + queueName.replace(/-/g, "_").replace(/_queue$/, "")
+    "elasticdash.queue." + queueName.replace(/-/g, "_").replace(/_queue$/, "")
   );
 };

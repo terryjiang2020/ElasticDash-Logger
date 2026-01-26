@@ -1,12 +1,12 @@
-# Langfuse MCP Server
+# ElasticDash MCP Server
 
-Model Context Protocol (MCP) server for Langfuse, enabling AI assistants to interact with your Langfuse prompts programmatically.
+Model Context Protocol (MCP) server for ElasticDash, enabling AI assistants to interact with your ElasticDash prompts programmatically.
 
 ## Quick Start (Local Development)
 
 ### Prerequisites
 
-- Langfuse instance running locally
+- ElasticDash instance running locally
 - Project-scoped API key (Public Key + Secret Key)
 - Claude Code or another MCP-compatible client
 
@@ -57,7 +57,7 @@ The MCP server provides 6 tools for prompt management:
 
 ### Prompt Resolution: `getPrompt` vs `getPromptUnresolved`
 
-Langfuse supports **prompt composition** where prompts can reference other prompts via dependency tags like `@@@langfusePrompt:name=xxx|label=yyy@@@`. The MCP server provides two tools for fetching prompts with different resolution behaviors:
+ElasticDash supports **prompt composition** where prompts can reference other prompts via dependency tags like `@@@langfusePrompt:name=xxx|label=yyy@@@`. The MCP server provides two tools for fetching prompts with different resolution behaviors:
 
 #### `getPrompt` (Fully Resolved)
 - **Use when**: You want the final, executable prompt ready to send to an LLM
@@ -91,7 +91,7 @@ Langfuse supports **prompt composition** where prompts can reference other promp
 
 ### Stateless Design
 
-The Langfuse MCP server uses a **stateless per-request architecture**:
+The ElasticDash MCP server uses a **stateless per-request architecture**:
 
 1. **Fresh server instance per request:** Each MCP request creates a new server instance
 2. **Context captured in closures:** Authentication context is captured in handler closures
@@ -156,11 +156,11 @@ All write operations (createTextPrompt, createChatPrompt, updatePromptLabels) au
 
 ## Authentication
 
-All clients require BasicAuth authentication using your Langfuse API keys.
+All clients require BasicAuth authentication using your ElasticDash API keys.
 
 ### 1. Generate Basic Auth Token
 
-Encode your Langfuse API keys (Public Key:Secret Key) to base64:
+Encode your ElasticDash API keys (Public Key:Secret Key) to base64:
 
 ```bash
 echo -n "pk-lf-your-public-key:sk-lf-your-secret-key" | base64
@@ -168,9 +168,9 @@ echo -n "pk-lf-your-public-key:sk-lf-your-secret-key" | base64
 
 This outputs your BasicAuth token (e.g., `cGstbGYt...`).
 
-### 2. Choose Your Langfuse URL
+### 2. Choose Your ElasticDash URL
 
-**Langfuse Cloud:**
+**ElasticDash Cloud:**
 
 - **EU Region:** `https://cloud.langfuse.com`
 - **US Region:** `https://us.langfuse.com`
@@ -188,14 +188,14 @@ This outputs your BasicAuth token (e.g., `cGstbGYt...`).
 
 ## Claude Code
 
-Register the Langfuse MCP server:
+Register the ElasticDash MCP server:
 
 ```bash
-# Langfuse Cloud (EU)
+# ElasticDash Cloud (EU)
 claude mcp add --transport http langfuse https://cloud.langfuse.com/api/public/mcp \
     --header "Authorization: Basic {your-base64-token}"
 
-# Langfuse Cloud (US)
+# ElasticDash Cloud (US)
 claude mcp add --transport http langfuse https://us.langfuse.com/api/public/mcp \
     --header "Authorization: Basic {your-base64-token}"
 
@@ -229,4 +229,4 @@ Add to your Cursor MCP settings:
 }
 ```
 
-Replace `https://cloud.langfuse.com` with your Langfuse URL (see [Choose Your Langfuse URL](#2-choose-your-langfuse-url)).
+Replace `https://cloud.langfuse.com` with your ElasticDash URL (see [Choose Your ElasticDash URL](#2-choose-your-langfuse-url)).

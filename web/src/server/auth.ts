@@ -647,15 +647,15 @@ export async function getAuthOptions(): Promise<NextAuthOptions> {
             },
           });
 
-          span.setAttribute("langfuse.user.email", dbUser?.email ?? "");
-          span.setAttribute("langfuse.user.id", dbUser?.id ?? "");
+          span.setAttribute("elasticdash.user.email", dbUser?.email ?? "");
+          span.setAttribute("elasticdash.user.id", dbUser?.id ?? "");
 
           return {
             ...session,
             environment: {
               enableExperimentalFeatures:
                 env.LANGFUSE_ENABLE_EXPERIMENTAL_FEATURES === "true",
-              // Enables features that are only available under an enterprise license when self-hosting Langfuse
+              // Enables features that are only available under an enterprise license when self-hosting ElasticDash
               // If you edit this line, you risk executing code that is not MIT licensed (self-contained in /ee folders otherwise)
               selfHostedInstancePlan: getSelfHostedInstancePlanServerSide(),
             },

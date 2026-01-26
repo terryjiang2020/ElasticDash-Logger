@@ -46,7 +46,7 @@ export function AuditLogsTable(props: { projectId: string }) {
       accessorKey: "actor",
       header: "Actor",
       headerTooltip: {
-        description: "The actor within Langfuse who performed the action.",
+        description: "The actor within ElasticDash who performed the action.",
       },
       cell: (row) => {
         const actor = row.getValue() as AuditLogRow["actor"];

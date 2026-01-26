@@ -134,7 +134,7 @@ const nextConfig = {
             value: "SAMEORIGIN",
           },
         ],
-        // Disable x-frame-options on Hugging Face to allow for embedded use of Langfuse
+        // Disable x-frame-options on Hugging Face to allow for embedded use of ElasticDash
         missing: huggingFaceHosts.map((host) => ({
           type: "host",
           value: host,
@@ -149,7 +149,7 @@ const nextConfig = {
             value: cspHeader.replace(/\n/g, ""),
           },
         ],
-        // Disable CSP on Hugging Face to allow for embedded use of Langfuse
+        // Disable CSP on Hugging Face to allow for embedded use of ElasticDash
         missing: huggingFaceHosts.map((host) => ({
           type: "host",
           value: host,

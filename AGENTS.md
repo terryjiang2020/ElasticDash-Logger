@@ -1,6 +1,6 @@
-# Codex Guidelines for Langfuse
+# Codex Guidelines for ElasticDash
 
-Langfuse is an **open source LLM engineering** platform for developing, monitoring, evaluating and debugging AI applications. See the README for more details.
+ElasticDash is an **open source LLM engineering** platform for developing, monitoring, evaluating and debugging AI applications. See the README for more details.
 
 ## Linting
 - Run `pnpm run lint` to lint all packages.

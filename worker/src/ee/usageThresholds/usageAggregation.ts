@@ -278,13 +278,17 @@ export async function processUsageAggregationForAllOrgs(
         updatesToProcess.push(result.updateData);
 
         // Track statistics with increments
-        recordIncrement("langfuse.queue.usage_threshold_queue.total_orgs", 1, {
-          unit: "organizations",
-        });
+        recordIncrement(
+          "elasticdash.queue.usage_threshold_queue.total_orgs",
+          1,
+          {
+            unit: "organizations",
+          },
+        );
 
         if (result.actionTaken === "PAID_PLAN") {
           recordIncrement(
-            "langfuse.queue.usage_threshold_queue.paid_plan_orgs",
+            "elasticdash.queue.usage_threshold_queue.paid_plan_orgs",
             1,
             {
               unit: "organizations",
@@ -293,7 +297,7 @@ export async function processUsageAggregationForAllOrgs(
         } else {
           // Count as free tier if not paid plan
           recordIncrement(
-            "langfuse.queue.usage_threshold_queue.free_tier_orgs",
+            "elasticdash.queue.usage_threshold_queue.free_tier_orgs",
             1,
             {
               unit: "organizations",
@@ -320,7 +324,7 @@ export async function processUsageAggregationForAllOrgs(
       // Track bulk update failures metric
       if (bulkResult.failedCount > 0) {
         recordIncrement(
-          "langfuse.queue.usage_threshold_queue.bulk_update_failures",
+          "elasticdash.queue.usage_threshold_queue.bulk_update_failures",
           bulkResult.failedCount,
           { unit: "organizations" },
         );

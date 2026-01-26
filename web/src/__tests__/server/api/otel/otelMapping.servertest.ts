@@ -24,7 +24,7 @@ async function convertOtelSpanToIngestionEvent(
 }
 
 describe("OTel Resource Span Mapping", () => {
-  describe("Langfuse OTEL SDK spans", () => {
+  describe("ElasticDash OTEL SDK spans", () => {
     const publicKey = "pk-lf-1234567890";
 
     it("should convert LF-OTEL spans to LF-events", async () => {
@@ -45,10 +45,10 @@ describe("OTel Resource Span Mapping", () => {
                 value: { stringValue: "1.32.0" },
               },
               {
-                key: "langfuse.environment",
+                key: "elasticdash.environment",
                 value: { stringValue: "production" },
               },
-              { key: "langfuse.release", value: { stringValue: "0.0.1" } },
+              { key: "elasticdash.release", value: { stringValue: "0.0.1" } },
               {
                 key: "service.name",
                 value: { stringValue: "unknown_service" },
@@ -98,113 +98,113 @@ describe("OTel Resource Span Mapping", () => {
                   },
                   attributes: [
                     {
-                      key: "langfuse.observation.type",
+                      key: "elasticdash.observation.type",
                       value: { stringValue: "generation" },
                     },
                     {
-                      key: "langfuse.observation.level",
+                      key: "elasticdash.observation.level",
                       value: { stringValue: "WARNING" },
                     },
                     {
-                      key: "langfuse.observation.status_message",
+                      key: "elasticdash.observation.status_message",
                       value: { stringValue: "nothing to report" },
                     },
                     {
-                      key: "langfuse.observation.input",
+                      key: "elasticdash.observation.input",
                       value: {
                         stringValue: '[{"role": "user", "content": "hello"}]',
                       },
                     },
                     {
-                      key: "langfuse.observation.output",
+                      key: "elasticdash.observation.output",
                       value: {
                         stringValue:
                           '{"role": "assistant", "content": "what\'s up?"}',
                       },
                     },
                     {
-                      key: "langfuse.observation.model.name",
+                      key: "elasticdash.observation.model.name",
                       value: { stringValue: "gpt-4o" },
                     },
                     {
-                      key: "langfuse.observation.prompt.name",
+                      key: "elasticdash.observation.prompt.name",
                       value: { stringValue: "my-prompt" },
                     },
                     {
-                      key: "langfuse.observation.prompt.version",
+                      key: "elasticdash.observation.prompt.version",
                       value: { intValue: { low: 1, high: 0, unsigned: false } },
                     },
                     {
-                      key: "langfuse.observation.usage_details",
+                      key: "elasticdash.observation.usage_details",
                       value: {
                         stringValue:
                           '{"input_tokens": 123, "output_tokens": 456}',
                       },
                     },
                     {
-                      key: "langfuse.observation.cost_details",
+                      key: "elasticdash.observation.cost_details",
                       value: {
                         stringValue:
                           '{"input_tokens": 0.0001, "output_tokens": 0.002}',
                       },
                     },
                     {
-                      key: "langfuse.observation.completion_start_time",
+                      key: "elasticdash.observation.completion_start_time",
                       value: { stringValue: '"2025-04-30T15:28:50.686390Z"' },
                     },
                     {
-                      key: "langfuse.observation.model_parameters",
+                      key: "elasticdash.observation.model_parameters",
                       value: {
                         stringValue: '{"temperature": 1, "top_p": "0.2"}',
                       },
                     },
                     {
-                      key: "langfuse.observation.metadata.key1",
+                      key: "elasticdash.observation.metadata.key1",
                       value: { stringValue: '"value1"' },
                     },
                     {
-                      key: "langfuse.observation.metadata.key2",
+                      key: "elasticdash.observation.metadata.key2",
                       value: { stringValue: '"value2"' },
                     },
                     {
-                      key: "langfuse.trace.name",
+                      key: "elasticdash.trace.name",
                       value: { stringValue: "test-trace" },
                     },
                     { key: "user.id", value: { stringValue: "my-user" } },
                     { key: "session.id", value: { stringValue: "my-session" } },
                     {
-                      key: "langfuse.version",
+                      key: "elasticdash.version",
                       value: { stringValue: "trace-0.0.1" },
                     },
                     {
-                      key: "langfuse.trace.input",
+                      key: "elasticdash.trace.input",
                       value: {
                         stringValue: '[{"role": "user", "content": "hello"}]',
                       },
                     },
                     {
-                      key: "langfuse.trace.output",
+                      key: "elasticdash.trace.output",
                       value: {
                         stringValue:
                           '{"role": "assistant", "content": "what\'s up?"}',
                       },
                     },
                     {
-                      key: "langfuse.trace.tags",
+                      key: "elasticdash.trace.tags",
                       value: {
                         arrayValue: { values: [{ stringValue: "tag2" }] },
                       },
                     },
                     {
-                      key: "langfuse.trace.public",
+                      key: "elasticdash.trace.public",
                       value: { boolValue: true },
                     },
                     {
-                      key: "langfuse.trace.metadata.trace-key1",
+                      key: "elasticdash.trace.metadata.trace-key1",
                       value: { stringValue: '"value1"' },
                     },
                     {
-                      key: "langfuse.trace.metadata.trace-key2",
+                      key: "elasticdash.trace.metadata.trace-key2",
                       value: { stringValue: '"value2"' },
                     },
                   ],
@@ -236,17 +236,17 @@ describe("OTel Resource Span Mapping", () => {
                   },
                   attributes: [
                     {
-                      key: "langfuse.observation.type",
+                      key: "elasticdash.observation.type",
                       value: { stringValue: "span" },
                     },
                     {
-                      key: "langfuse.trace.tags",
+                      key: "elasticdash.trace.tags",
                       value: {
                         arrayValue: { values: [{ stringValue: "tag1" }] },
                       },
                     },
                     {
-                      key: "langfuse.trace.metadata.trace-key0",
+                      key: "elasticdash.trace.metadata.trace-key0",
                       value: { stringValue: '"value1"' },
                     },
                   ],
@@ -282,8 +282,8 @@ describe("OTel Resource Span Mapping", () => {
 
       const defaultMetadata = {
         resourceAttributes: {
-          "langfuse.environment": "production",
-          "langfuse.release": "0.0.1",
+          "elasticdash.environment": "production",
+          "elasticdash.release": "0.0.1",
           "service.name": "unknown_service",
           "telemetry.sdk.language": "python",
           "telemetry.sdk.name": "opentelemetry",
@@ -387,10 +387,10 @@ describe("OTel Resource Span Mapping", () => {
                 value: { stringValue: "1.32.0" },
               },
               {
-                key: "langfuse.environment",
+                key: "elasticdash.environment",
                 value: { stringValue: "production" },
               },
-              { key: "langfuse.release", value: { stringValue: "0.0.1" } },
+              { key: "elasticdash.release", value: { stringValue: "0.0.1" } },
               {
                 key: "service.name",
                 value: { stringValue: "unknown_service" },
@@ -440,11 +440,11 @@ describe("OTel Resource Span Mapping", () => {
                   },
                   attributes: [
                     {
-                      key: "langfuse.observation.type",
+                      key: "elasticdash.observation.type",
                       value: { stringValue: "span" },
                     },
                     {
-                      key: "langfuse.internal.as_root",
+                      key: "elasticdash.internal.as_root",
                       value: { boolValue: true },
                     },
                   ],
@@ -495,7 +495,7 @@ describe("OTel Resource Span Mapping", () => {
   });
 
   describe("Vendor Spans", () => {
-    it("should convert an OpenLit OTel Span to Langfuse Events", async () => {
+    it("should convert an OpenLit OTel Span to ElasticDash Events", async () => {
       // Setup
       const resourceSpan = {
         resource: {
@@ -683,7 +683,7 @@ describe("OTel Resource Span Mapping", () => {
       expect(parsedEvents).toHaveLength(2);
     });
 
-    it("should convert a TraceLoop OTel Span to Langfuse Events", async () => {
+    it("should convert a TraceLoop OTel Span to ElasticDash Events", async () => {
       // Setup
       const resourceSpan = {
         resource: {
@@ -801,7 +801,7 @@ describe("OTel Resource Span Mapping", () => {
       expect(parsedEvents).toHaveLength(2);
     });
 
-    it("LFE-5171: should convert a Semantic Kernel 1.55+ OTel Span with new event-based semantic conventions to Langfuse Events", async () => {
+    it("LFE-5171: should convert a Semantic Kernel 1.55+ OTel Span with new event-based semantic conventions to ElasticDash Events", async () => {
       // Setup - Semantic Kernel 1.55+ uses new event names instead of deprecated gen_ai.content.prompt/completion
       const resourceSpan = {
         scopeSpans: [
@@ -946,7 +946,7 @@ describe("OTel Resource Span Mapping", () => {
       });
     });
 
-    it("should convert a Vercel AI SDK embedding span to Langfuse embedding-create event", async () => {
+    it("should convert a Vercel AI SDK embedding span to ElasticDash embedding-create event", async () => {
       const resourceSpan = {
         scopeSpans: [
           {
@@ -1464,7 +1464,7 @@ describe("OTel Resource Span Mapping", () => {
       ).toBe(false);
     });
 
-    it("should trust Langfuse type over OpenInference or model detection", async () => {
+    it("should trust ElasticDash type over OpenInference or model detection", async () => {
       const resourceSpan = {
         scopeSpans: [
           {
@@ -1472,9 +1472,9 @@ describe("OTel Resource Span Mapping", () => {
               {
                 ...defaultSpanProps,
                 attributes: [
-                  // Explicit Langfuse type (should always win)
+                  // Explicit ElasticDash type (should always win)
                   {
-                    key: "langfuse.observation.type",
+                    key: "elasticdash.observation.type",
                     value: { stringValue: "span" },
                   },
                   // OpenInference span kind
@@ -1502,7 +1502,7 @@ describe("OTel Resource Span Mapping", () => {
 
       // Then
       expect(langfuseEvents).toHaveLength(2);
-      // Explicit Langfuse type should always win over inferred types
+      // Explicit ElasticDash type should always win over inferred types
       expect(langfuseEvents.some((event) => event.type === "span-create")).toBe(
         true,
       );
@@ -1652,7 +1652,7 @@ describe("OTel Resource Span Mapping", () => {
         "should cast input_tokens from string to number",
         {
           entity: "observation",
-          otelAttributeKey: "langfuse.observation.completion_start_time",
+          otelAttributeKey: "elasticdash.observation.completion_start_time",
           otelAttributeValue: {
             stringValue: "2025-09-17T22:16:28.152000+02:00",
           },
@@ -1664,7 +1664,7 @@ describe("OTel Resource Span Mapping", () => {
         "should handle non-stringified completion start time correctly",
         {
           entity: "observation",
-          otelAttributeKey: "langfuse.observation.completion_start_time",
+          otelAttributeKey: "elasticdash.observation.completion_start_time",
           otelAttributeValue: {
             stringValue: "2025-10-01T08:45:26.112648Z",
           },
@@ -1676,7 +1676,7 @@ describe("OTel Resource Span Mapping", () => {
         "should handle double-stringified completion start time correctly",
         {
           entity: "observation",
-          otelAttributeKey: "langfuse.observation.completion_start_time",
+          otelAttributeKey: "elasticdash.observation.completion_start_time",
           otelAttributeValue: {
             stringValue: '"2025-10-01T08:45:26.112648Z"',
           },
@@ -1698,7 +1698,7 @@ describe("OTel Resource Span Mapping", () => {
         "should extract environment on trace for langfuse.environment",
         {
           entity: "trace",
-          otelAttributeKey: "langfuse.environment",
+          otelAttributeKey: "elasticdash.environment",
           otelAttributeValue: { stringValue: "test" },
           entityAttributeKey: "environment",
           entityAttributeValue: "test",
@@ -1728,7 +1728,7 @@ describe("OTel Resource Span Mapping", () => {
         "should extract promptName on observation from langfuse.prompt.name",
         {
           entity: "observation",
-          otelAttributeKey: "langfuse.prompt.name",
+          otelAttributeKey: "elasticdash.prompt.name",
           otelAttributeValue: { stringValue: "test" },
           entityAttributeKey: "promptName",
           entityAttributeValue: "test",
@@ -1738,7 +1738,7 @@ describe("OTel Resource Span Mapping", () => {
         "should extract public on trace from langfuse.public",
         {
           entity: "trace",
-          otelAttributeKey: "langfuse.public",
+          otelAttributeKey: "elasticdash.public",
           otelAttributeValue: { boolValue: true },
           entityAttributeKey: "public",
           entityAttributeValue: true,
@@ -1748,7 +1748,7 @@ describe("OTel Resource Span Mapping", () => {
         "should not treat truthy values as public true",
         {
           entity: "trace",
-          otelAttributeKey: "langfuse.public",
+          otelAttributeKey: "elasticdash.public",
           otelAttributeValue: { stringValue: "false" },
           entityAttributeKey: "public",
           entityAttributeValue: false,
@@ -1768,7 +1768,7 @@ describe("OTel Resource Span Mapping", () => {
         "should extract userId on trace from langfuse.user.id",
         {
           entity: "trace",
-          otelAttributeKey: "langfuse.user.id",
+          otelAttributeKey: "elasticdash.user.id",
           otelAttributeValue: { stringValue: "user-1" },
           entityAttributeKey: "userId",
           entityAttributeValue: "user-1",
@@ -1788,7 +1788,7 @@ describe("OTel Resource Span Mapping", () => {
         "should extract sessionId on trace from langfuse.session.id",
         {
           entity: "trace",
-          otelAttributeKey: "langfuse.session.id",
+          otelAttributeKey: "elasticdash.session.id",
           otelAttributeValue: { stringValue: "session-1" },
           entityAttributeKey: "sessionId",
           entityAttributeValue: "session-1",
@@ -2195,7 +2195,7 @@ describe("OTel Resource Span Mapping", () => {
         "should map langfuse.metadata string to top-level metadata for trace",
         {
           entity: "trace",
-          otelAttributeKey: "langfuse.metadata",
+          otelAttributeKey: "elasticdash.metadata",
           otelAttributeValue: {
             stringValue: '{"customer_id": "123", "experiment": "test-run-1"}',
           },
@@ -2207,7 +2207,7 @@ describe("OTel Resource Span Mapping", () => {
         "should map langfuse.metadata string to top-level metadata for observation",
         {
           entity: "observation",
-          otelAttributeKey: "langfuse.metadata",
+          otelAttributeKey: "elasticdash.metadata",
           otelAttributeValue: {
             stringValue: '{"customer_id": "123", "experiment": "test-run-1"}',
           },
@@ -2219,7 +2219,7 @@ describe("OTel Resource Span Mapping", () => {
         "should extract metadata from langfuse.metadata.* keys for trace",
         {
           entity: "trace",
-          otelAttributeKey: "langfuse.metadata.user_type",
+          otelAttributeKey: "elasticdash.metadata.user_type",
           otelAttributeValue: {
             stringValue: "premium",
           },
@@ -2231,7 +2231,7 @@ describe("OTel Resource Span Mapping", () => {
         "should extract metadata from langfuse.metadata.* keys for observation",
         {
           entity: "observation",
-          otelAttributeKey: "langfuse.metadata.user_type",
+          otelAttributeKey: "elasticdash.metadata.user_type",
           otelAttributeValue: {
             stringValue: "premium",
           },
@@ -2243,7 +2243,7 @@ describe("OTel Resource Span Mapping", () => {
         "should extract tags from single string from langfuse.tags to trace",
         {
           entity: "trace",
-          otelAttributeKey: "langfuse.tags",
+          otelAttributeKey: "elasticdash.tags",
           otelAttributeValue: {
             stringValue: "2",
           },
@@ -2255,7 +2255,7 @@ describe("OTel Resource Span Mapping", () => {
         "should extract array input on trace event attributes",
         {
           entity: "trace",
-          otelAttributeKey: "langfuse.tags",
+          otelAttributeKey: "elasticdash.tags",
           otelAttributeValue: {
             arrayValue: {
               values: [
@@ -2273,7 +2273,7 @@ describe("OTel Resource Span Mapping", () => {
         "should extract array input tags to trace",
         {
           entity: "trace",
-          otelAttributeKey: "langfuse.tags",
+          otelAttributeKey: "elasticdash.tags",
           otelAttributeValue: {
             stringValue: '["2"]',
           },
@@ -2285,7 +2285,7 @@ describe("OTel Resource Span Mapping", () => {
         "should extract array csv input tags to trace",
         {
           entity: "trace",
-          otelAttributeKey: "langfuse.tags",
+          otelAttributeKey: "elasticdash.tags",
           otelAttributeValue: {
             stringValue: "2,3,4",
           },
@@ -2558,7 +2558,7 @@ describe("OTel Resource Span Mapping", () => {
         "should extract environment on trace for langfuse.environment",
         {
           entity: "trace",
-          otelResourceAttributeKey: "langfuse.environment",
+          otelResourceAttributeKey: "elasticdash.environment",
           otelResourceAttributeValue: { stringValue: "test" },
           entityAttributeKey: "environment",
           entityAttributeValue: "test",
@@ -2588,7 +2588,7 @@ describe("OTel Resource Span Mapping", () => {
         "should extract metadata from resource attributes",
         {
           entity: "observation",
-          otelResourceAttributeKey: "langfuse.metadata",
+          otelResourceAttributeKey: "elasticdash.metadata",
           otelResourceAttributeValue: {
             stringValue: '{"resource_id": "xyz", "region": "us-west-2"}',
           },
@@ -2600,7 +2600,7 @@ describe("OTel Resource Span Mapping", () => {
         "should extract metadata from langfuse.metadata.* resource attributes",
         {
           entity: "observation",
-          otelResourceAttributeKey: "langfuse.metadata.server_name",
+          otelResourceAttributeKey: "elasticdash.metadata.server_name",
           otelResourceAttributeValue: {
             stringValue: "web-server-01",
           },
@@ -3735,15 +3735,15 @@ describe("OTel Resource Span Mapping", () => {
                   },
                   attributes: [
                     {
-                      key: "langfuse.trace.metadata.langfuse_user_id",
+                      key: "elasticdash.trace.metadata.langfuse_user_id",
                       value: { stringValue: "user-123" },
                     },
                     {
-                      key: "langfuse.trace.metadata.langfuse_session_id",
+                      key: "elasticdash.trace.metadata.langfuse_session_id",
                       value: { stringValue: "session-456" },
                     },
                     {
-                      key: "langfuse.trace.metadata.langfuse_tags",
+                      key: "elasticdash.trace.metadata.langfuse_tags",
                       value: { stringValue: "tag1,tag2" },
                     },
                   ],
@@ -3826,15 +3826,15 @@ describe("OTel Resource Span Mapping", () => {
                   },
                   attributes: [
                     {
-                      key: "langfuse.observation.metadata.langfuse_user_id",
+                      key: "elasticdash.observation.metadata.langfuse_user_id",
                       value: { stringValue: "user-789" },
                     },
                     {
-                      key: "langfuse.observation.metadata.langfuse_session_id",
+                      key: "elasticdash.observation.metadata.langfuse_session_id",
                       value: { stringValue: "session-abc" },
                     },
                     {
-                      key: "langfuse.observation.metadata.langfuse_tags",
+                      key: "elasticdash.observation.metadata.langfuse_tags",
                       value: { stringValue: "tag3,tag4" },
                     },
                   ],
@@ -3917,7 +3917,7 @@ describe("OTel Resource Span Mapping", () => {
                   },
                   attributes: [
                     {
-                      key: "langfuse.trace.name",
+                      key: "elasticdash.trace.name",
                       value: { stringValue: "Custom Trace Name" },
                     },
                     {
@@ -4293,7 +4293,7 @@ describe("OTel Resource Span Mapping", () => {
                   },
                   attributes: [
                     {
-                      key: "langfuse.session.id",
+                      key: "elasticdash.session.id",
                       value: { stringValue: "langfuse-session-123" },
                     },
                     {
@@ -4417,7 +4417,7 @@ describe("OTel Resource Span Mapping", () => {
                   endTimeUnixNano: 2000000000,
                   attributes: [
                     {
-                      key: "langfuse.observation.type",
+                      key: "elasticdash.observation.type",
                       value: { stringValue: "invalid_type" },
                     },
                   ],
@@ -4472,12 +4472,12 @@ describe("OTel Resource Span Mapping", () => {
                     endTimeUnixNano: 2000000000,
                     attributes: [
                       {
-                        key: "langfuse.observation.type",
+                        key: "elasticdash.observation.type",
                         value: { stringValue: type },
                       },
                       // Add model name to trigger generation heuristic
                       {
-                        key: "langfuse.observation.model.name",
+                        key: "elasticdash.observation.model.name",
                         value: { stringValue: "gpt-4" },
                       },
                       // Add other generation-like properties
@@ -4541,7 +4541,7 @@ describe("OTel Resource Span Mapping", () => {
                   attributes: [
                     // No explicit observation type
                     {
-                      key: "langfuse.observation.model.name",
+                      key: "elasticdash.observation.model.name",
                       value: { stringValue: "gpt-4" },
                     },
                   ],
@@ -4868,11 +4868,11 @@ describe("OTel Resource Span Mapping", () => {
                   attributes: [
                     // No openinference.span.kind, no model indicators, no explicit type
                     {
-                      key: "langfuse.observation.type",
+                      key: "elasticdash.observation.type",
                       value: { stringValue: "span" },
                     },
                     {
-                      key: "langfuse.observation.model.name",
+                      key: "elasticdash.observation.model.name",
                       value: { stringValue: "gpt-4o" },
                     },
                   ],
@@ -4931,11 +4931,11 @@ describe("OTel Resource Span Mapping", () => {
                 endTimeUnixNano: { low: 2, high: 1 },
                 attributes: [
                   {
-                    key: "langfuse.trace.name",
+                    key: "elasticdash.trace.name",
                     value: { stringValue: "Original Name" },
                   },
                   {
-                    key: "langfuse.session.id",
+                    key: "elasticdash.session.id",
                     value: { stringValue: "original-session" },
                   },
                   {
@@ -4971,11 +4971,11 @@ describe("OTel Resource Span Mapping", () => {
                 endTimeUnixNano: { low: 2, high: 1 },
                 attributes: [
                   {
-                    key: "langfuse.trace.name",
+                    key: "elasticdash.trace.name",
                     value: { stringValue: "Updated Name" },
                   }, // to trigger hasTraceUpdates
                   {
-                    key: "langfuse.session.id",
+                    key: "elasticdash.session.id",
                     value: { stringValue: "new-session" },
                   }, // also triggers hasTraceUpdates
                   {
@@ -5321,7 +5321,7 @@ describe("OTel Resource Span Mapping", () => {
   });
 
   describe("Input/Output attribute filtering from metadata", () => {
-    it("should filter Langfuse SDK trace input/output attributes from trace metadata", async () => {
+    it("should filter ElasticDash SDK trace input/output attributes from trace metadata", async () => {
       const traceId = "abcdef1234567890abcdef1234567890";
       const rootSpanId = "1234567890abcdef";
 
@@ -5355,11 +5355,11 @@ describe("OTel Resource Span Mapping", () => {
                 attributes: [
                   // Trace-level input/output (should be filtered from trace metadata.attributes)
                   {
-                    key: "langfuse.trace.input",
+                    key: "elasticdash.trace.input",
                     value: { stringValue: '{"query": "hello"}' },
                   },
                   {
-                    key: "langfuse.trace.output",
+                    key: "elasticdash.trace.output",
                     value: { stringValue: '{"response": "hi"}' },
                   },
                   // Custom attributes (should remain in metadata.attributes)
@@ -5392,10 +5392,10 @@ describe("OTel Resource Span Mapping", () => {
 
       // Verify trace input/output keys are NOT in metadata.attributes
       expect(
-        traceEvent?.body.metadata?.attributes?.["langfuse.trace.input"],
+        traceEvent?.body.metadata?.attributes?.["elasticdash.trace.input"],
       ).toBeUndefined();
       expect(
-        traceEvent?.body.metadata?.attributes?.["langfuse.trace.output"],
+        traceEvent?.body.metadata?.attributes?.["elasticdash.trace.output"],
       ).toBeUndefined();
 
       // Verify custom trace attributes ARE in metadata.attributes
@@ -5632,7 +5632,7 @@ describe("OTel Resource Span Mapping", () => {
               value: { stringValue: "1.33.1" },
             },
             {
-              key: "langfuse.environment",
+              key: "elasticdash.environment",
               value: { stringValue: "production" },
             },
             {

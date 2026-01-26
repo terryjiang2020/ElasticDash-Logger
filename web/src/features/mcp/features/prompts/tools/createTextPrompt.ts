@@ -1,7 +1,7 @@
 /**
  * MCP Tool: createTextPrompt
  *
- * Creates a new text prompt version in Langfuse.
+ * Creates a new text prompt version in ElasticDash.
  * Write operation with destructive hint.
  */
 
@@ -72,7 +72,7 @@ const CreateTextPromptInputSchema = z.object({
 export const [createTextPromptTool, handleCreateTextPrompt] = defineTool({
   name: "createTextPrompt",
   description: [
-    "Create a new text prompt version in Langfuse.",
+    "Create a new text prompt version in ElasticDash.",
     "",
     "Important:",
     "- Prompts are immutable - cannot modify existing versions",
@@ -91,8 +91,8 @@ export const [createTextPromptTool, handleCreateTextPrompt] = defineTool({
       async (span) => {
         // Set span attributes for observability
         span.setAttributes({
-          "langfuse.project.id": context.projectId,
-          "langfuse.org.id": context.orgId,
+          "elasticdash.project.id": context.projectId,
+          "elasticdash.org.id": context.orgId,
           "mcp.api_key_id": context.apiKeyId,
           "mcp.prompt_name": input.name,
           "mcp.prompt_type": "text",

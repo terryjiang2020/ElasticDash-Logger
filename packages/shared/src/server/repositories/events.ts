@@ -464,7 +464,7 @@ export const getObservationByIdFromEventsTable = async ({
 
   mapped.forEach((observation) => {
     recordDistribution(
-      "langfuse.query_by_id_age",
+      "elasticdash.query_by_id_age",
       new Date().getTime() - observation.startTime.getTime(),
       {
         table: "events",
@@ -649,7 +649,7 @@ export const getTraceByIdFromEventsTable = async ({
 
   res.forEach((trace) => {
     recordDistribution(
-      "langfuse.query_by_id_age",
+      "elasticdash.query_by_id_age",
       new Date().getTime() - trace.timestamp.getTime(),
       {
         table: "events",

@@ -297,7 +297,7 @@ export class DashboardService {
   }
 
   /**
-   * Gets a dashboard widget by ID. Look either in the current project or in the Langfuse managed widgets.
+   * Gets a dashboard widget by ID. Look either in the current project or in the ElasticDash managed widgets.
    */
   public static async getWidget(
     widgetId: string,
@@ -396,7 +396,7 @@ export class DashboardService {
   }
 
   /**
-   * Copies a Langfuse-owned widget into the user project, rewires the specified dashboard placement to the new widget and returns the new widget id.
+   * Copies a ElasticDash-owned widget into the user project, rewires the specified dashboard placement to the new widget and returns the new widget id.
    */
   public static async copyWidgetToProject(props: {
     sourceWidgetId: string;

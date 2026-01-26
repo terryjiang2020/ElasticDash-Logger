@@ -292,17 +292,17 @@ export class ApiAuthService {
     const redisApiKey = await this.fetchApiKeyFromRedis(hash);
 
     if (redisApiKey === API_KEY_NON_EXISTENT) {
-      recordIncrement("langfuse.api_key.cache_hit", 1);
+      recordIncrement("elasticdash.api_key.cache_hit", 1);
       throw new Error("Invalid credentials");
     }
 
     // if we found something, return the object.
     if (redisApiKey) {
-      recordIncrement("langfuse.api_key.cache_hit", 1);
+      recordIncrement("elasticdash.api_key.cache_hit", 1);
       return redisApiKey;
     }
 
-    recordIncrement("langfuse.api_key.cache_miss", 1);
+    recordIncrement("elasticdash.api_key.cache_miss", 1);
 
     // if redis not available or object not found, try the database
     const apiKeyAndOrganisation = await this.prisma.apiKey.findUnique({

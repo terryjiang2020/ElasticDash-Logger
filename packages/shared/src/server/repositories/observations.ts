@@ -241,7 +241,7 @@ export const getObservationsForTrace = async <IncludeIO extends boolean>(
       metadata: r.metadata ?? {},
     });
     recordDistribution(
-      "langfuse.query_by_id_age",
+      "elasticdash.query_by_id_age",
       new Date().getTime() - observation.startTime.getTime(),
       {
         table: "observations",
@@ -363,7 +363,7 @@ export const getObservationById = async ({
 
   mapped.forEach((observation) => {
     recordDistribution(
-      "langfuse.query_by_id_age",
+      "elasticdash.query_by_id_age",
       new Date().getTime() - observation.startTime.getTime(),
       {
         table: "observations",

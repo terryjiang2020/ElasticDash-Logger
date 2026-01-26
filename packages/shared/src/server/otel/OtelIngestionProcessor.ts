@@ -96,10 +96,10 @@ const observationTypeMapper = new ObservationTypeMapperRegistry();
 
 /**
  * Processor class that encapsulates all logic for converting OpenTelemetry
- * resource spans into Langfuse ingestion events.
+ * resource spans into ElasticDash ingestion events.
  *
  * Manages trace deduplication internally and provides a clean interface
- * for converting OTEL spans to Langfuse events.
+ * for converting OTEL spans to ElasticDash events.
  */
 export class OtelIngestionProcessor {
   private seenTraces: Set<string> = new Set();
@@ -197,8 +197,8 @@ export class OtelIngestionProcessor {
                 // For LiteLLM spans, use langfuse.trace.id from attributes if provided
                 const isLiteLLMSpan = scopeSpan?.scope?.name === "litellm";
                 const traceId =
-                  isLiteLLMSpan && spanAttributes["langfuse.trace.id"]
-                    ? (spanAttributes["langfuse.trace.id"] as string)
+                  isLiteLLMSpan && spanAttributes["elasticdash.trace.id"]
+                    ? (spanAttributes["elasticdash.trace.id"] as string)
                     : this.parseId(span.traceId);
                 const spanId = this.parseId(span.spanId);
                 const parentSpanId = span?.parentSpanId
@@ -264,7 +264,7 @@ export class OtelIngestionProcessor {
                 const eventBytes = Buffer.byteLength(stringifiedSpan, "utf8");
 
                 recordDistribution(
-                  "langfuse.ingestion.otel.event.byte_length",
+                  "elasticdash.ingestion.otel.event.byte_length",
                   eventBytes,
                   {
                     source: "otel",
@@ -329,14 +329,14 @@ export class OtelIngestionProcessor {
                     spanAttributes?.[
                       LangfuseOtelSpanAttributes.OBSERVATION_PROMPT_NAME
                     ] ??
-                    spanAttributes["langfuse.prompt.name"] ??
+                    spanAttributes["elasticdash.prompt.name"] ??
                     this.parseLangfusePromptFromAISDK(spanAttributes)?.name ??
                     null,
                   promptVersion:
                     spanAttributes?.[
                       LangfuseOtelSpanAttributes.OBSERVATION_PROMPT_VERSION
                     ] ??
-                    spanAttributes["langfuse.prompt.version"] ??
+                    spanAttributes["elasticdash.prompt.version"] ??
                     this.parseLangfusePromptFromAISDK(spanAttributes)
                       ?.version ??
                     null,
@@ -403,7 +403,7 @@ export class OtelIngestionProcessor {
   }
 
   /**
-   * Process resource spans and convert them to Langfuse ingestion events.
+   * Process resource spans and convert them to ElasticDash ingestion events.
    * Handles trace deduplication automatically using internal state.
    * Initializes seen traces from Redis automatically on first call.
    * Filters out shallow trace events if full trace events exist for the same traceId.
@@ -458,7 +458,7 @@ export class OtelIngestionProcessor {
             this.traceEventCounts,
           ) as (keyof typeof this.traceEventCounts)[]) {
             recordIncrement(
-              "langfuse.ingestion.otel.trace_create_event",
+              "elasticdash.ingestion.otel.trace_create_event",
               this.traceEventCounts[key],
               { reason: key },
             );
@@ -609,7 +609,7 @@ export class OtelIngestionProcessor {
       const scopeAttributes = this.extractScopeAttributes(scopeSpan);
 
       if (isLangfuseSDKSpans) {
-        recordIncrement("langfuse.otel.ingestion.langfuse_sdk_batch", 1);
+        recordIncrement("elasticdash.otel.ingestion.langfuse_sdk_batch", 1);
       }
 
       for (const span of scopeSpan?.spans ?? []) {
@@ -640,8 +640,8 @@ export class OtelIngestionProcessor {
     // For LiteLLM spans, use langfuse.trace.id from attributes if provided
     const isLiteLLMSpan = scopeSpan?.scope?.name === "litellm";
     const traceId =
-      isLiteLLMSpan && attributes["langfuse.trace.id"]
-        ? (attributes["langfuse.trace.id"] as string)
+      isLiteLLMSpan && attributes["elasticdash.trace.id"]
+        ? (attributes["elasticdash.trace.id"] as string)
         : this.parseId(span.traceId?.data ?? span.traceId);
     const parentObservationId = span?.parentSpanId
       ? this.parseId(span.parentSpanId?.data ?? span.parentSpanId)
@@ -834,7 +834,7 @@ export class OtelIngestionProcessor {
   ): boolean | undefined {
     const value =
       attributes?.[LangfuseOtelSpanAttributes.TRACE_PUBLIC] ??
-      attributes?.["langfuse.public"];
+      attributes?.["elasticdash.public"];
 
     if (value == null) return;
     return value === true || value === "true";
@@ -906,12 +906,12 @@ export class OtelIngestionProcessor {
       model: this.extractModelName(attributes),
       promptName:
         attributes?.[LangfuseOtelSpanAttributes.OBSERVATION_PROMPT_NAME] ??
-        attributes["langfuse.prompt.name"] ??
+        attributes["elasticdash.prompt.name"] ??
         this.parseLangfusePromptFromAISDK(attributes)?.name ??
         null,
       promptVersion:
         attributes?.[LangfuseOtelSpanAttributes.OBSERVATION_PROMPT_VERSION] ??
-        attributes["langfuse.prompt.version"] ??
+        attributes["elasticdash.prompt.version"] ??
         this.parseLangfusePromptFromAISDK(attributes)?.version ??
         null,
       usageDetails: this.extractUsageDetails(
@@ -1126,7 +1126,7 @@ export class OtelIngestionProcessor {
     // Pre-delete all potential input/output attribute keys to avoid duplicates
     // This ensures that if multiple frameworks' attributes are present, they're all filtered
     const potentialInputOutputKeys = [
-      // Langfuse SDK
+      // ElasticDash SDK
       LangfuseOtelSpanAttributes.TRACE_INPUT,
       LangfuseOtelSpanAttributes.TRACE_OUTPUT,
       LangfuseOtelSpanAttributes.OBSERVATION_INPUT,
@@ -1203,16 +1203,6 @@ export class OtelIngestionProcessor {
     // TODO: Map gen_ai.tool.definitions to input.tools for backend extraction
     // const toolDefs = attributes["gen_ai.tool.definitions"] || attributes["model_request_parameters"]?.function_tools;
     // if (toolDefs && input && typeof input === "object") { input = { ...input, tools: toolDefs }; }
-
-    // Langfuse
-    input =
-      domain === "trace" && attributes[LangfuseOtelSpanAttributes.TRACE_INPUT]
-        ? attributes[LangfuseOtelSpanAttributes.TRACE_INPUT]
-        : attributes[LangfuseOtelSpanAttributes.OBSERVATION_INPUT];
-    output =
-      domain === "trace" && attributes[LangfuseOtelSpanAttributes.TRACE_OUTPUT]
-        ? attributes[LangfuseOtelSpanAttributes.TRACE_OUTPUT]
-        : attributes[LangfuseOtelSpanAttributes.OBSERVATION_OUTPUT];
 
     if (input != null || output != null) {
       return { input, output, filteredAttributes };
@@ -1594,7 +1584,7 @@ export class OtelIngestionProcessor {
         : LangfuseOtelSpanAttributes.TRACE_METADATA;
 
     const langfuseMetadataAttribute =
-      attributes[metadataKeyPrefix] || attributes["langfuse.metadata"];
+      attributes[metadataKeyPrefix] || attributes["elasticdash.metadata"];
 
     if (langfuseMetadataAttribute) {
       try {
@@ -1616,7 +1606,7 @@ export class OtelIngestionProcessor {
     for (const [key, value] of Object.entries(attributes)) {
       for (const prefix of [
         metadataKeyPrefix,
-        "langfuse.metadata",
+        "elasticdash.metadata",
         "ai.telemetry.metadata",
       ]) {
         if (
@@ -1655,7 +1645,7 @@ export class OtelIngestionProcessor {
     attributes: Record<string, unknown>,
   ): string | undefined {
     const userIdKeys = [
-      "langfuse.user.id",
+      "elasticdash.user.id",
       "user.id",
       `${LangfuseOtelSpanAttributes.OBSERVATION_METADATA}.langfuse_user_id`,
       `${LangfuseOtelSpanAttributes.TRACE_METADATA}.langfuse_user_id`,
@@ -1675,7 +1665,7 @@ export class OtelIngestionProcessor {
     attributes: Record<string, unknown>,
   ): string | undefined {
     const userIdKeys = [
-      "langfuse.session.id",
+      "elasticdash.session.id",
       "session.id",
       "gen_ai.conversation.id",
       `${LangfuseOtelSpanAttributes.OBSERVATION_METADATA}.langfuse_session_id`,
@@ -1788,7 +1778,7 @@ export class OtelIngestionProcessor {
   }
 
   private sanitizeModelParams<T>(params: T): Record<string, string> | T {
-    // Model params in Langfuse must be key value pairs where value is string
+    // Model params in ElasticDash must be key value pairs where value is string
     if (typeof params === "object" && params != null)
       return Object.fromEntries(
         Object.entries(params).map((e) => [
@@ -2079,7 +2069,7 @@ export class OtelIngestionProcessor {
   private extractTags(attributes: Record<string, unknown>): string[] {
     const tagsValue =
       attributes[LangfuseOtelSpanAttributes.TRACE_TAGS] ||
-      attributes["langfuse.tags"] ||
+      attributes["elasticdash.tags"] ||
       attributes[
         `${LangfuseOtelSpanAttributes.OBSERVATION_METADATA}.langfuse_tags`
       ] ||

@@ -301,7 +301,7 @@ export const getTracesBySessionId = async (
 
   traces.forEach((trace) => {
     recordDistribution(
-      "langfuse.traces_by_session_id_age",
+      "elasticdash.traces_by_session_id_age",
       new Date().getTime() - trace.timestamp.getTime(),
     );
   });
@@ -542,7 +542,7 @@ export const getTraceById = async ({
 
   res.forEach((trace) => {
     recordDistribution(
-      "langfuse.query_by_id_age",
+      "elasticdash.query_by_id_age",
       new Date().getTime() - trace.timestamp.getTime(),
       {
         table: "traces",

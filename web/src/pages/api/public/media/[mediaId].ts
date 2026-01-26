@@ -99,12 +99,12 @@ export default withMiddlewares({
           },
         });
 
-        recordIncrement("langfuse.media.upload_http_status", 1, {
+        recordIncrement("elasticdash.media.upload_http_status", 1, {
           status_code: uploadHttpStatus,
         });
 
         if (uploadTimeMs) {
-          recordHistogram("langfuse.media.upload_time_ms", uploadTimeMs, {
+          recordHistogram("elasticdash.media.upload_time_ms", uploadTimeMs, {
             status_code: uploadHttpStatus,
           });
         }

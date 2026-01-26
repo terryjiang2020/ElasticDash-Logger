@@ -85,7 +85,7 @@ const getDelay = (delay: number | null, source: "api" | "otel") => {
  * Options for event batch processing.
  * @property delay - Delay in ms to wait before processing events in the batch.
  * @property source - Source of the events for metrics tracking (e.g., "otel", "api").
- * @property isLangfuseInternal - Whether the events are being ingested by Langfuse internally (e.g. traces created for prompt experiments).
+ * @property isLangfuseInternal - Whether the events are being ingested by ElasticDash internally (e.g. traces created for prompt experiments).
  * @property forwardToEventsTable - Whether to forward events to the staging events table for batch propagation. If undefined, falls back to environment flags.
  */
 type ProcessEventBatchOptions = {
@@ -126,20 +126,20 @@ export const processEventBatch = async (
 
   // add context of api call to the span
   const currentSpan = getCurrentSpan();
-  recordIncrement("langfuse.ingestion.event", input.length, { source });
-  recordDistribution("langfuse.ingestion.event_distribution", input.length, {
+  recordIncrement("elasticdash.ingestion.event", input.length, { source });
+  recordDistribution("elasticdash.ingestion.event_distribution", input.length, {
     source,
   });
 
-  currentSpan?.setAttribute("langfuse.ingestion.batch_size", input.length);
+  currentSpan?.setAttribute("elasticdash.ingestion.batch_size", input.length);
   currentSpan?.setAttribute(
-    "langfuse.project.id",
+    "elasticdash.project.id",
     authCheck.scope.projectId ?? "",
   );
   if (authCheck.scope.orgId)
-    currentSpan?.setAttribute("langfuse.org.id", authCheck.scope.orgId);
+    currentSpan?.setAttribute("elasticdash.org.id", authCheck.scope.orgId);
   if (authCheck.scope.plan)
-    currentSpan?.setAttribute("langfuse.org.plan", authCheck.scope.plan);
+    currentSpan?.setAttribute("elasticdash.org.plan", authCheck.scope.plan);
 
   /**************
    * VALIDATION *
@@ -303,19 +303,27 @@ export const processEventBatch = async (
       });
 
       if (!isSampled) {
-        recordIncrement("langfuse.ingestion.sampling", eventData.data.length, {
-          projectId: authCheck.scope.projectId ?? "<not set>",
-          sampling_decision: "out",
-        });
+        recordIncrement(
+          "elasticdash.ingestion.sampling",
+          eventData.data.length,
+          {
+            projectId: authCheck.scope.projectId ?? "<not set>",
+            sampling_decision: "out",
+          },
+        );
 
         return;
       }
 
       if (isSamplingConfigured) {
-        recordIncrement("langfuse.ingestion.sampling", eventData.data.length, {
-          projectId: authCheck.scope.projectId ?? "<not set>",
-          sampling_decision: "in",
-        });
+        recordIncrement(
+          "elasticdash.ingestion.sampling",
+          eventData.data.length,
+          {
+            projectId: authCheck.scope.projectId ?? "<not set>",
+            sampling_decision: "in",
+          },
+        );
       }
 
       return queue
@@ -449,7 +457,7 @@ export const aggregateBatchResult = (
     traceException(errors);
     logger.error("Error processing events", {
       errors: returnedErrors,
-      "langfuse.project.id": projectId,
+      "elasticdash.project.id": projectId,
     });
   }
 

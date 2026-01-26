@@ -1,6 +1,6 @@
 # Testing Guide - Backend Testing Strategies
 
-Complete guide to testing Langfuse backend services across web, worker, and shared packages.
+Complete guide to testing ElasticDash backend services across web, worker, and shared packages.
 
 ## Table of Contents
 
@@ -16,14 +16,14 @@ Complete guide to testing Langfuse backend services across web, worker, and shar
 
 ## Test Types Overview
 
-Langfuse uses multiple testing strategies for different layers:
+ElasticDash uses multiple testing strategies for different layers:
 
-| Test Type | Framework | Location | Purpose |
-|-----------|-----------|----------|---------|
-| Integration | Jest | `web/src/__tests__/async/` | Full API endpoint testing |
-| tRPC | Jest | `web/src/__tests__/async/` | tRPC procedure testing with auth |
-| Service | Jest | `web/src/__tests__/async/repositories/` | Repository/service function testing |
-| Worker | Vitest | `worker/src/__tests__/` | Queue processors and streams |
+| Test Type   | Framework | Location                                | Purpose                             |
+|-------------|-----------|-----------------------------------------|-------------------------------------|
+| Integration | Jest      | `web/src/__tests__/async/`              | Full API endpoint testing           |
+| tRPC        | Jest      | `web/src/__tests__/async/`              | tRPC procedure testing with auth    |
+| Service     | Jest      | `web/src/__tests__/async/repositories/` | Repository/service function testing |
+| Worker      | Vitest    | `worker/src/__tests__/`                 | Queue processors and streams        |
 
 ---
 
@@ -475,12 +475,12 @@ describe("batch export test suite", () => {
 
 ### By Test Type
 
-| Test Type | Key Principles |
-|-----------|----------------|
-| **Integration** | Test HTTP endpoints, validate status codes and response shapes |
-| **tRPC** | Use `createInnerTRPCContext` and `appRouter.createCaller`, test auth/permissions |
-| **Service** | Test individual functions with isolated data, always cleanup |
-| **Worker** | Use vitest, test streams with async iteration, test filtering logic |
+| Test Type       | Key Principles                                                                   |
+|-----------------|----------------------------------------------------------------------------------|
+| **Integration** | Test HTTP endpoints, validate status codes and response shapes                   |
+| **tRPC**        | Use `createInnerTRPCContext` and `appRouter.createCaller`, test auth/permissions |
+| **Service**     | Test individual functions with isolated data, always cleanup                     |
+| **Worker**      | Use vitest, test streams with async iteration, test filtering logic              |
 
 ### Test Data Management
 
