@@ -46,6 +46,37 @@ import { ObservationType } from "../../domain";
 import { recordDistribution } from "../instrumentation";
 import { DEFAULT_RENDERING_PROPS, RenderingProps } from "../utils/rendering";
 import { shouldSkipObservationsFinal } from "../queries/clickhouse-sql/query-options";
+import axios from "axios";
+
+const API_BASE_URL = process.env.LOCAL_API_BASE_URL || "http://localhost:3000";
+
+/**
+ * Notify local API that an observation has been concluded.
+ * @param observationId - The ID of the concluded observation
+ */
+export async function notifyObservationConcluded(observationId: string) {
+  try {
+    await axios.post(
+      `${API_BASE_URL}/api/trace/conclude/observation/${encodeURIComponent(observationId)}`,
+    );
+  } catch (err) {
+    logger.error(`Failed to notify observation concluded: ${err}`);
+  }
+}
+
+/**
+ * Notify local API that a trace has been concluded.
+ * @param traceId - The ID of the concluded trace
+ */
+export async function notifyTraceConcluded(traceId: string) {
+  try {
+    await axios.post(
+      `${API_BASE_URL}/api/traces/conclude/trace/${encodeURIComponent(traceId)}`,
+    );
+  } catch (err) {
+    logger.error(`Failed to notify trace concluded: ${err}`);
+  }
+}
 
 /**
  * Checks if observation exists in clickhouse.

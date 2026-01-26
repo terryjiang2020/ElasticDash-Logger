@@ -7,6 +7,7 @@ CREATE TABLE traces ON CLUSTER default (
     `release` Nullable(String),
     `version` Nullable(String),
     `project_id` String,
+    `feature_id` Nullable(String),
     `public` Bool,
     `bookmarked` Bool,
     `tags` Array(String),
