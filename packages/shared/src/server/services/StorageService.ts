@@ -555,6 +555,13 @@ class S3StorageService implements StorageService {
       await this.client.send(putCommand);
     } catch (err) {
       logger.error(`Failed to upload JSON to S3 ${path}`, err);
+      logger.error(
+        `Access Key ID: ${env.LANGFUSE_S3_EVENT_UPLOAD_ACCESS_KEY_ID}`,
+      );
+      logger.error(
+        "Secret Access: ",
+        env.LANGFUSE_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY,
+      );
       handleStorageError(err, "upload JSON to S3");
     }
   }
