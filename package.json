@@ -99,5 +99,8 @@
     "patchedDependencies": {
       "next-auth@4.24.13": "patches/next-auth@4.24.13.patch"
     }
+  },
+  "dependencies": {
+    "@sentry/nextjs": "^10.30.0"
   }
 }
