@@ -77,6 +77,7 @@ import { eventPropagationProcessor } from "./queues/eventPropagationQueue";
 import { notificationQueueProcessor } from "./queues/notificationQueue";
 import { MutationMonitor } from "./features/mutation-monitoring/mutationMonitor";
 import { batchProjectCleanerProcessor } from "./queues/batchProjectCleanerQueue";
+import { TraceConclusionRunner } from "./services/TraceConclusionRunner";
 
 const app = express();
 
@@ -543,6 +544,11 @@ if (env.LANGFUSE_MUTATION_MONITOR_ENABLED === "true") {
   // Start the ClickHouse mutation monitor after all workers are registered
   MutationMonitor.start();
 }
+
+// Start trace conclusion checker - runs every minute to find and notify concluded traces
+const traceConclusionRunner = new TraceConclusionRunner();
+traceConclusionRunner.start();
+logger.info("Trace conclusion runner started");
 
 // Batch project cleaners for bulk deletion of ClickHouse data
 if (env.LANGFUSE_BATCH_PROJECT_CLEANER_ENABLED === "true") {
